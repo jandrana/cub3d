@@ -14,7 +14,7 @@
 ##                               COMPILATION INFO                             ##
 ################################################################################
 
-NAME = cub3d
+NAME = cub3D
 LIBFT = lib/libft/
 
 # Check if gcc is installed
@@ -31,11 +31,14 @@ else
   $(error No compiler found)
 endif
 
+MLX42 					= /sgoinfre/shared/MLX42/build/libmlx42.a
+MLX42_HEADER_DIR		= /sgoinfre/shared/MLX42/include/MLX42
+
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 CUB3D = include/
-INCLUDE = -L ./lib/libft -lft
-DEPS = -I include -I $(LIBFT)/include
+INCLUDE = -L ./lib/libft -lft $(MLX42)
+DEPS = -I include -I $(LIBFT)/include -I$(MLX42_HEADER_DIR)
 
 ################################################################################
 ##                              SOURCES AND OBJECTS                           ##
