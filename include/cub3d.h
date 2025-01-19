@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/01/19 18:38:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:41:15 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,19 @@ typedef struct s_map
 	t_map_tile		    **mt;
 }				t_map;
 
+typedef struct s_color
+{
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+}               t_color;
+
 typedef struct s_graphics
 {
     mlx_t           *mlx;
     mlx_image_t     *img;
-    unsigned char   floor_color[3];
-    unsigned char   ceiling_color[3];
+    t_color         floor_color;
+    t_color         ceiling_color;
     mlx_texture_t   north_texture;
     mlx_texture_t   south_texture;
     mlx_texture_t   east_texture;
