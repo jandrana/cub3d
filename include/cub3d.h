@@ -74,10 +74,10 @@ typedef struct s_graphics
     mlx_image_t     *img;
     t_color         floor_color;
     t_color         ceiling_color;
-    mlx_texture_t   north_texture;
-    mlx_texture_t   south_texture;
-    mlx_texture_t   east_texture;
-    mlx_texture_t   west_texture;
+    mlx_texture_t   *north_texture;
+    mlx_texture_t   *south_texture;
+    mlx_texture_t   *east_texture;
+    mlx_texture_t   *west_texture;
 }               t_graphics;
 
 typedef struct s_game
