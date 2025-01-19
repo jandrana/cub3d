@@ -119,4 +119,4 @@ re :
 	@clear
 	@$(MAKE) -s all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus head line clean fclean re
