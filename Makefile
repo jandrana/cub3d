@@ -37,7 +37,7 @@ MLX42_HEADER_DIR = /sgoinfre/shared/MLX42/include/MLX42
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 CUB3D = include/
-INCLUDE = -L ./lib/libft -lft $(MLX42)
+INCLUDE = -L ./lib/libft -lft -lm $(MLX42)
 DEPS = -I include -I $(LIBFT)/include -I$(MLX42_HEADER_DIR)
 
 ################################################################################
