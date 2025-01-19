@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/01/19 18:41:15 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:42:27 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_graphics
 typedef struct s_game
 {
     t_map           *map;
-    t_graphics      graphics;
+    t_graphics      *graphics;
 }               t_game;
 
 
