@@ -31,8 +31,8 @@ else
   $(error No compiler found)
 endif
 
-MLX42 					= /sgoinfre/shared/MLX42/build/libmlx42.a
-MLX42_HEADER_DIR		= /sgoinfre/shared/MLX42/include/MLX42
+MLX42 = /sgoinfre/shared/MLX42/build/libmlx42.a
+MLX42_HEADER_DIR = /sgoinfre/shared/MLX42/include/MLX42
 
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
