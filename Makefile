@@ -75,7 +75,7 @@ TURQUOISE=\033[36m
 ##                                     RULES                                  ##
 ################################################################################
 
-all : head libft $(NAME)
+all : head libmlx libft $(NAME)
 
 bonus : all
 
@@ -98,6 +98,13 @@ head :
 
 libft :
 	@make bonus -s -C $(LIBFT)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	@echo "$(TURQUOISE)"
+	@echo "✦ --------------- ✦"
+	@echo "|  Created MLX42  |"
+	@echo "✦ --------------- ✦$(WHITE)"
 
 $(NAME) : line $(OBJECTS)
 	@echo "✦ ---------------------- ✦$(END)"
