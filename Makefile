@@ -31,13 +31,23 @@ else
   $(error No compiler found)
 endif
 
-MLX42 = /sgoinfre/shared/MLX42/build/libmlx42.a
-MLX42_HEADER_DIR = /sgoinfre/shared/MLX42/include/MLX42
+# HOSTNAME_SUFFIX := $(shell hostname | awk -F '.' '{print $$NF}')
+
+# ifeq ($(HOSTNAME_SUFFIX),42malaga.com)
+# 	LIBMLX = /sgoinfre/shared/MLX42
+# else
+#	LIBMLX = $(shell pwd)/lib/MLX42
+# endif
+
+LIBMLX = $(shell pwd)/lib/MLX42 # uncomment block and comment this if dont want to download MLX submodule at 42
+
+MLX42 = $(LIBMLX)/build/libmlx42.a
+MLX42_HEADER_DIR = $(LIBMLX)/include/MLX42
 
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 CUB3D = include/
-INCLUDE = -L ./lib/libft -lft -lm $(MLX42)
+INCLUDE = -L ./lib/libft -L ./lib/MLX42 -lft -lm $(MLX42)
 DEPS = -I include -I $(LIBFT)/include -I$(MLX42_HEADER_DIR)
 
 ################################################################################
@@ -65,7 +75,7 @@ TURQUOISE=\033[36m
 ##                                     RULES                                  ##
 ################################################################################
 
-all : head libft $(NAME)
+all : head libmlx libft $(NAME)
 
 bonus : all
 
@@ -88,6 +98,13 @@ head :
 
 libft :
 	@make bonus -s -C $(LIBFT)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	@echo "$(TURQUOISE)"
+	@echo "✦ --------------- ✦"
+	@echo "|  Created MLX42  |"
+	@echo "✦ --------------- ✦$(WHITE)"
 
 $(NAME) : line $(OBJECTS)
 	@echo "✦ ---------------------- ✦$(END)"
