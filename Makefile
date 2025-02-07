@@ -75,7 +75,7 @@ TURQUOISE=\033[36m
 ##                                     RULES                                  ##
 ################################################################################
 
-all : head libmlx libft $(NAME)
+all : head libft $(NAME)
 
 bonus : all
 
@@ -89,49 +89,41 @@ head :
 	@echo "╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝"
 	@echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ "
 	@echo ""
-	@echo "\t        42MLG: by ana-cast && jorvarea"
-	@echo "\tProyect: \033[36m cub3d $(MAGENTA)"
-	@echo "\tCommands:\033[36m all clean fclean re bonus $(BLUE)"
-	@echo "\t🛠   Compiler: $(CC) $(END)\n"
-
-libft :
-	@make bonus -s -C $(LIBFT)
+	@echo " 42MLG: by ana-cast && jorvarea"
+	@echo " Executable: \033[36m cub3d $(MAGENTA)"
+	@echo " Commands:\033[36m all clean fclean re bonus $(BLUE)"
+	@echo " 🛠   Compiler: $(CC) $(END)\n"
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-	@echo "$(TURQUOISE)"
-	@echo "✦ --------------- ✦"
-	@echo "|  Created MLX42  |"
-	@echo "✦ --------------- ✦$(WHITE)"
+	@cmake $(MLX) -B $(MLX)/build
+	@make -s -C $(MLX)/build -j4
 
-$(NAME) : line $(OBJECTS)
-	@echo "✦ ---------------------- ✦$(END)"
-	@$(CC) $(FLAGS) $(OBJECTS) $(INCLUDE) -o $(NAME)
+libft :
+	@echo "$(GREEN)$(BOLD)  COMPILING...$(END) $(GREEN)"
+	@make bonus -s -C $(LIBFT)
+	@echo "$(GREEN)$(BOLD)  ✓ Libft ready $(END)"
 
-%.o : %.c $(CUB3D)
-	@$(CC) $(FLAGS) -c $< -o $@ $(DEPS)
-	@echo "$(GREEN)  ✓ Compiled: $(notdir $<)"
+$(NAME) : $(OBJECTS)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $(NAME)
 
-line :
-	@echo "$(GREEN) $(BOLD)"
-	@echo "  COMPILING CUB3D...$(END) $(GREEN)"
-	@echo "✦ ---------------------- ✦"
+%.o : %.c
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@echo "$(GREEN)  ✓ Compiled: $(notdir $<)$(END)"
 
 clean :
-	@printf "\n$(YELLOW) 🗑   Removing objects$(END)"
+	@echo "$(RED)$(BOLD)  CLEANING...$(END)"
 	@$(RM) $(OBJECTS)
-	@echo "$(GREEN)\r  ✓  $(RED)Removed  objects from $(NAME) $(END)"
+	@echo  "$(RED)  ✓  Removed $(NAME) objects$(END)"
 	@make clean -s -C $(LIBFT)
+	@echo  "$(RED)  ✓  Removed library objects$(END)"
 
-fclean: clean
-	@printf "$(YELLOW) 🗑   Removing $(NAME) $(END)"
+fclean : clean
 	@$(RM) $(NAME)
+	@echo "$(RED)  ✓  Removed $(NAME) $(END)"
 	@make fclean -s -C $(LIBFT)
-	@echo "$(GREEN)\r  ✓  $(RED)Removed  $(NAME) $(END)\n"
+	@echo "$(RED)  ✓  Removed libraries $(END)"
 
-re :
-	@$(MAKE) -s fclean
-	@clear
-	@$(MAKE) -s all
+
+re : fclean all
 
 .PHONY: all bonus head line clean fclean re
