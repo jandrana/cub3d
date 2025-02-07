@@ -14,9 +14,6 @@
 ##                               COMPILATION INFO                             ##
 ################################################################################
 
-NAME = cub3D
-LIBFT = lib/libft/
-
 # Check if gcc is installed
 HAS_GCC := $(shell command -v gcc 2> /dev/null)
 
@@ -31,24 +28,27 @@ else
   $(error No compiler found)
 endif
 
-# HOSTNAME_SUFFIX := $(shell hostname | awk -F '.' '{print $$NF}')
+NAME = cub3D
 
-# ifeq ($(HOSTNAME_SUFFIX),42malaga.com)
-# 	LIBMLX = /sgoinfre/shared/MLX42
-# else
-#	LIBMLX = $(shell pwd)/lib/MLX42
-# endif
+# FOLDERS #
+LIBFT = ./lib/libft/
+MLX = /sgoinfre/shared/MLX42/
+#MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
 
-LIBMLX = $(shell pwd)/lib/MLX42 # uncomment block and comment this if dont want to download MLX submodule at 42
+# HEADERS #
+HLIBFT = $(LIBFT)/include
+HMLX = $(MLX)/include
+HCUB3D = ./include
+HEADERS = -I$(HCUB3D) -I$(HLIBFT) -I$(HMLX)
 
-MLX42 = $(LIBMLX)/build/libmlx42.a
-MLX42_HEADER_DIR = $(LIBMLX)/include/MLX42
+# STATIC #
+LLIBFT = $(LIBFT)/libft.a
+LMLX = $(MLX)/build/libmlx42.a
+MLX_DEPS = -ldl -lglfw -pthread -lm
+LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
-FLAGS = -Wall -Wextra -Werror
-RM = rm -f
-CUB3D = include/
-INCLUDE = -L ./lib/libft -L ./lib/MLX42 -lft -lm $(MLX42)
-DEPS = -I include -I $(LIBFT)/include -I$(MLX42_HEADER_DIR)
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 ################################################################################
 ##                              SOURCES AND OBJECTS                           ##
@@ -75,65 +75,55 @@ TURQUOISE=\033[36m
 ##                                     RULES                                  ##
 ################################################################################
 
-all : head libmlx libft $(NAME)
+all : head libft $(NAME)
 
 bonus : all
 
+# Font name: ANSI Shadow
 head :
-	@echo "$(MAGENTA)"
-	@echo  "     /\\\\\\\\\                /\\\            /\\\\\\\\\\          /\\\          "
-	@echo  "   /\\\////////                \/\\\          /\\\///////\\\        \/\\\         "
-	@echo  "  /\\\/                         \/\\\         \///      /\\\         \/\\\        "
-	@echo  "  /\\\              /\\\    /\\\ \/\\\                /\\\//          \/\\\       "
-	@echo  "  \/\\\             \/\\\   \/\\\ \/\\\\\\\\\         \////\\\    /\\\\\\\\\      "
-	@echo  "   \//\\\            \/\\\   \/\\\ \/\\\////\\\           \//\\\  /\\\////\\\     "
-	@echo  "     \///\\\          \/\\\   \/\\\ \/\\\  \/\\\  /\\\      /\\\  \/\\\  \/\\\    "
-	@echo  "        \////\\\\\\\\\ \//\\\\\\\\\  \/\\\\\\\\\  \///\\\\\\\\\/   \//\\\\\\\/\\  "
-	@echo  "            \/////////   \/////////   \/////////     \/////////      \///////\//  "
+	@echo "\n$(MAGENTA)"
+	@echo " ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ "
+	@echo "██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗"
+	@echo "██║     ██║   ██║██████╔╝ █████╔╝██║  ██║"
+	@echo "██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║"
+	@echo "╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝"
+	@echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ "
 	@echo ""
-	@echo "\t        42MLG: by ana-cast && jorvarea"
-	@echo "\tProyect: \033[36m cub3d $(MAGENTA)"
-	@echo "\tCommands:\033[36m all clean fclean re bonus $(BLUE)"
-	@echo "\t🛠   Compiler: $(CC) $(END)\n"
-
-libft :
-	@make bonus -s -C $(LIBFT)
+	@echo " 42MLG: by ana-cast && jorvarea"
+	@echo " Executable: \033[36m cub3d $(MAGENTA)"
+	@echo " Commands:\033[36m all clean fclean re bonus $(BLUE)"
+	@echo " 🛠   Compiler: $(CC) $(END)\n"
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-	@echo "$(TURQUOISE)"
-	@echo "✦ --------------- ✦"
-	@echo "|  Created MLX42  |"
-	@echo "✦ --------------- ✦$(WHITE)"
+	@cmake $(MLX) -B $(MLX)/build
+	@make -s -C $(MLX)/build -j4
 
-$(NAME) : line $(OBJECTS)
-	@echo "✦ ---------------------- ✦$(END)"
-	@$(CC) $(FLAGS) $(OBJECTS) $(INCLUDE) -o $(NAME)
+libft :
+	@echo "$(GREEN)$(BOLD)  COMPILING...$(END) $(GREEN)"
+	@make bonus -s -C $(LIBFT)
+	@echo "$(GREEN)$(BOLD)  ✓ Libft ready $(END)"
 
-%.o : %.c $(CUB3D)
-	@$(CC) $(FLAGS) -c $< -o $@ $(DEPS)
-	@echo "$(GREEN)  ✓ Compiled: $(notdir $<)"
+$(NAME) : $(OBJECTS)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $(NAME)
 
-line :
-	@echo "$(GREEN) $(BOLD)"
-	@echo "  COMPILING CUB3D...$(END) $(GREEN)"
-	@echo "✦ ---------------------- ✦"
+%.o : %.c
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@echo "$(GREEN)  ✓ Compiled: $(notdir $<)$(END)"
 
 clean :
-	@printf "\n$(YELLOW) 🗑   Removing objects$(END)"
+	@echo "$(RED)$(BOLD)  CLEANING...$(END)"
 	@$(RM) $(OBJECTS)
-	@echo "$(GREEN)\r  ✓  $(RED)Removed  objects from $(NAME) $(END)"
+	@echo  "$(RED)  ✓  Removed $(NAME) objects$(END)"
 	@make clean -s -C $(LIBFT)
+	@echo  "$(RED)  ✓  Removed library objects$(END)"
 
-fclean: clean
-	@printf "$(YELLOW) 🗑   Removing $(NAME) $(END)"
+fclean : clean
 	@$(RM) $(NAME)
+	@echo "$(RED)  ✓  Removed $(NAME) $(END)"
 	@make fclean -s -C $(LIBFT)
-	@echo "$(GREEN)\r  ✓  $(RED)Removed  $(NAME) $(END)\n"
+	@echo "$(RED)  ✓  Removed libraries $(END)"
 
-re :
-	@$(MAKE) -s fclean
-	@clear
-	@$(MAKE) -s all
+
+re : fclean all
 
 .PHONY: all bonus head line clean fclean re

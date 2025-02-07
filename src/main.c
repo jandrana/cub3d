@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/01/19 18:34:48 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:20:09 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <cub3d.h>
 
 int main(void)
 {

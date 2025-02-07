@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/01/19 18:42:27 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:26:29 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // ------------------- EXT LIBRARIES ------------------- //
 
 # include <libft.h>
-# include <MLX42.h>
+# include <MLX42/MLX42.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
