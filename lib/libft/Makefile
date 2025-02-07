@@ -6,7 +6,7 @@
 #    By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 21:00:35 by ana-cast          #+#    #+#              #
-#    Updated: 2024/07/16 15:27:55 by ana-cast         ###   ########.fr        #
+#    Updated: 2025/02/07 18:50:48 by ana-cast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,16 +133,10 @@ all : $(NAME)
 $(NAME) : $(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@echo "\n$(TURQUOISE)✦ ---------------------- ✦$(BOLD)"
-	@echo "      COMPILED LIBFT$(END)$(TURQUOISE)"
-	@echo "✦ ---------------------- ✦$(END)"
 
 bonus : $(OBJECTS) $(BONUS_OB)
 	@ar rc $(NAME) $(OBJECTS) $(BONUS_OB)
 	@ranlib $(NAME)
-	@echo "\n$(TURQUOISE)✦ ---------------------- ✦$(BOLD)"
-	@echo "  COMPILED BONUS LIBFT$(END)$(TURQUOISE)"
-	@echo "✦ ---------------------- ✦$(END)"
 
 %.o : %.c $(LIBFT)
 	@$(CC) $(FLAGS) -c $< -o $@ $(DEPS)
