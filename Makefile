@@ -14,9 +14,6 @@
 ##                               COMPILATION INFO                             ##
 ################################################################################
 
-NAME = cub3D
-LIBFT = lib/libft/
-
 # Check if gcc is installed
 HAS_GCC := $(shell command -v gcc 2> /dev/null)
 
@@ -31,24 +28,27 @@ else
   $(error No compiler found)
 endif
 
-# HOSTNAME_SUFFIX := $(shell hostname | awk -F '.' '{print $$NF}')
+NAME = cub3D
 
-# ifeq ($(HOSTNAME_SUFFIX),42malaga.com)
-# 	LIBMLX = /sgoinfre/shared/MLX42
-# else
-#	LIBMLX = $(shell pwd)/lib/MLX42
-# endif
+# FOLDERS #
+LIBFT = ./lib/libft/
+MLX = /sgoinfre/shared/MLX42/
+#MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
 
-LIBMLX = $(shell pwd)/lib/MLX42 # uncomment block and comment this if dont want to download MLX submodule at 42
+# HEADERS #
+HLIBFT = $(LIBFT)/include
+HMLX = $(MLX)/include
+HCUB3D = ./include
+HEADERS = -I$(HCUB3D) -I$(HLIBFT) -I$(HMLX)
 
-MLX42 = $(LIBMLX)/build/libmlx42.a
-MLX42_HEADER_DIR = $(LIBMLX)/include/MLX42
+# STATIC #
+LLIBFT = $(LIBFT)/libft.a
+LMLX = $(MLX)/build/libmlx42.a
+MLX_DEPS = -ldl -lglfw -pthread -lm
+LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
-FLAGS = -Wall -Wextra -Werror
-RM = rm -f
-CUB3D = include/
-INCLUDE = -L ./lib/libft -L ./lib/MLX42 -lft -lm $(MLX42)
-DEPS = -I include -I $(LIBFT)/include -I$(MLX42_HEADER_DIR)
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 ################################################################################
 ##                              SOURCES AND OBJECTS                           ##
