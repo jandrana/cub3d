@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:46:09 by ana-cast          #+#    #+#             */
-/*   Updated: 2024/07/16 15:28:31 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:50:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,10 +429,10 @@ t_list				*ft_lstnew(void *content);
 /**
  * @brief Adds a new element at the beginning of the list
  * @param lst Pointer to the first element of the list
- * @param new Element to add to the list
+ * @param node Element to add to the list
  * @return None
  */
-void				ft_lstadd_front(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_list **lst, t_list *node);
 
 /**
  * @brief Get the number of elements of the list
@@ -451,10 +451,10 @@ t_list				*ft_lstlast(t_list *lst);
 /**
  * @brief Adds a new element at the end of the list
  * @param lst Pointer to the first element of the list
- * @param new Element to add to the list
+ * @param node Element to add to the list
  * @return None
  */
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_back(t_list **lst, t_list *node);
 
 /**
  * @brief Delete a node from a list without deleting its content.
