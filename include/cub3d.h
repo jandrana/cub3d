@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/11 18:55:12 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/13 21:03:18 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,14 @@ typedef struct s_game
 //                     MAIN FUNCTIONS                     //
 // ------------------------------------------------------ //
 
+//                   ERROR HANDLER                   //
 
+void	error_exit(t_game *game, const char *msg, ...);
+void	free_game(t_game *game);
+
+
+//                       PARSER                      //
+
+t_map	*parser(int argc, char **argv);
 
 #endif /* CUB3D_H */
