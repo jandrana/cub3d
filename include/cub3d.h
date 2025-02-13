@@ -15,14 +15,12 @@
 
 // ------------------- EXT LIBRARIES ------------------- //
 
+# include <error.h>
 # include <libft.h>
 # include <MLX42/MLX42.h>
-# include <stdio.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
 # include <sys/time.h>
-# include <math.h>
+# include <fcntl.h>
 
 // ------------------ COLOR MACROS ------------------ //
 
@@ -35,7 +33,8 @@
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
 
-// ------------------- STRUCTURES ------------------- //
+
+// ------------------- ENUMS ------------------- //
 
 typedef enum e_map_tile
 {
@@ -47,19 +46,15 @@ typedef enum e_map_tile
 	PLAYER_WEST = 'W'
 }	t_map_tile;
 
-typedef struct s_player_position
+typedef enum e_direction
 {
-	unsigned int	row;
-	unsigned int	col;
-}				t_player_position;
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3
+}	t_direction;
 
-typedef struct s_map
-{
-	unsigned int		rows;
-	unsigned int		cols;
-	t_player_position	player;
-	t_map_tile			**mt;
-}				t_map;
+// ------------------- STRUCTURES ------------------- //
 
 typedef struct s_color
 {
@@ -68,16 +63,29 @@ typedef struct s_color
 	unsigned char	b;
 }	t_color;
 
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	angle; // Rotation angle (radianes)
+	double	speed;
+}	t_player;
+
+typedef struct s_map
+{
+	unsigned int	rows;
+	unsigned int	cols;
+	t_player		player;
+	t_map_tile		**mt;
+	t_color			floor_color;
+	t_color			ceiling_color;
+}	t_map;
+
 typedef struct s_graphics
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_color			floor_color;
-	t_color			ceiling_color;
-	mlx_texture_t	*north_texture;
-	mlx_texture_t	*south_texture;
-	mlx_texture_t	*east_texture;
-	mlx_texture_t	*west_texture;
+	mlx_texture_t	*textures[4]; // [NORTH, SOUTH, EAST, WEST]
 }	t_graphics;
 
 typedef struct s_game
