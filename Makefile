@@ -54,7 +54,9 @@ RM = rm -rf
 ##                              SOURCES AND OBJECTS                           ##
 ################################################################################
 
-SRC = src/main.c
+SRC = src/main.c \
+	src/error_handler.c \
+	src/parser/parser.c
 
 OBJECTS = $(SRC:.c=.o)
 
