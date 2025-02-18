@@ -1,3 +1,9 @@
+# Custom
+.cache/
+*test
+compile_commands.json
+*subject.pdf
+
 # Prerequisites
 *.d
 
