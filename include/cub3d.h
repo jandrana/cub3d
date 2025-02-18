@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/13 21:03:18 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:51:43 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
 
-
 // ------------------- ENUMS ------------------- //
 
 typedef enum e_map_tile
@@ -48,11 +47,21 @@ typedef enum e_map_tile
 
 typedef enum e_direction
 {
+	INVALID = -1,
 	NORTH = 0,
 	SOUTH = 1,
 	EAST = 2,
 	WEST = 3
 }	t_direction;
+
+typedef enum e_line_type
+{
+	EMPTY_LINE,
+	MAP_LINE,
+	TEXTURE_LINE,
+	COLOR_LINE,
+	INVALID_LINE
+}	t_line_type;
 
 // ------------------- STRUCTURES ------------------- //
 
