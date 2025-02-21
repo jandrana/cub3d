@@ -59,7 +59,9 @@ SRC = src/main.c \
 	src/parser/init.c \
 	src/parser/parser.c \
 	src/parser/file.c \
-	src/parser/elements.c \
+	src/parser/elements/elements.c \
+	src/parser/elements/textures.c \
+	src/parser/elements/colors.c \
 	src/parser/map.c \
 	src/parser/utils.c
 
