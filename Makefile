@@ -56,7 +56,12 @@ RM = rm -rf
 
 SRC = src/main.c \
 	src/error_handler.c \
-	src/parser/parser.c
+	src/parser/init.c \
+	src/parser/parser.c \
+	src/parser/file.c \
+	src/parser/elements.c \
+	src/parser/map.c \
+	src/parser/utils.c
 
 OBJECTS = $(SRC:.c=.o)
 

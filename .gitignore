@@ -3,6 +3,8 @@
 *test
 compile_commands.json
 *subject.pdf
+.vscode
+build/
 
 # Prerequisites
 *.d
