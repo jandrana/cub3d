@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/18 19:57:56 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:46:12 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <error.h>
 # include <libft.h>
 # include <MLX42/MLX42.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <fcntl.h>
@@ -97,10 +98,18 @@ typedef struct s_graphics
 	mlx_texture_t	*textures[4]; // [NORTH, SOUTH, EAST, WEST]
 }	t_graphics;
 
+typedef struct s_parser_state
+{
+	bool	textures[4];	// [NORTH, SOUTH, EAST, WEST]
+	bool	floor_color;
+	bool	ceiling_color;
+}	t_parser_state;
+
 typedef struct s_game
 {
-	t_map		*map;
-	t_graphics	*graphics;
+	t_map			*map;
+	t_graphics		*graphics;
+	t_parser_state	*parser_state;
 }	t_game;
 
 // ------------------------------------------------------ //
