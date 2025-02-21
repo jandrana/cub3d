@@ -120,21 +120,26 @@ typedef struct s_game
 
 void		error_exit(t_game *game, const char *msg, ...);
 void		free_game(t_game *game);
+void		free_array(char ***array);
 
 //                       PARSER                      //
-
-t_game		*init_game(void);
 t_map		*parser(t_game *game, int argc, char **argv);
-void		free_array(char ***array);
-int			array_len(char **array);
-bool		check_color_value(t_color color);
 char		*parse_elements(t_game *game, int fd);
-void		parse_color_line(t_game *game, char *line);
-t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_texture_line(t_game *game, char *line, t_direction dir);
-t_direction	get_texture_direction(char *content);
+t_color		parse_color(t_game *game, char *content, char *identifier);
+void		parse_color_line(t_game *game, char *line);
+
+//                   INIT                    //
+t_game		*init_game(void);
+
+//                   FILE                    //
 void		check_file_extension(t_game *game, const char *filename);
 int			open_map_file(t_game *game, const char *filename);
+
+//                 UTILITIES                 //
+int			array_len(char **array);
+bool		check_color_value(t_color color);
+t_direction	get_texture_direction(char *content);
 t_line_type	get_line_type(char *line);
 
 #endif /* CUB3D_H */
