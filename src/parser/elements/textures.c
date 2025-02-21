@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:38:36 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:47:51 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_direction	get_texture_direction(char *content)
 	return (INVALID);
 }
 
-char	*get_direction_name(t_direction dir)
+static char	*get_direction_name(t_direction dir)
 {
 	if (dir == NORTH)
 		return ("NO");
@@ -39,7 +39,18 @@ char	*get_direction_name(t_direction dir)
 	return ("INVALID DIRECTION");
 }
 
+void	check_textures(t_game *game)
+{
+	int i;
+
+	i = -1;
+	while (++i < 4)
+		if (game->parser_state->textures[i] == false)
+			error_exit(game, E_TEX_MISSING, get_direction_name(i));
+}
+
 // todo: liberar el split, etc
+// todo: checkear que el path existe antes de llamar a la mlx
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
 	char		**content;
