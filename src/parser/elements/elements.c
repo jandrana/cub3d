@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:19:13 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:43:20 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	*parse_elements(t_game *game, int fd)
 		else if (type == COLOR_LINE)
 			parse_color_line(game, line);
 		else if (type == MAP_LINE)
+		{
+			check_textures(game);
 			return (line);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
