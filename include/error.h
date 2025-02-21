@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/18 18:52:53 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:59:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@
 # define E_TEX_MISSING "Missing texture for %s direction"	// NO/SO/WE/EA
 # define E_TEX_INVALID "Invalid texture path: %s"			// texture_path
 # define E_TEX_LOAD "Failed to load texture: %s"			// texture_path
+# define E_TEX_DUP "Duplicate texture for direction: %s"    // direction
 
 // ------------------- COLOR ERRORS ------------------- //
 # define E_COLOR_FORMAT "Invalid color format for %s: %s"     // F/C, value
 # define E_COLOR_RANGE "Color value out of range [0-255]: %s" // color_value
 # define E_COLOR_MISSING "Missing color definition for %s"    // type (F/C)
+# define E_COLOR_DUP "Duplicate color definition for: %s"     // Floor/Ceiling
+# define E_COLOR_INVALID "Invalid color identifier: %s"       // identifier
 
 // ------------------- MEMORY ERRORS ------------------- //
 # define E_MEM_ALLOC "Memory allocation failed: %s" // component_name
