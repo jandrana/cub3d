@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 16:46:12 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:46:11 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char		*parse_elements(t_game *game, int fd);
 void		parse_texture_line(t_game *game, char *line, t_direction dir);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game, char *line);
+void		check_textures(t_game *game);
 
 //                   INIT                    //
 t_game		*init_game(void);
