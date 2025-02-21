@@ -6,11 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:21:06 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:38:36 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <stdbool.h>
 
 t_direction	get_texture_direction(char *content)
 {
@@ -25,11 +26,28 @@ t_direction	get_texture_direction(char *content)
 	return (INVALID);
 }
 
+char	*get_direction_name(t_direction dir)
+{
+	if (dir == NORTH)
+		return ("NO");
+	else if (dir == SOUTH)
+		return ("SO");
+	else if (dir == WEST)
+		return ("WE");
+	else if (dir == EAST)
+		return ("EA");
+	return ("INVALID DIRECTION");
+}
+
 // todo: liberar el split, etc
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
 	char		**content;
 
+	if (dir == INVALID)
+		error_exit(game, E_TEX_INVALID, line);
+	else if (game->parser_state->textures[dir] == true)
+		error_exit(game, E_TEX_DUP, get_direction_name(dir));
 	content = ft_split(line, ' ');
 	if (!content)
 		error_exit(game, E_MEM_ALLOC, "parsing texture");
@@ -38,4 +56,6 @@ void	parse_texture_line(t_game *game, char *line, t_direction dir)
 	game->graphics->textures[dir] = mlx_load_png(content[1]);
 	if (!game->graphics->textures[dir])
 		error_exit(game, E_TEX_LOAD, content[1]);
+	game->parser_state->textures[dir] = true;
+	free_array(&content);
 }
