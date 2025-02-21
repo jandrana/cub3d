@@ -53,7 +53,7 @@ void	parse_texture_line(t_game *game, char *line, t_direction dir)
 		error_exit(game, E_MEM_ALLOC, "parsing texture");
 	if (!content[1])
 		error_exit(game, E_TEX_MISSING, content[0]);
-	game->graphics->textures[dir] = mlx_load_png(content[1]);
+	game->graphics->textures[dir] = mlx_load_png(ft_strtrim(content[1], "\n"));
 	if (!game->graphics->textures[dir])
 		error_exit(game, E_TEX_LOAD, content[1]);
 	game->parser_state->textures[dir] = true;
