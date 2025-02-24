@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 18:42:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:00:11 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
 
+// ------------------ CUB3D MACROS ------------------ //
+
+# define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
+# define WHITESPACE " \t\r\v\f\n"
+
 // ------------------- ENUMS ------------------- //
 
 typedef enum e_map_tile
 {
-	EMPTY = 0,
-	WALL = 1,
+	EMPTY = '0',
+	WALL = '1',
+	SPACE = ' ',
 	PLAYER_NORTH = 'N',
 	PLAYER_SOUTH = 'S',
 	PLAYER_EAST = 'E',
