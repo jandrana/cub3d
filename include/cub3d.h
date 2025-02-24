@@ -130,6 +130,7 @@ void		free_array(char ***array);
 
 //                       PARSER                      //
 t_map		*parser(t_game *game, int argc, char **argv);
+void		udpate_map_sizes(t_game *game, char *filename);
 
 //                 PARSER: ELEMENTS                //
 char		*parse_elements(t_game *game, int fd);
@@ -144,6 +145,12 @@ void		parse_color_line(t_game *game, char *line);
 t_direction	get_texture_direction(char *content);
 void		check_textures(t_game *game);
 void		parse_texture_line(t_game *game, char *line, t_direction dir);
+
+//                    MAP                    //
+void		parser_map(t_game *game, int fd, char *map_line);
+t_line_type	check_map_line(t_game *game, char *line, size_t row);
+void		allocate_map_tiles(t_game *game);
+void		validate_map(t_game *game);
 
 //                   INIT                    //
 t_game		*init_game(void);
