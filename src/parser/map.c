@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:28:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:28:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 	game->map->player.y = row + 0.5;
 }
 
+// !!! SEGFAULT HERE (fix 1st time tommorrow)
+void	fill_map_line(t_game *game, char *t_line, size_t row)
+{
+	size_t col;
+
+	col = 0;
+	while (t_line[col])
+	{
+		game->map->mt[row][col] = t_line[col]; // <- HERE
+		set_player(game, t_line[col], row, col);
+		col++;
+	}
+	while (col < game->map->cols)
+	{
+		game->map->mt[row][col] = SPACE;
+		col++;
+	}
+}
+
 void	parser_map(t_game *game, int fd, char *map_line)
 {
 	char	*line;
@@ -64,7 +83,7 @@ void	parser_map(t_game *game, int fd, char *map_line)
 	while (line)
 	{
 		trimmed = ft_strtrim(line, "\n");
-		fill_map_line(game, trimmed, row);
+		//fill_map_line(game, trimmed, row);
 		row++;
 		free_str(&trimmed);
 		free_str(&line);
