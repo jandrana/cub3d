@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:27:35 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:27:59 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ void	allocate_map_tiles(t_game *game)
 			error_exit(game, E_MEM_ALLOC, "map columns");
 		i++;
 	}
+}
+void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
+{
+	if (!(tile == PLAYER_EAST || tile == PLAYER_NORTH || tile == PLAYER_SOUTH
+		|| tile == PLAYER_WEST))
+		return ;
+	if (game->map->player.x != -1 || game->map->player.y != -1)
+		error_exit(game, E_MAP_MULTI_PLAYER);
+	game->map->player.x = col + 0.5;
+	game->map->player.y = row + 0.5;
 }
