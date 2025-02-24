@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:47:51 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:08:31 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,30 @@ void	check_textures(t_game *game)
 }
 
 // todo: liberar el split, etc
-// todo: checkear que el path existe antes de llamar a la mlx
+// DONE: checkear que el path existe antes de llamar a la mlx
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
-	char		**content;
+	char	**content;
+	char	*trimmed;
+	int		fd;
 
 	if (dir == INVALID)
 		error_exit(game, E_TEX_INVALID, line);
 	else if (game->parser_state->textures[dir] == true)
 		error_exit(game, E_TEX_DUP, get_direction_name(dir));
-	content = ft_split(line, ' ');
-	if (!content)
+	trimmed = ft_strtrim(line, "\n");
+	if (!trimmed)
+		error_exit(game, E_MEM_ALLOC, "trimming texture");
+	content = ft_split(trimmed, ' ');
+	if (!free_str(&trimmed) && !content)
 		error_exit(game, E_MEM_ALLOC, "parsing texture");
 	if (!content[1])
 		error_exit(game, E_TEX_MISSING, content[0]);
-	game->graphics->textures[dir] = mlx_load_png(ft_strtrim(content[1], "\n"));
+	fd = open(content[1], O_RDONLY);
+	if (fd < 0)
+		error_exit(game, E_TEX_LOAD, content[1]);
+	close(fd);
+	game->graphics->textures[dir] = mlx_load_png(content[1]);
 	if (!game->graphics->textures[dir])
 		error_exit(game, E_TEX_LOAD, content[1]);
 	game->parser_state->textures[dir] = true;
