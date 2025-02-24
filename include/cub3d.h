@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:46:11 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:42:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,20 @@ void		free_array(char ***array);
 
 //                       PARSER                      //
 t_map		*parser(t_game *game, int argc, char **argv);
+
+//                 PARSER: ELEMENTS                //
 char		*parse_elements(t_game *game, int fd);
-void		parse_texture_line(t_game *game, char *line, t_direction dir);
+
+//                  COLORS                   //
+int			check_color_dup(t_game *game, char identifier);
+t_color		get_color(t_game *game, char **rgb);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game, char *line);
+
+//                 TEXTURES                  //
+t_direction	get_texture_direction(char *content);
 void		check_textures(t_game *game);
+void		parse_texture_line(t_game *game, char *line, t_direction dir);
 
 //                   INIT                    //
 t_game		*init_game(void);
@@ -140,7 +149,6 @@ int			open_map_file(t_game *game, const char *filename);
 //                 UTILITIES                 //
 int			array_len(char **array);
 bool		check_color_value(t_color color);
-t_direction	get_texture_direction(char *content);
 t_line_type	get_line_type(char *line);
 
 #endif /* CUB3D_H */
