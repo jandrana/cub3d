@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:27:59 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:28:28 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,25 @@ void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 		error_exit(game, E_MAP_MULTI_PLAYER);
 	game->map->player.x = col + 0.5;
 	game->map->player.y = row + 0.5;
+}
+
+void	parser_map(t_game *game, int fd, char *map_line)
+{
+	char	*line;
+	int		row;
+	char	*trimmed;
+	
+	allocate_map_tiles(game);
+	line = map_line;
+	row = 0;
+	while (line)
+	{
+		trimmed = ft_strtrim(line, "\n");
+		fill_map_line(game, trimmed, row);
+		row++;
+		free_str(&trimmed);
+		free_str(&line);
+		line = get_next_line(fd);
+	}
+	validate_map(game);
 }
