@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 12:09:17 by ana-cast          #+#    #+#             */
-/*   Updated: 2024/03/05 18:35:55 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:24:13 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_putchar_fd(char c, int fd)
 {
 	if (write(fd, &c, 1) == -1)
-		return ;;
+		return ;
 }
