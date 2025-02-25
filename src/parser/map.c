@@ -82,16 +82,16 @@ void	fill_map_line(t_game *game, char *t_line, size_t row)
 void	parser_map(t_game *game, int fd, char *map_line)
 {
 	char	*line;
-	int		row;
+	size_t	row;
 	char	*trimmed;
-	
+
 	allocate_map_tiles(game);
 	line = map_line;
 	row = 0;
 	while (line)
 	{
 		trimmed = ft_strtrim(line, "\n");
-		//fill_map_line(game, trimmed, row);
+		fill_map_line(game, trimmed, row);
 		row++;
 		free_str(&trimmed);
 		free_str(&line);
