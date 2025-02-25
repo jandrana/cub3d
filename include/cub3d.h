@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:00:11 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:44:28 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 // ------------------ COLOR MACROS ------------------ //
 
@@ -163,5 +164,7 @@ int			open_map_file(t_game *game, const char *filename);
 int			array_len(char **array);
 bool		check_color_value(t_color color);
 t_line_type	get_line_type(char *line);
+void		print_map(t_game *game);
+int			print_row(t_game *game, size_t row);
 
 #endif /* CUB3D_H */
