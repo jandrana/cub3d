@@ -63,7 +63,9 @@ SRC = src/main.c \
 	src/parser/elements/textures.c \
 	src/parser/elements/colors.c \
 	src/parser/map.c \
-	src/parser/utils.c
+	src/parser/validate_map.c \
+	src/parser/utils.c \
+	src/parser/print_utils.c
 
 OBJECTS = $(SRC:.c=.o)
 

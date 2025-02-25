@@ -6,20 +6,29 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:43:20 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:21:46 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-// check last return line
+static void	check_missing_values(t_game *game)
+{
+	check_textures(game);
+	if (!game->parser_state->floor_color)
+		error_exit(game, E_COLOR_MISSING, "Floor");
+	if (!game->parser_state->ceiling_color)
+		error_exit(game, E_COLOR_MISSING, "Ceiling");
+}
+
 char	*parse_elements(t_game *game, int fd)
 {
 	char		*line;
 	t_line_type	type;
 
 	line = get_next_line(fd);
-	while (line)
+	type = EMPTY_LINE;
+	while (line && type != INVALID_LINE)
 	{
 		type = get_line_type(line);
 		if (type == TEXTURE_LINE)
@@ -28,10 +37,10 @@ char	*parse_elements(t_game *game, int fd)
 			parse_color_line(game, line);
 		else if (type == MAP_LINE)
 		{
-			check_textures(game);
+			check_missing_values(game);
 			return (line);
 		}
-		free(line);
+		free_str(&line);
 		line = get_next_line(fd);
 	}
 	return (line);
