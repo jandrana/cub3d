@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:28:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:13:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,23 @@ t_line_type	check_map_line(t_game *game, char *line, size_t row)
 void	allocate_map_tiles(t_game *game)
 {
 	size_t	i;
+	size_t	j;
 
-	game->map->mt = malloc(sizeof(t_map_tile *) * game->map->rows);
+	game->map->mt = malloc(sizeof(t_map_tile *) * (game->map->rows + 1));
 	if (!game->map->mt)
 		error_exit(game, E_MEM_ALLOC, "map rows");
 	i = 0;
-	while (i < game->map->rows)
+	while (i <= game->map->rows)
 	{
-		game->map->mt[i] = malloc(sizeof(t_map_tile) * game->map->cols);
+		game->map->mt[i] = malloc(sizeof(t_map_tile) * (game->map->cols + 1));
 		if (!game->map->mt[i])
 			error_exit(game, E_MEM_ALLOC, "map columns");
+		j = 0;
+		while (j <= game->map->cols)
+		{
+			game->map->mt[i][j] = SPACE;
+			j++;
+		}
 		i++;
 	}
 }
