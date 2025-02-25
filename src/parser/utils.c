@@ -6,11 +6,25 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:53:17 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 19:32:33 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:10:51 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+bool	is_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!ft_strchr(WHITESPACE, line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 t_line_type	get_line_type(char *line)
 {
@@ -18,7 +32,7 @@ t_line_type	get_line_type(char *line)
 	int		i;
 
 	trimmed = ft_strtrim(line, WHITESPACE);
-	if (!trimmed)
+	if (!trimmed || is_empty_line(trimmed))
 		return (free(trimmed), EMPTY_LINE);
 	if (!ft_strncmp(trimmed, "NO", 2) || !ft_strncmp(trimmed, "SO", 2)
 		|| !ft_strncmp(trimmed, "WE", 2) || !ft_strncmp(trimmed, "EA", 2))
