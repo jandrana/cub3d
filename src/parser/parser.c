@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 16:43:26 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:18:44 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	udpate_map_sizes(t_game *game, char *filename)
 t_map	*parser(t_game *game, int argc, char **argv)
 {
 	int		fd;
-	char 	*first_map_line;
+	char	*first_map_line;
 
 	if (argc != 2)
 		error_exit(game, E_ARGS_COUNT, argv[0]);

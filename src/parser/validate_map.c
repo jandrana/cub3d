@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:08:33 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:20:11 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	validate_walls(t_game *game, size_t row, size_t col, t_map_tile current)
 	bool	is_edge;
 
 	is_edge = false;
-	if (row == 0 || row > game->map->rows 
+	if (row == 0 || row > game->map->rows
 		|| col == 0 || col > game->map->cols)
 		is_edge = true;
 	if (is_edge && current != SPACE)
@@ -33,7 +33,7 @@ void	validate_walls(t_game *game, size_t row, size_t col, t_map_tile current)
 
 void	validate_tile(t_game *game, size_t row, size_t col, char *surrounding)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = game->map;
 	if (valid_tile(row, map->rows) && valid_tile(col, map->cols))

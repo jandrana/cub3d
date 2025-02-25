@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:13:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:18:32 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ void	allocate_map_tiles(t_game *game)
 		i++;
 	}
 }
+
 void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 {
 	if (!(tile == PLAYER_EAST || tile == PLAYER_NORTH || tile == PLAYER_SOUTH
-		|| tile == PLAYER_WEST))
+			|| tile == PLAYER_WEST))
 		return ;
 	if (game->map->player.x != -1 || game->map->player.y != -1)
 		error_exit(game, E_MAP_MULTI_PLAYER);
@@ -61,7 +62,7 @@ void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 
 void	fill_map_line(t_game *game, char *t_line, size_t row)
 {
-	size_t col;
+	size_t	col;
 
 	col = 0;
 	while (t_line[col])

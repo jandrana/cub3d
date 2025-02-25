@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:36 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:10:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:20:24 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_map(t_game *game)
 	}
 }
 
-int print_row(t_game *game, size_t row)
+int	print_row(t_game *game, size_t row)
 {
 	size_t	col;
 

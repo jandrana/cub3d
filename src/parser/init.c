@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 19:25:47 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:19:34 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static void	init_map(t_game *game)
 {
-	game->map = (t_map*)malloc(sizeof(t_map));
+	game->map = (t_map *)malloc(sizeof(t_map));
 	if (!game->map)
 		error_exit(game, E_MEM_ALLOC, "map structure");
 	game->map->rows = 0;
@@ -43,7 +43,7 @@ static void	init_graphics(t_game *game)
 
 static void	init_parser_state(t_game *game)
 {
-	game->parser_state = (t_parser_state*)malloc(sizeof(t_parser_state));
+	game->parser_state = (t_parser_state *)malloc(sizeof(t_parser_state));
 	if (!game->parser_state)
 		error_exit(game, E_MEM_ALLOC, "parser state structure");
 	game->parser_state->textures[NORTH] = false;
