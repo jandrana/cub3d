@@ -6,23 +6,21 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:18:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:21:46 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-//TODO: FIX COLOR: always getting E_COLOR_MISSING
 static void	check_missing_values(t_game *game)
 {
 	check_textures(game);
-	//if (!game->parser_state->floor_color)
-	//	error_exit(game, E_COLOR_MISSING, "Floor");
-	//if (!game->parser_state->ceiling_color)
-	//	error_exit(game, E_COLOR_MISSING, "Ceiling");
+	if (!game->parser_state->floor_color)
+		error_exit(game, E_COLOR_MISSING, "Floor");
+	if (!game->parser_state->ceiling_color)
+		error_exit(game, E_COLOR_MISSING, "Ceiling");
 }
 
-// check last return line
 char	*parse_elements(t_game *game, int fd)
 {
 	char		*line;

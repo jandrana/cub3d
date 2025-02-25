@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 18:08:31 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:21:11 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_direction_name(t_direction dir)
 
 void	check_textures(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -49,8 +49,6 @@ void	check_textures(t_game *game)
 			error_exit(game, E_TEX_MISSING, get_direction_name(i));
 }
 
-// todo: liberar el split, etc
-// DONE: checkear que el path existe antes de llamar a la mlx
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
 	char	**content;
