@@ -59,7 +59,6 @@ void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 	game->map->player.y = row + 0.5;
 }
 
-// !!! SEGFAULT HERE (fix 1st time tommorrow)
 void	fill_map_line(t_game *game, char *t_line, size_t row)
 {
 	size_t col;
@@ -67,11 +66,13 @@ void	fill_map_line(t_game *game, char *t_line, size_t row)
 	col = 0;
 	while (t_line[col])
 	{
-		game->map->mt[row][col] = t_line[col]; // <- HERE
+		if (col > game->map->cols || row > game->map->rows)
+			error_exit(game, E_MAP_CHAR, t_line[col], row, col);
+		game->map->mt[row][col] = t_line[col];
 		set_player(game, t_line[col], row, col);
 		col++;
 	}
-	while (col < game->map->cols)
+	while (col <= game->map->cols)
 	{
 		game->map->mt[row][col] = SPACE;
 		col++;
