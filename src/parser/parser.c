@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 21:20:16 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:43:26 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_map	*parser(t_game *game, int argc, char **argv)
 	first_map_line = parse_elements(game, fd);
 	if (!first_map_line)
 		error_exit(game, E_MAP_EMPTY);
-	//parser_map(game, fd, first_map_line);
+	parser_map(game, fd, first_map_line);
 	close(fd);
 	return (game->map);
 }
