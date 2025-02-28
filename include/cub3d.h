@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:46:11 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/28 21:03:07 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@
 # define YELLOW "\033[33m"
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
+
+// ------------------- GAME MACROS ----------------- //
+
+# define PLAYER_HEIGHT 0.5
+# define FOV 90
 
 // ------------------- ENUMS ------------------- //
 
@@ -129,6 +134,10 @@ void		parse_texture_line(t_game *game, char *line, t_direction dir);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game, char *line);
 void		check_textures(t_game *game);
+
+//                     RENDERER                      //
+void		render_scene(t_game *game);
+void		init_player(t_game *game);
 
 //                   INIT                    //
 t_game		*init_game(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 16:59:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/02/28 21:43:07 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@
 # define E_MEM_ALLOC "Memory allocation failed: %s" // component_name
 
 // ------------------- MLX ERRORS ------------------- //
-# define E_MLX_INIT "Failed to initialize MLX: %s"  // error_detail
-# define E_MLX_WINDOW "Failed to create window: %s" // error_detail
-# define E_MLX_IMAGE "Failed to create image: %s"   // error_detail
+# define E_MLX_INIT "Failed to initialize MLX"  // no args
+# define E_MLX_WINDOW "Failed to create window" // no args
+# define E_MLX_IMAGE "Failed to create image"   // no args
+# define E_MLX_IMAGE_DEL "Failed to delete image"   // no args
+# define E_MLX_IMAGE2WIN "Failed to send image to window"   // no args
 
 // ------------------- RESOURCE ERRORS ------------------- //
 # define E_RES_LOAD "Failed to load resource: %s" // resource_path
