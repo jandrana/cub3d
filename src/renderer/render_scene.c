@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/02/28 22:03:49 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:31:59 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@
 
 uint32_t calculate_color(t_game *game, unsigned int row, unsigned int col)
 {
+    (void)game;
+    (void)row;
+    (void)col;
     return (0xFFFFFF);
 }
 
 void	render_scene(t_game *game)
 {
     mlx_image_t	*img;
-    unsigned int row;
-    unsigned int col;
+    int row;
+    int col;
 
-	img = mlx_new_image(mlx, game->graphics->mlx->width, game->graphics->mlx->height);
+	img = mlx_new_image(game->graphics->mlx, game->graphics->mlx->width, game->graphics->mlx->height);
     if (!img)
         error_exit(game, E_MLX_IMAGE);
     row = 0;
@@ -33,10 +36,13 @@ void	render_scene(t_game *game)
     {
         col = 0;
         while (col < game->graphics->mlx->width)
-            mlx_put_pixel(img, row, col, calculate_color(game, row, col));
+        {
+            mlx_put_pixel(img, col, row, calculate_color(game, row, col));
+            col++;
+        }
+        row++;
     }    
-    if (mlx_delete_image(game->graphics->mlx, game->graphics->img) == -1)
-        error_exit(game, E_MLX_IMAGE_DEL);
+    mlx_delete_image(game->graphics->mlx, game->graphics->img);
     game->graphics->img = img;
     if (mlx_image_to_window(game->graphics->mlx, img, 0, 0) == -1)
         error_exit(game, E_MLX_IMAGE2WIN);

@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/28 21:03:07 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:26:19 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 // ------------------- GAME MACROS ----------------- //
 
+# define WINDOW_WIDTH 1400
+# define WINDOW_HEIGHT 800
 # define PLAYER_HEIGHT 0.5
 # define FOV 90
 
