@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 13:12:35 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:39:17 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	angle; // Rotation angle (radianes)
+	double	angle; // Rotation angle (rad)
 	double	speed;
 }	t_player;
 
@@ -140,9 +140,10 @@ void		parse_color_line(t_game *game, char *line);
 void		check_textures(t_game *game);
 
 //                     RENDERER                      //
-t_direction find_wall_direction(t_game *game, double ray_direction[2]);
-void 		render_scene(t_game *game);
 void		init_player(t_game *game);
+void 		render_scene(t_game *game);
+uint32_t 	calculate_color(t_game *game, unsigned int row, unsigned int col);
+uint32_t 	color_to_uint32(t_color color);
 
 //                   INIT                    //
 t_game		*init_game(void);

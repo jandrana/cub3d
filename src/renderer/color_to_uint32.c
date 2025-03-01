@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color_conversion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 17:34:15 by jorvarea         ###   ########.fr       */
+/*   Created: 2025/03/01 17:26:31 by jorvarea          #+#    #+#             */
+/*   Updated: 2025/03/01 17:27:28 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
 #include <cub3d.h>
-#include <stdio.h>
 
-int	main(int argc, char **argv)
+uint32_t color_to_uint32(t_color color)
 {
-	t_game	*game;
-
-	game = init_game();
-	game->map = parser(game, argc, argv);
-	init_player(game);
-	game->graphics->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", true);
-	if (!game->graphics->mlx)
-		error_exit(game, E_MLX_INIT);
-	render_scene(game);
-	mlx_loop(game->graphics->mlx);
-	free_game(game);
-	return (0);
+    return (255 << 24) | (color.r << 16) | (color.g << 8) | color.b;
 }
