@@ -30,7 +30,6 @@ static void	find_player_coord(t_map *map, unsigned int player_coord[2])
 			{
 				player_coord[0] = row;
 				player_coord[1] = col;
-				map->mt[row][col] = '0';
 				return ;
 			}
 			col++;
@@ -41,11 +40,18 @@ static void	find_player_coord(t_map *map, unsigned int player_coord[2])
 
 void	init_player(t_game *game)
 {
-	unsigned int	player_coord[2];
+	unsigned int player_coord[2];
 
-	find_player_coord(game->map, player_coord);
-	game->player.x = player_coord[0] + 0.5;
-	game->player.y = player_coord[1] + 0.5;
-	game->player.angle = 0.00001;
-	game->player.speed = 0.0;
+    find_player_coord(game->map, player_coord);
+    game->player.x = player_coord[0] + 0.5;
+    game->player.y = player_coord[1] + 0.5;
+    if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_NORTH)
+        game->player.angle = PI / 2;
+    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_SOUTH)
+        game->player.angle = 3 * PI / 2;
+    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_EAST)
+        game->player.angle = 0.001;
+    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_WEST)
+        game->player.angle = PI;
+    game->player.speed = 0.0;
 }
