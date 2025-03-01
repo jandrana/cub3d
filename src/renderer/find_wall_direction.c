@@ -6,19 +6,11 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 13:11:52 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:22:38 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-static double next_value(double a)
-{
-    if (a >= 0)
-        return (ceil(a));
-    else
-        return (floor(a));
-}
 
 static t_direction determine_wall_direction(int hit_side, double ray_direction[2])
 {
@@ -63,14 +55,14 @@ t_direction find_wall_direction(t_game *game, double ray_direction[2])
         calculate_delta(position, ray_direction, delta);
         if (delta[0] < delta[1])
         {
-            position[0] = next_value(position[0]);
+            position[0] += ray_direction[0] * delta[0];
             position[1] += ray_direction[1] * delta[0];
             hit_side = 0;
         }
         else 
         {
             position[0] += ray_direction[0] * delta[1];
-            position[1] = next_value(position[1]);
+            position[1] += ray_direction[1] * delta[1];
             hit_side = 1;
         }
     }
