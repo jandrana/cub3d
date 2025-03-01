@@ -6,13 +6,11 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 17:34:15 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:06:33 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
 #include <cub3d.h>
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
