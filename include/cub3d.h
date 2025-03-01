@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 17:54:13 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:11:30 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@
 # define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
 
+// ------------------ CUB3D MACROS ------------------ //
+
+# define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
+# define WHITESPACE " \t\r\v\f\n"
+
 // ------------------- ENUMS ------------------- //
 
 typedef enum e_map_tile
 {
-	EMPTY = 0,
-	WALL = 1,
+	EMPTY = '0',
+	WALL = '1',
+	SPACE = ' ',
 	PLAYER_NORTH = 'N',
 	PLAYER_SOUTH = 'S',
 	PLAYER_EAST = 'E',
@@ -134,11 +140,27 @@ void		free_array(char ***array);
 
 //                       PARSER                      //
 t_map		*parser(t_game *game, int argc, char **argv);
+void		udpate_map_sizes(t_game *game, char *filename);
+
+//                 PARSER: ELEMENTS                //
 char		*parse_elements(t_game *game, int fd);
-void		parse_texture_line(t_game *game, char *line, t_direction dir);
+
+//                  COLORS                   //
+int			check_color_dup(t_game *game, char identifier);
+t_color		get_color(t_game *game, char **rgb);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game, char *line);
+
+//                 TEXTURES                  //
+t_direction	get_texture_direction(char *content);
 void		check_textures(t_game *game);
+void		parse_texture_line(t_game *game, char *line, t_direction dir);
+
+//                    MAP                    //
+void		parser_map(t_game *game, int fd, char *map_line);
+t_line_type	check_map_line(t_game *game, char *line, size_t row);
+void		allocate_map_tiles(t_game *game);
+void		validate_map(t_game *game);
 
 //                     RENDERER                      //
 void		init_player(t_game *game);
@@ -156,8 +178,9 @@ int			open_map_file(t_game *game, const char *filename);
 //                 UTILITIES                 //
 int			array_len(char **array);
 bool		check_color_value(t_color color);
-t_direction	get_texture_direction(char *content);
 t_line_type	get_line_type(char *line);
+void		print_map(t_game *game);
+int			print_row(t_game *game, size_t row);
 
 // 					DEBUG					//
 void 		print_map(t_map *map);
