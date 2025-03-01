@@ -41,8 +41,8 @@ void	init_player(t_game *game)
     unsigned int player_coord[2];
     
     find_player_coord(game->map, player_coord);
-    game->map->player.x = player_coord[0] + 0.5;
-    game->map->player.y = player_coord[1] + 0.5;
-    game->map->player.angle = 0.0;
-    game->map->player.speed = 0.0;
+    game->player.x = player_coord[0] + 0.5;
+    game->player.y = player_coord[1] + 0.5;
+    game->player.angle = 0.0;
+    game->player.speed = 0.0;
 }

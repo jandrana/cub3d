@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/21 17:23:06 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:26:04 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_map(t_game *game)
 	game->map->rows = 0;
 	game->map->cols = 0;
 	game->map->mt = NULL;
-	game->map->player = (t_player){0, 0, 0, 0};
+	game->player = (t_player){0, 0, 0, 0};
 	game->map->floor_color = (t_color){0, 0, 0};
 	game->map->ceiling_color = (t_color){0, 0, 0};
 }

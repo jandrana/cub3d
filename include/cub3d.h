@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/28 22:26:19 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:12:35 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <fcntl.h>
+# include <math.h>
 
 // ------------------ COLOR MACROS ------------------ //
 
@@ -36,10 +37,11 @@
 
 // ------------------- GAME MACROS ----------------- //
 
+# define PI 3.14159265358979323846
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 800
 # define PLAYER_HEIGHT 0.5
-# define FOV 90
+#define FOV (PI / 2.0)
 
 // ------------------- ENUMS ------------------- //
 
@@ -92,7 +94,6 @@ typedef struct s_map
 {
 	unsigned int	rows;
 	unsigned int	cols;
-	t_player		player;
 	t_map_tile		**mt;
 	t_color			floor_color;
 	t_color			ceiling_color;
@@ -115,7 +116,8 @@ typedef struct s_parser_state
 typedef struct s_game
 {
 	t_map			*map;
-	t_graphics		*graphics;
+    t_player 		player;
+    t_graphics		*graphics;
 	t_parser_state	*parser_state;
 }	t_game;
 
@@ -138,7 +140,8 @@ void		parse_color_line(t_game *game, char *line);
 void		check_textures(t_game *game);
 
 //                     RENDERER                      //
-void		render_scene(t_game *game);
+t_direction find_wall_direction(t_game *game, double ray_direction[2]);
+void 		render_scene(t_game *game);
 void		init_player(t_game *game);
 
 //                   INIT                    //
