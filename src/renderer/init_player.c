@@ -53,5 +53,6 @@ void	init_player(t_game *game)
         game->player.angle = 0.001;
     else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_WEST)
         game->player.angle = PI;
+	game->map->mt[player_coord[0]][player_coord[1]] = '0';
     game->player.speed = 0.0;
 }
