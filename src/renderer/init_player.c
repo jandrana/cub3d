@@ -30,7 +30,7 @@ static void	find_player_coord(t_map *map, unsigned int player_coord[2])
 			{
 				player_coord[0] = row;
 				player_coord[1] = col;
-				map->mt[row][col] = 0;
+				map->mt[row][col] = '0';
 				return ;
 			}
 			col++;
