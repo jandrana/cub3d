@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 18:11:30 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:14:42 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
 
-// ------------------- GAME MACROS ----------------- //
+// ------------------ PARSER MACROS ------------------ //
+
+#define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
+#define WHITESPACE " \t\r\v\f\n"
+
+// ------------------- RENDERER MACROS ----------------- //
 
 # define PI 3.14159265358979323846
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 800
 # define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
-
-// ------------------ CUB3D MACROS ------------------ //
-
-# define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
-# define WHITESPACE " \t\r\v\f\n"
 
 // ------------------- ENUMS ------------------- //
 
@@ -181,8 +181,5 @@ bool		check_color_value(t_color color);
 t_line_type	get_line_type(char *line);
 void		print_map(t_game *game);
 int			print_row(t_game *game, size_t row);
-
-// 					DEBUG					//
-void 		print_map(t_map *map);
 
 #endif /* CUB3D_H */
