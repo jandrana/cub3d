@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 17:39:17 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:47:52 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/time.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
 
 // ------------------ COLOR MACROS ------------------ //
 
