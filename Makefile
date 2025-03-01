@@ -63,7 +63,12 @@ SRC = src/main.c \
 	src/parser/elements/textures.c \
 	src/parser/elements/colors.c \
 	src/parser/map.c \
-	src/parser/utils.c
+	src/parser/utils.c \
+	src/renderer/render_scene.c \
+	src/renderer/calculate_color.c \
+	src/renderer/color_to_uint32.c \
+	src/renderer/init_player.c \
+	src/debug_utils.c
 
 OBJECTS = $(SRC:.c=.o)
 
@@ -131,7 +136,6 @@ fclean : clean
 	@echo "$(RED)  ✓  Removed $(NAME) $(END)"
 	@make fclean -s -C $(LIBFT)
 	@echo "$(RED)  ✓  Removed libraries $(END)"
-
 
 re : fclean all
 
