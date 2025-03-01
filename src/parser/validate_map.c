@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:20:11 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:18:58 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void	validate_map(t_game *game)
 		}
 		row++;
 	}
-	if (game->map->player.x < 0 || game->map->player.y < 0)
+	if (game->player.x < 0 || game->player.y < 0)
 		error_exit(game, E_MAP_NO_PLAYER);
 }
