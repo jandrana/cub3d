@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_conversion.c                                 :+:      :+:    :+:   */
+/*   color_to_uint32.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:26:31 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 17:27:28 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:22:56 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-uint32_t color_to_uint32(t_color color)
+uint32_t	color_to_uint32(t_color color)
 {
-    return (255 << 24) | (color.r << 16) | (color.g << 8) | color.b;
+	return ((255 << 24) | (color.r << 16) | (color.g << 8) | color.b);
 }
