@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 17:47:52 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:54:13 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,8 @@ int			array_len(char **array);
 bool		check_color_value(t_color color);
 t_direction	get_texture_direction(char *content);
 t_line_type	get_line_type(char *line);
+
+// 					DEBUG					//
+void 		print_map(t_map *map);
 
 #endif /* CUB3D_H */
