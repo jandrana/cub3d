@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/02 12:24:19 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 13:13:36 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@
 // ------------------- RENDERER MACROS ----------------- //
 
 # define PI 3.14159265358979323846
-# define WINDOW_WIDTH 1400
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1024
+# define WINDOW_HEIGHT 768
 # define PLAYER_HEIGHT 0.5
-#define FOV (PI / 2.0)
+# define FOV (PI / 2.0)
+# define EPSILON 0.0000001
 
 // ------------------- ENUMS ------------------- //
 
