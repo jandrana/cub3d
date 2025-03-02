@@ -47,7 +47,7 @@ LMLX = $(MLX)/build/libmlx42.a
 MLX_DEPS = -ldl -lglfw -pthread -lm
 LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto -fomit-frame-pointer -funroll-loops -ftree-vectorize
 RM = rm -rf
 
 ################################################################################
@@ -56,6 +56,9 @@ RM = rm -rf
 
 SRC = src/main.c \
 	src/error_handler.c \
+	src/manage_key_pressed.c \
+	src/manage_resize.c \
+	src/manage_mouse.c \
 	src/parser/init.c \
 	src/parser/parser.c \
 	src/parser/file.c \
@@ -69,7 +72,7 @@ SRC = src/main.c \
 	src/renderer/init_player.c \
 	src/renderer/render_scene.c \
 	src/renderer/calculate_color.c \
-	src/renderer/color_to_uint32.c
+	src/renderer/color_utils.c
 
 OBJECTS = $(SRC:.c=.o)
 
