@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 18:01:07 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:24:07 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,19 @@ static void	move_player(t_game *game, double angle_offset)
 {
 	double	direction[2];
 	double	move_angle;
+	double 	new_x;
+	double 	new_y;
 
 	move_angle = game->player.angle + angle_offset;
 	direction[0] = cos(move_angle);
 	direction[1] = sin(move_angle);
-	game->player.x += direction[0] * WALK_FACTOR;
-	game->player.y += direction[1] * WALK_FACTOR;
+	new_x = game->player.x + direction[0] * WALK_FACTOR;
+	new_y = game->player.y + direction[1] * WALK_FACTOR;
+	if (game->map->mt[(int)(new_y)][(int)(new_x)] != WALL)
+	{
+		game->player.x = new_x;
+		game->player.y = new_y;
+	}
 }
 
 static bool	handle_movement(t_game *game)
