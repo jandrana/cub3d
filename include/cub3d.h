@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/02 15:42:09 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 16:33:20 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # include <error.h>
 # include <libft.h>
-# include <MLX42/MLX42.h>
+# include "MLX42/MLX42.h"
 # include <stdbool.h>
 # include <unistd.h>
 # include <sys/time.h>
@@ -49,6 +49,8 @@
 # define PLAYER_HEIGHT 0.5
 # define FOV (PI / 2.0)
 # define EPSILON 0.0000001
+# define WALK_FACTOR 0.05
+# define ROTATION_FACTOR 0.1
 
 // ------------------- ENUMS ------------------- //
 
@@ -163,7 +165,7 @@ t_line_type	check_map_line(t_game *game, char *line, size_t row);
 void		allocate_map_tiles(t_game *game);
 void		validate_map(t_game *game);
 
-//                     RENDERER                      //
+//                 RENDERER                  //
 void		init_player(t_game *game);
 void		render_scene(t_game *game, unsigned int width, unsigned int height);
 uint32_t 	calculate_color(t_game *game, unsigned int row, unsigned int col);
@@ -182,5 +184,8 @@ bool		check_color_value(t_color color);
 t_line_type	get_line_type(char *line);
 void		print_map(t_game *game);
 int			print_row(t_game *game, size_t row);
+
+//					KEYBOARD				 //
+void		manage_key_pressed(void *ptr);
 
 #endif /* CUB3D_H */

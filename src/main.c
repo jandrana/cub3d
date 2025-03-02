@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 15:42:22 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 16:07:11 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	if (!game->graphics->mlx)
 		error_exit(game, E_MLX_INIT);
 	render_scene(game, game->graphics->mlx->width, game->graphics->mlx->height);
+	mlx_loop_hook(game->graphics->mlx, manage_key_pressed, game);
 	mlx_loop(game->graphics->mlx);
 	free_game(game);
 	return (0);
