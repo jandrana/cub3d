@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/02 13:13:36 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 13:24:58 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		validate_map(t_game *game);
 
 //                     RENDERER                      //
 void		init_player(t_game *game);
-void 		render_scene(t_game *game);
+void		render_scene(t_game *game, unsigned int width, unsigned int height);
 uint32_t 	calculate_color(t_game *game, unsigned int row, unsigned int col);
 uint32_t 	color_to_uint32(t_color color);
 

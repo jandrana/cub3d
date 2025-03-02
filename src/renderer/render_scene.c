@@ -6,27 +6,26 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 19:01:55 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 13:25:22 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	render_scene(t_game *game)
+void	render_scene(t_game *game, unsigned int width, unsigned int height)
 {
-	mlx_image_t	*img;
-	int			row;
-	int			col;
+	mlx_image_t		*img;
+	unsigned int	row;
+	unsigned int	col;
 
-	img = mlx_new_image(game->graphics->mlx, game->graphics->mlx->width,
-		game->graphics->mlx->height);
+	img = mlx_new_image(game->graphics->mlx, width, height);
 	if (!img)
 		error_exit(game, E_MLX_IMAGE);
 	row = 0;
-	while (row < game->graphics->mlx->height)
+	while (row < height)
 	{
 		col = 0;
-		while (col < game->graphics->mlx->width)
+		while (col < width)
 		{
 			mlx_put_pixel(img, col, row, calculate_color(game, row, col));
 			col++;
