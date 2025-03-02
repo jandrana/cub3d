@@ -28,5 +28,4 @@ void	init_player(t_game *game)
 	else if (game->map->mt[row][col] == PLAYER_WEST)
 		game->player.angle = PI;
 	game->map->mt[row][col] = '0';
-	game->player.speed = 0.0;
 }

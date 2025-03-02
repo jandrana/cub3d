@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/02 17:17:18 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 17:57:25 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <libft.h>
 # include "MLX42/MLX42.h"
 # include <stdbool.h>
+#include <stdint.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <fcntl.h>
@@ -51,6 +52,7 @@
 # define EPSILON 0.0000001
 # define WALK_FACTOR 0.05
 # define ROTATION_FACTOR 0.1
+# define MOUSE_SENSITIVITY 0.001
 
 // ------------------- ENUMS ------------------- //
 
@@ -97,7 +99,6 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	angle; // Rotation angle (rad)
-	double	speed;
 }	t_player;
 
 typedef struct s_map
@@ -123,12 +124,19 @@ typedef struct s_parser_state
 	bool	ceiling_color;
 }	t_parser_state;
 
+typedef struct s_cursor
+{
+    int32_t	last_cursor_x;
+    int32_t	last_cursor_y;
+} t_cursor;
+
 typedef struct s_game
 {
 	t_map			*map;
     t_player 		player;
     t_graphics		*graphics;
 	t_parser_state	*parser_state;
+	t_cursor		cursor;
 }	t_game;
 
 // ------------------------------------------------------ //
@@ -187,6 +195,7 @@ int			print_row(t_game *game, size_t row);
 
 //					INPUT				     //
 void 		manage_key_pressed(void *ptr);
+void 		manage_mouse(mouse_key_t button, action_t action, modifier_key_t mods, void *ptr);
 void 		manage_resize(int32_t width, int32_t height, void *ptr);
 
 #endif /* CUB3D_H */
