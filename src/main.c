@@ -22,7 +22,8 @@ int	main(int argc, char **argv)
 	game->graphics->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", true);
 	if (!game->graphics->mlx)
 		error_exit(game, E_MLX_INIT);
-	mlx_get_mouse_pos(game->graphics->mlx, &game->cursor.last_cursor_x, &game->cursor.last_cursor_y);
+	mlx_get_mouse_pos(game->graphics->mlx, &game->cursor.last_cursor_x,
+		&game->cursor.last_cursor_y);
 	render_scene(game, game->graphics->mlx->width, game->graphics->mlx->height);
 	mlx_loop_hook(game->graphics->mlx, manage_key_pressed, game);
 	mlx_mouse_hook(game->graphics->mlx, manage_mouse, game);

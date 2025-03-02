@@ -16,8 +16,8 @@ static void	move_player(t_game *game, double angle_offset)
 {
 	double	direction[2];
 	double	move_angle;
-	double 	new_x;
-	double 	new_y;
+	double	new_x;
+	double	new_y;
 
 	move_angle = game->player.angle + angle_offset;
 	direction[0] = cos(move_angle);
