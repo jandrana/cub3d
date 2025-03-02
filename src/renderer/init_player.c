@@ -28,8 +28,8 @@ static void	find_player_coord(t_map *map, unsigned int player_coord[2])
 				|| map->mt[row][col] == PLAYER_EAST
 				|| map->mt[row][col] == PLAYER_WEST)
 			{
-				player_coord[0] = row;
-				player_coord[1] = col;
+				player_coord[0] = col;
+				player_coord[1] = row;
 				return ;
 			}
 			col++;
@@ -45,14 +45,14 @@ void	init_player(t_game *game)
     find_player_coord(game->map, player_coord);
     game->player.x = player_coord[0] + 0.5;
     game->player.y = player_coord[1] + 0.5;
-    if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_NORTH)
-        game->player.angle = PI / 2;
-    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_SOUTH)
+    if (game->map->mt[player_coord[1]][player_coord[0]] == PLAYER_NORTH)
         game->player.angle = 3 * PI / 2;
-    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_EAST)
-        game->player.angle = 0.001;
-    else if (game->map->mt[player_coord[0]][player_coord[1]] == PLAYER_WEST)
+    else if (game->map->mt[player_coord[1]][player_coord[0]] == PLAYER_SOUTH)
+        game->player.angle = PI / 2;
+    else if (game->map->mt[player_coord[1]][player_coord[0]] == PLAYER_EAST)
+        game->player.angle = 0.0000001;
+    else if (game->map->mt[player_coord[1]][player_coord[0]] == PLAYER_WEST)
         game->player.angle = PI;
-	game->map->mt[player_coord[0]][player_coord[1]] = '0';
+	game->map->mt[player_coord[1]][player_coord[0]] = '0';
     game->player.speed = 0.0;
 }

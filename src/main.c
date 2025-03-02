@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 18:06:33 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:43:29 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	game = init_game();
 	game->map = parser(game, argc, argv);
-	init_player(game);
+	init_player(game); // TODO: Remove this
 	game->graphics->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", true);
 	if (!game->graphics->mlx)
 		error_exit(game, E_MLX_INIT);

@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/01 18:22:03 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:32:26 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,16 @@ t_wall_hit	find_wall_hit(t_game *game, double ray_direction[2])
 	double	delta[2];
 	double	position[2];
 	int		hit_side;
+    int     iterations = 0;
 
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (game->map->mt[(int)position[0]][(int)position[1]] != WALL)
+	while (game->map->mt[(int)position[1]][(int)position[0]] != WALL)
 	{
+        printf("Estamos en [%d][%d]: %c\n", (int)position[0], (int)position[1], game->map->mt[(int)position[1]][(int)position[0]]);
 		calculate_delta(position, ray_direction, delta);
-		if (delta[0] < delta[1])
+        printf("Delta: (%f, %f)\n", delta[0], delta[1]);
+		if (delta[0] <= delta[1])
 		{
 			position[0] += ray_direction[0] * delta[0];
 			position[1] += ray_direction[1] * delta[0];
@@ -87,7 +90,10 @@ t_wall_hit	find_wall_hit(t_game *game, double ray_direction[2])
 			position[1] += ray_direction[1] * delta[1];
 			hit_side = 1;
 		}
+        printf("New position: (%f, %f)\n", position[0], position[1]);
+        iterations++;
 	}
+    printf("Hit at (%f, %f) after %d iterations\n", position[0], position[1], iterations);
 	return (determine_wall_direction(hit_side, ray_direction, position));
 }
 
@@ -117,6 +123,8 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	ray_angle = angle_offset + game->player.angle;
 	ray_direction[0] = cos(ray_angle);
 	ray_direction[1] = sin(ray_angle);
+    printf("Looking for wall hit\n");
+    printf("Col %u, Angle: %f, Dir: (%f, %f)\n", col, ray_angle, ray_direction[0], ray_direction[1]);
 	wall.hit = find_wall_hit(game, ray_direction);
 	calculate_wall_info(game, angle_offset, &wall);
 	if (row < wall.top || row > wall.bottom)
@@ -127,5 +135,6 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 			return (color_to_uint32(game->map->floor_color));
 	}
 	// wall_img = mlx_texture_to_image(game->graphics->mlx, game->graphics->textures[NORTH]);
+    printf("--------------------------------------\n");
 	return (0xFFFFFF);
 }
