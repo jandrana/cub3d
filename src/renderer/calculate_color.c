@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 13:41:46 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:44:55 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_wall_info
 	double			top;
 	double			bottom;
 	double			distance;
+    mlx_texture_t   *texture;
 }					t_wall_info;
 
 static t_wall_hit	determine_wall_direction(int hit_side,
@@ -63,8 +64,8 @@ static void	calculate_delta(double position[2], double ray_direction[2],
 	}
 	else
 	{
-		diff = floor(position[0]) - position[0] + EPSILON;
-		delta[0] = diff / ray_direction[0];
+		diff = position[0] - floor(position[0]) + EPSILON;
+		delta[0] = diff / -ray_direction[0];
 	}
 	if (ray_direction[1] > 0)
 	{
@@ -73,8 +74,8 @@ static void	calculate_delta(double position[2], double ray_direction[2],
 	}
 	else
 	{
-		diff = floor(position[1]) - position[1] + EPSILON;
-		delta[1] = diff / ray_direction[1];
+		diff = position[1] - floor(position[1]) + EPSILON;
+		delta[1] = diff / -ray_direction[1];
 	}
 }
 
@@ -111,13 +112,22 @@ void	calculate_wall_info(t_game *game, double angle_offset,
 {
 	double	dx;
 	double	dy;
+    double half_window;
 
 	dx = wall->hit.position[0] - game->player.x;
 	dy = wall->hit.position[1] - game->player.y;
+    half_window = game->graphics->mlx->height / 2.0;
 	wall->distance = sqrt(dx * dx + dy * dy) * cos(angle_offset);
-	wall->height = (WINDOW_HEIGHT * 0.5) / wall->distance;
-	wall->top = (WINDOW_HEIGHT / 2.0) - (wall->height / 2.0);
-	wall->bottom = (WINDOW_HEIGHT / 2.0) + (wall->height / 2.0);
+	wall->height = half_window / wall->distance;
+	wall->top = half_window - (wall->height / 2.0);
+	wall->bottom = half_window + (wall->height / 2.0);
+}
+
+uint32_t get_wall_color(t_wall_info *wall, unsigned int row)
+{
+    (void)wall;
+    (void)row;
+    return (0x0000FFFF);
 }
 
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
@@ -127,8 +137,7 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	double		ray_direction[2];
 	t_wall_info	wall;
 
-	// mlx_image_t *wall_img;
-	angle_offset = (col - WINDOW_WIDTH / 2.0) * (FOV / WINDOW_WIDTH);
+	angle_offset = (col - game->graphics->mlx->width / 2.0) * (FOV / game->graphics->mlx->width);
 	ray_angle = angle_offset + game->player.angle;
 	ray_direction[0] = cos(ray_angle);
 	ray_direction[1] = sin(ray_angle);
@@ -136,11 +145,11 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	calculate_wall_info(game, angle_offset, &wall);
 	if (row < wall.top || row > wall.bottom)
 	{
-		if (row < WINDOW_HEIGHT / 2)
+		if (row < (game->graphics->mlx->height / 2.0))
 			return (color_to_uint32(game->map->ceiling_color));
 		else
 			return (color_to_uint32(game->map->floor_color));
 	}
-	// wall_img = mlx_texture_to_image(game->graphics->mlx, game->graphics->textures[NORTH]);
-	return (0xFFFFFF);
+    wall.texture = game->graphics->textures[wall.hit.direction];
+	return (get_wall_color(&wall, row));
 }
