@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/02 16:33:20 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 16:50:23 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // ------------------- EXT LIBRARIES ------------------- //
 
-# include <error.h>
+# include "error.h"
 # include <libft.h>
 # include "MLX42/MLX42.h"
 # include <stdbool.h>
@@ -185,7 +185,8 @@ t_line_type	get_line_type(char *line);
 void		print_map(t_game *game);
 int			print_row(t_game *game, size_t row);
 
-//					KEYBOARD				 //
-void		manage_key_pressed(void *ptr);
+//					INPUT				     //
+void 		manage_key_pressed(void *ptr);
+void 		manage_resize(int32_t width, int32_t height, void *ptr);
 
 #endif /* CUB3D_H */

@@ -6,21 +6,11 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 16:32:40 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 16:52:07 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-static bool	handle_escape(t_game *game)
-{
-	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(game->graphics->mlx);
-		return (true);
-	}
-	return (false);
-}
 
 static void	move_player(t_game *game, double angle_offset)
 {
@@ -86,9 +76,13 @@ void	manage_key_pressed(void *ptr)
 	bool	update_needed;
 
 	game = (t_game *)ptr;
-	if (handle_escape(game))
-		return ;
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_close_window(game->graphics->mlx);
+        return ;
+    }
 	update_needed = handle_movement(game) || handle_rotation(game);
 	if (update_needed)
-		render_scene(game, game->graphics->mlx->width, game->graphics->mlx->height);
+		render_scene(game, game->graphics->mlx->width,
+			game->graphics->mlx->height);
 }
