@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:18:32 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:18:37 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
 	if (!(tile == PLAYER_EAST || tile == PLAYER_NORTH || tile == PLAYER_SOUTH
 			|| tile == PLAYER_WEST))
 		return ;
-	if (game->map->player.x != -1 || game->map->player.y != -1)
+	if (game->player.x != -1 || game->player.y != -1)
 		error_exit(game, E_MAP_MULTI_PLAYER);
-	game->map->player.x = col + 0.5;
-	game->map->player.y = row + 0.5;
+	game->player.x = col + 0.5;
+	game->player.y = row + 0.5;
 }
 
 void	fill_map_line(t_game *game, char *t_line, size_t row)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:18:44 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:24:54 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	udpate_map_sizes(t_game *game, char *filename)
+void	update_map_sizes(t_game *game, char *filename)
 {
 	int		fd;
 	char	*line;
@@ -46,7 +46,7 @@ t_map	*parser(t_game *game, int argc, char **argv)
 
 	if (argc != 2)
 		error_exit(game, E_ARGS_COUNT, argv[0]);
-	udpate_map_sizes(game, argv[1]);
+	update_map_sizes(game, argv[1]);
 	fd = open_map_file(game, argv[1]);
 	first_map_line = parse_elements(game, fd);
 	if (!first_map_line)

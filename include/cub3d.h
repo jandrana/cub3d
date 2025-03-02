@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 16:44:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:27:35 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 // ------------------- EXT LIBRARIES ------------------- //
 
-# include <error.h>
+# include "error.h"
 # include <libft.h>
-# include <MLX42/MLX42.h>
+# include "MLX42/MLX42.h"
 # include <stdbool.h>
+#include <stdint.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 
 // ------------------ COLOR MACROS ------------------ //
@@ -35,10 +37,22 @@
 # define MAGENTA "\033[35m"
 # define TURQUOISE "\033[36m"
 
-// ------------------ CUB3D MACROS ------------------ //
+// ------------------ PARSER MACROS ------------------ //
 
-# define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
-# define WHITESPACE " \t\r\v\f\n"
+#define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
+#define WHITESPACE " \t\r\v\f\n"
+
+// ------------------- RENDERER MACROS ----------------- //
+
+# define PI 3.14159265358979323846
+# define WINDOW_WIDTH 1024
+# define WINDOW_HEIGHT 768
+# define PLAYER_HEIGHT 0.5
+# define FOV (PI / 2.0)
+# define EPSILON 0.0000001
+# define WALK_FACTOR 0.05
+# define ROTATION_FACTOR 0.1
+# define MOUSE_SENSITIVITY 0.001
 
 // ------------------- ENUMS ------------------- //
 
@@ -84,15 +98,13 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	angle; // Rotation angle (radianes)
-	double	speed;
+	double	angle; // Rotation angle (rad)
 }	t_player;
 
 typedef struct s_map
 {
 	unsigned int	rows;
 	unsigned int	cols;
-	t_player		player;
 	t_map_tile		**mt;
 	t_color			floor_color;
 	t_color			ceiling_color;
@@ -112,11 +124,19 @@ typedef struct s_parser_state
 	bool	ceiling_color;
 }	t_parser_state;
 
+typedef struct s_cursor
+{
+    int32_t	last_cursor_x;
+    int32_t	last_cursor_y;
+} t_cursor;
+
 typedef struct s_game
 {
 	t_map			*map;
-	t_graphics		*graphics;
+    t_player 		player;
+    t_graphics		*graphics;
 	t_parser_state	*parser_state;
+	t_cursor		cursor;
 }	t_game;
 
 // ------------------------------------------------------ //
@@ -131,7 +151,7 @@ void		free_array(char ***array);
 
 //                       PARSER                      //
 t_map		*parser(t_game *game, int argc, char **argv);
-void		udpate_map_sizes(t_game *game, char *filename);
+void		update_map_sizes(t_game *game, char *filename);
 
 //                 PARSER: ELEMENTS                //
 char		*parse_elements(t_game *game, int fd);
@@ -153,6 +173,12 @@ t_line_type	check_map_line(t_game *game, char *line, size_t row);
 void		allocate_map_tiles(t_game *game);
 void		validate_map(t_game *game);
 
+//                 RENDERER                  //
+void		init_player(t_game *game);
+void		render_scene(t_game *game, unsigned int width, unsigned int height);
+uint32_t 	calculate_color(t_game *game, unsigned int row, unsigned int col);
+uint32_t 	color_to_uint32(t_color color);
+
 //                   INIT                    //
 t_game		*init_game(void);
 
@@ -166,5 +192,10 @@ bool		check_color_value(t_color color);
 t_line_type	get_line_type(char *line);
 void		print_map(t_game *game);
 int			print_row(t_game *game, size_t row);
+
+//					INPUT				     //
+void 		manage_key_pressed(void *ptr);
+void 		manage_mouse(mouse_key_t button, action_t action, modifier_key_t mods, void *ptr);
+void 		manage_resize(int32_t width, int32_t height, void *ptr);
 
 #endif /* CUB3D_H */
