@@ -6,12 +6,11 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:49:42 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 17:57:06 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:50:23 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdint.h>
 
 void	manage_mouse(mouse_key_t button, action_t action, modifier_key_t mods,
 		void *ptr)
