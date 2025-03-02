@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 13:14:23 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 13:41:46 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,35 @@ static t_wall_hit	determine_wall_direction(int hit_side,
 	return (wall_hit);
 }
 
-static void calculate_delta(double position[2], double ray_direction[2], 
-    double delta[2])
+static void	calculate_delta(double position[2], double ray_direction[2],
+		double delta[2])
 {
-    if (ray_direction[0] > 0)
-        delta[0] = (ceil(position[0]) - position[0] + EPSILON) / ray_direction[0];
-    else
-        delta[0] = (position[0] - floor(position[0]) + EPSILON) / -ray_direction[0];
-    if (ray_direction[1] > 0)
-        delta[1] = (ceil(position[1]) - position[1] + EPSILON) / ray_direction[1];
-    else
-        delta[1] = (position[1] - floor(position[1]) + EPSILON) / -ray_direction[1];
+	double	diff;
+
+	if (ray_direction[0] > 0)
+	{
+		diff = ceil(position[0]) - position[0] + EPSILON;
+		delta[0] = diff / ray_direction[0];
+	}
+	else
+	{
+		diff = floor(position[0]) - position[0] + EPSILON;
+		delta[0] = diff / ray_direction[0];
+	}
+	if (ray_direction[1] > 0)
+	{
+		diff = ceil(position[1]) - position[1] + EPSILON;
+		delta[1] = diff / ray_direction[1];
+	}
+	else
+	{
+		diff = floor(position[1]) - position[1] + EPSILON;
+		delta[1] = diff / ray_direction[1];
+	}
 }
 
-t_wall_hit	find_wall_hit(t_game *game, double ray_direction[2])
+static t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
+		double ray_direction[2])
 {
 	double	delta[2];
 	double	position[2];
@@ -72,7 +87,7 @@ t_wall_hit	find_wall_hit(t_game *game, double ray_direction[2])
 
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (game->map->mt[(int)position[1]][(int)position[0]] != WALL)
+	while (mt[(int)position[1]][(int)position[0]] != WALL)
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])
@@ -117,7 +132,7 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	ray_angle = angle_offset + game->player.angle;
 	ray_direction[0] = cos(ray_angle);
 	ray_direction[1] = sin(ray_angle);
-	wall.hit = find_wall_hit(game, ray_direction);
+	wall.hit = find_wall_hit(game, game->map->mt, ray_direction);
 	calculate_wall_info(game, angle_offset, &wall);
 	if (row < wall.top || row > wall.bottom)
 	{
