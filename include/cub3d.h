@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 18:14:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:24:19 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		free_array(char ***array);
 
 //                       PARSER                      //
 t_map		*parser(t_game *game, int argc, char **argv);
-void		udpate_map_sizes(t_game *game, char *filename);
+void		update_map_sizes(t_game *game, char *filename);
 
 //                 PARSER: ELEMENTS                //
 char		*parse_elements(t_game *game, int fd);
