@@ -6,11 +6,11 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 15:44:55 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/02 17:20:37 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "cub3d.h"
 
 typedef struct s_wall_hit
 {
@@ -25,7 +25,7 @@ typedef struct s_wall_info
 	double			top;
 	double			bottom;
 	double			distance;
-    mlx_texture_t   *texture;
+	mlx_texture_t	*texture;
 }					t_wall_info;
 
 static t_wall_hit	determine_wall_direction(int hit_side,
@@ -112,22 +112,22 @@ void	calculate_wall_info(t_game *game, double angle_offset,
 {
 	double	dx;
 	double	dy;
-    double half_window;
+	double	half_window;
 
 	dx = wall->hit.position[0] - game->player.x;
 	dy = wall->hit.position[1] - game->player.y;
-    half_window = game->graphics->mlx->height / 2.0;
+	half_window = game->graphics->mlx->height / 2.0;
 	wall->distance = sqrt(dx * dx + dy * dy) * cos(angle_offset);
 	wall->height = half_window / wall->distance;
 	wall->top = half_window - (wall->height / 2.0);
 	wall->bottom = half_window + (wall->height / 2.0);
 }
 
-uint32_t get_wall_color(t_wall_info *wall, unsigned int row)
+uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 {
-    (void)wall;
-    (void)row;
-    return (0x0000FFFF);
+	(void)wall;
+	(void)row;
+	return (0x0000FFFF);
 }
 
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
@@ -150,6 +150,6 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 		else
 			return (color_to_uint32(game->map->floor_color));
 	}
-    wall.texture = game->graphics->textures[wall.hit.direction];
+	wall.texture = game->graphics->textures[wall.hit.direction];
 	return (get_wall_color(&wall, row));
 }
