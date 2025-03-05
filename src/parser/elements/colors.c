@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/24 18:38:35 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:45:52 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	parse_color_line(t_game *game, char *line)
 	char	**content;
 	char	*identifier;
 
-	content = ft_split(line, ' ');
+	game->parser_temp = ft_split(line, ' ');
+	content = game->parser_temp;
 	if (!content || !content[0] || !content[0][0])
 		error_exit(game, E_MEM_ALLOC, "parsing color");
 	identifier = content[0];
@@ -89,4 +90,5 @@ void	parse_color_line(t_game *game, char *line)
 		game->map->ceiling_color = parse_color(game, content[1], identifier);
 	else
 		error_exit(game, "Invalid Identifier", identifier);
+	free_array(&game->parser_temp);
 }
