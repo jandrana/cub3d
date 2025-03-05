@@ -1,0 +1,79 @@
+{
+    <MLX42_dl_open>
+    Memcheck:Leak
+    ...
+    fun:_dl_open
+}
+{
+   <MLX42_libX11>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   ...
+}
+{
+   <MLX42_libLLVM>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+   ...
+}
+{
+    <MLX42_libnvidia>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libnvidia*
+}
+{
+    <MLX42_libdbus>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libdbus*
+}
+{
+    <MLX42_libglfw>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libglfw*
+}
+{
+    <MLX42_libX11>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libX11*
+}
+{
+    <MLX42_dri>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/dri*
+}
+{
+    <MLX42_libLLVM>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libLLVM*
+}
+{
+   <MLX42_dlopen@@GLIBC_2.34>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   ...
+   fun:dlopen@@GLIBC_2.34
+}
+{
+   <MLX42_dl_open_worker>
+   Memcheck:Addr8
+   fun:strncmp
+   ...
+   fun:dl_open_worker
+}
+{
+   <MLX42_dl_catch_error>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:_dl_catch_error
+}
