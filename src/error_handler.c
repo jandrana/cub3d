@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/05 17:10:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:46:07 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	free_game(t_game *game)
 		end_mlx(game->graphics);
 	if (game->parser_state)
 		free(game->parser_state);
+	if (game->parser_temp)
+		free_array(&game->parser_temp);
 	free(game);
 }
 
