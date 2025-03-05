@@ -47,7 +47,8 @@ LMLX = $(MLX)/build/libmlx42.a
 MLX_DEPS = -ldl -lglfw -pthread -lm
 LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
-CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto -fomit-frame-pointer -funroll-loops -ftree-vectorize
+# Delete -g flag (used for debugging and showing valgrind line error)
+CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto -fomit-frame-pointer -funroll-loops -ftree-vectorize -g
 RM = rm -rf
 
 ################################################################################
