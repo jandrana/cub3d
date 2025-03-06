@@ -6,10 +6,11 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/05 18:46:07 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:30:36 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include <cub3d.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -28,6 +29,8 @@ static void	end_mlx(t_graphics *graphics)
 	}
 	if (graphics->img)
 		mlx_delete_image(graphics->mlx, graphics->img);
+	if (graphics->minimap)
+		mlx_delete_image(graphics->mlx, graphics->minimap);
 	if (graphics->mlx)
 		mlx_terminate(graphics->mlx);
 	free(graphics);
