@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   manage_key_pressed.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 19:24:07 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:09 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	move_player(t_game *game, double angle_offset)
+static bool	move_player(t_game *game, double angle_offset)
 {
 	double	direction[2];
 	double	move_angle;
@@ -29,6 +29,7 @@ static void	move_player(t_game *game, double angle_offset)
 		game->player.x = new_x;
 		game->player.y = new_y;
 	}
+	return (true);
 }
 
 static bool	handle_movement(t_game *game)
@@ -37,50 +38,29 @@ static bool	handle_movement(t_game *game)
 
 	moved = false;
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_W))
-	{
-		move_player(game, 0);
-		moved = true;
-	}
+		moved = move_player(game, 0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_S))
-	{
-		move_player(game, PI);
-		moved = true;
-	}
+		moved = move_player(game, PI);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_D))
+		moved = move_player(game, PI / 2.0);
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
+		moved = move_player(game, -PI / 2.0);
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
 	{
-		move_player(game, PI / 2.0);
+		game->player.angle += ROTATION_FACTOR;
 		moved = true;
 	}
-	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_LEFT))
 	{
-		move_player(game, -PI / 2.0);
+		game->player.angle -= ROTATION_FACTOR;
 		moved = true;
 	}
 	return (moved);
 }
 
-static bool	handle_rotation(t_game *game)
-{
-	bool	rotated;
-
-	rotated = false;
-	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
-	{
-		game->player.angle += ROTATION_FACTOR;
-		rotated = true;
-	}
-	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_LEFT))
-	{
-		game->player.angle -= ROTATION_FACTOR;
-		rotated = true;
-	}
-	return (rotated);
-}
-
 void	manage_key_pressed(void *ptr)
 {
 	t_game	*game;
-	bool	update_needed;
 
 	game = (t_game *)ptr;
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_ESCAPE))
@@ -88,8 +68,7 @@ void	manage_key_pressed(void *ptr)
 		mlx_close_window(game->graphics->mlx);
 		return ;
 	}
-	update_needed = handle_movement(game) || handle_rotation(game);
-	if (update_needed)
+	if (handle_movement(game))
 		render_scene(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);
 }

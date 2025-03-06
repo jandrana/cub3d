@@ -73,7 +73,8 @@ SRC = src/main.c \
 	src/renderer/init_player.c \
 	src/renderer/render_scene.c \
 	src/renderer/calculate_color.c \
-	src/renderer/color_utils.c
+	src/renderer/color_utils.c \
+	src/renderer/minimap.c
 
 OBJECTS = $(SRC:.c=.o)
 
