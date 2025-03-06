@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/05 18:45:58 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:29:42 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	init_graphics(t_game *game)
 		error_exit(game, E_MEM_ALLOC, "graphics structure");
 	game->graphics->mlx = NULL;
 	game->graphics->img = NULL;
+	game->graphics->minimap = NULL;
 	game->graphics->textures[NORTH] = NULL;
 	game->graphics->textures[SOUTH] = NULL;
 	game->graphics->textures[EAST] = NULL;

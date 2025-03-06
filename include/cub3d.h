@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/05 18:46:10 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:32:34 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define PI 3.14159265358979323846
 # define WINDOW_WIDTH 1024
 # define WINDOW_HEIGHT 768
+# define MINI 200
 # define PLAYER_HEIGHT 0.5
 # define FOV (PI / 2.0)
 # define EPSILON 0.0000001
@@ -114,6 +115,7 @@ typedef struct s_graphics
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
+	mlx_image_t		*minimap;
 	mlx_texture_t	*textures[4]; // [NORTH, SOUTH, EAST, WEST]
 }	t_graphics;
 
@@ -179,6 +181,7 @@ void		init_player(t_game *game);
 void		render_scene(t_game *game, unsigned int width, unsigned int height);
 uint32_t 	calculate_color(t_game *game, unsigned int row, unsigned int col);
 uint32_t 	color_to_uint32(t_color color);
+void		draw_minimap(t_game *game);
 
 //                   INIT                    //
 t_game		*init_game(void);
