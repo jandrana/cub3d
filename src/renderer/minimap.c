@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/07 18:29:16 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:29:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ void draw_circle(t_game *game, int pos_x, int pos_y, int radius, uint32_t color)
 		y = radius * sin(angle * PI / 180);
 		mlx_put_pixel(game->graphics->minimap, pos_x + x, pos_y + y, color);
 		i += 0.1;
+	}
+}
+
+void	draw_minimap_tile(mlx_image_t *minimap, int row, int col, uint32_t color)
+{
+	int	x;
+	int	y;
+	int	pixel_x;
+	int	pixel_y;
+	
+	y = 0;
+	while (++y <= TILE_SIZE)
+	{
+		x = 0;
+		while (++x <= TILE_SIZE)
+		{
+			pixel_x = 110 + col * TILE_SIZE + x;
+			pixel_y = 110 + row * TILE_SIZE + y;
+			if (sqrt(pow(CENTER_POS - pixel_x, 2) + pow(CENTER_POS - pixel_y, 2)) < 5 * (TILE_SIZE))
+				mlx_put_pixel(minimap, pixel_y, pixel_x, color);
+		}
 	}
 }
 
