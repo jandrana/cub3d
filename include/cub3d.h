@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/06 21:09:08 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:20:14 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@
 # define PI 3.14159265358979323846
 # define WINDOW_WIDTH 1024
 # define WINDOW_HEIGHT 768
-# define MINI 240
+# define MINI 220
+# define TILE_SIZE 20
+# define CENTER_POS 100
 # define PLAYER_HEIGHT 0.5
 # define FOV (PI / 2.0)
 # define EPSILON 0.0000001
