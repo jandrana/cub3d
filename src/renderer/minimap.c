@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/06 21:14:26 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:28:18 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,66 +19,44 @@ int get_rgba(int r, int g, int b, int a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	draw_minimap_tile(t_game *game, size_t row, size_t col, uint32_t color)
+void draw_circle(t_game *game, int pos_x, int pos_y, int radius, uint32_t color)
 {
-	size_t	x;
-	size_t	y;
+	double	i;
+	double	angle;
+	double	x;
+	double	y;
 
-	col = fabs(col - game->player.x) + 6;
-	row = fabs(row - game->player.y) + 6;
-	x= 0;
-	while (x < 20)
+	i = 0;
+	while (i < 360)
 	{
-		y = 0;
-		while (y < 20)
-		{
-			mlx_put_pixel(game->graphics->minimap, (col * 20) + x , (row * 20) + y, 0x000000);
-			mlx_put_pixel(game->graphics->minimap, (col * 20) + x , (row * 20) + y, color);
-			y++;
-		}
-		x++;
+		angle = i;
+		x = radius * cos(angle * PI / 180);
+		y = radius * sin(angle * PI / 180);
+		mlx_put_pixel(game->graphics->minimap, pos_x + x, pos_y + y, color);
+		i += 0.1;
 	}
 }
 
-/* IN PROGRESS:
-
-CHANGING MINIMAP TO WORK BY PROXIMITY INSTEAD OF THE WHOLE MAP, TAKING
-	PLAYER AS CENTER
-
-	row = game->player.y;
-	col = game->player.x;
-	color = get_rgba(121, 12, 142, 255);
-	draw_minimap_tile(game, row, col, color);
-	row = game->player.y - 6;
-	col = game->player.x - 6;
-
-*/
 void	draw_minimap(t_game *game)
 {
-	(void)game;
-	// uint32_t color;
-	// size_t	row;
-	// size_t	col;
-	// t_map_tile	current;
+	//int	x;
+	//int	y;
+	//uint32_t color;
 
-	// row = 0;
-	// while (row <= game->map->rows)
+	mlx_delete_image(game->graphics->mlx, game->graphics->minimap);
+	game->graphics->minimap = mlx_new_image(game->graphics->mlx, MINI, MINI);
+	draw_circle(game, CENTER_POS, CENTER_POS, CENTER_POS, 0xFFFFFFFF);
+	// y = -6;
+	// while (++y <= 5)
 	// {
-	// 	col = 0;
-	// 	while (col <= game->map->cols)
+	// 	x = -6;
+	// 	while (++x <= 5)
 	// 	{
-	// 		current = game->map->mt[row][col];
-	// 		if (current == WALL)
-	// 			color = get_rgba(121, 12, 142, 255);
-	// 		else if (current == SPACE)
-	// 			color = get_rgba(0, 0, 0, 255);
-	// 		else
-	// 		 	color = get_rgba(255, 255, 255, 255);
-	// 		printf("%c", current);
-	// 		//draw_minimap_tile(game, row, col, color);
-	// 		col++;
+	// 		color = minimap_tile_color(game, y, x);
+	// 		draw_minimap_tile(game->graphics->minimap, y, x, color);
 	// 	}
 	// 	printf("\n");
-	// 	row++;
 	// }
+	// draw_minimap_tile(game->graphics->minimap, 0, 0, 0xFFFF00FF);
+	// Dibujar orientacion (N, S, E, W)
 }
