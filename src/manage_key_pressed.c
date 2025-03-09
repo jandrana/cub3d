@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/09 18:55:29 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/09 19:55:24 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	manage_key_pressed(void *ptr)
 		return ;
 	}
 	if (handle_movement(game))
-		full_render(game, game->graphics->mlx->width,
+		render_scene(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);
 }

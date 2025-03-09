@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 18:56:45 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:14:01 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 #define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
 #define EPSILON 0.0000001
-#define INITIAL_FPS 60
+#define INITIAL_FPS 30
 #define WALK_SPEED 1.5
 #define ROTATION_SPEED 1.5
 #define MOUSE_SENSITIVITY 0.001
@@ -112,6 +112,7 @@ typedef struct s_graphics {
   mlx_t *mlx;
   mlx_image_t *img;
   mlx_image_t *minimap;
+  mlx_image_t *fps;
   mlx_texture_t *textures[4]; // [NORTH, SOUTH, EAST, WEST]
 } t_graphics;
 
@@ -173,9 +174,9 @@ void validate_map(t_game *game);
 //                 RENDERER                  //
 void init_player(t_game *game);
 void render_scene(t_game *game, unsigned int width, unsigned int height);
-void full_render(t_game *game, unsigned int width, unsigned int height);
 uint32_t calculate_color(t_game *game, unsigned int row, unsigned int col);
 uint32_t color_to_uint32(t_color color);
+void format_fps(char *dest, size_t size, double fps);
 void draw_minimap(t_game *game);
 
 //                   INIT                    //
