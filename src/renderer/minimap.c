@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/07 18:29:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/09 19:47:03 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,7 @@ void	draw_minimap(t_game *game)
 	// }
 	// draw_minimap_tile(game->graphics->minimap, 0, 0, 0xFFFF00FF);
 	// Dibujar orientacion (N, S, E, W)
+	if (mlx_image_to_window(game->graphics->mlx, game->graphics->minimap, 0, 0) == -1)
+		error_exit(game, E_MLX_IMAGE2WIN);
+	game->graphics->minimap->instances[0].z = 1;
 }

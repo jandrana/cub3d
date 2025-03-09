@@ -74,6 +74,7 @@ SRC = src/main.c \
 	src/renderer/render_scene.c \
 	src/renderer/calculate_color.c \
 	src/renderer/color_utils.c \
+	src/renderer/format_fps.c \
 	src/renderer/minimap.c
 
 OBJECTS = $(SRC:.c=.o)
@@ -133,7 +134,6 @@ $(NAME) : $(OBJECTS)
 clean :
 	@echo "$(RED)$(BOLD)  CLEANING...$(END)"
 	@$(RM) $(OBJECTS)
-	@echo  "$(RED)  ✓  Removed $(NAME) objects$(END)"
 	@make clean -s -C $(LIBFT)
 	@echo  "$(RED)  ✓  Removed library objects$(END)"
 

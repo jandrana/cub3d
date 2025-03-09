@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/06 19:30:36 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/09 19:21:41 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	end_mlx(t_graphics *graphics)
 		mlx_delete_image(graphics->mlx, graphics->img);
 	if (graphics->minimap)
 		mlx_delete_image(graphics->mlx, graphics->minimap);
+	if (graphics->fps)
+		mlx_delete_image(graphics->mlx, graphics->fps);
 	if (graphics->mlx)
 		mlx_terminate(graphics->mlx);
 	free(graphics);
