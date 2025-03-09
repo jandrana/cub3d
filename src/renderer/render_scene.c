@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/06 21:09:46 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:54:35 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,19 @@ void	render_scene(t_game *game, unsigned int width, unsigned int height)
 	game->graphics->img = img;
 	if (mlx_image_to_window(game->graphics->mlx, img, 0, 0) == -1)
 		error_exit(game, E_MLX_IMAGE2WIN);
-	draw_minimap(game);
 	img = game->graphics->minimap;
 	if (mlx_image_to_window(game->graphics->mlx, img, 0, 0) == -1)
 		error_exit(game, E_MLX_IMAGE2WIN);
+}
+
+void	full_render(t_game *game, unsigned int width, unsigned int height)
+{
+	double	current_time;
+	double	delta;
+
+	current_time = mlx_get_time();
+	render_scene(game, width, height);
+	draw_minimap(game);
+	delta = mlx_get_time() - current_time;
+	game->fps = 0.9 * game->fps + 0.1 * (1.0 / delta);
 }

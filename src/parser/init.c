@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/06 19:29:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:56:27 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_game	*init_game(void)
 	game->graphics = NULL;
 	game->parser_state = NULL;
 	game->parser_temp = NULL;
+	game->fps = INITIAL_FPS;
 	init_map(game);
 	init_graphics(game);
 	init_parser_state(game);
