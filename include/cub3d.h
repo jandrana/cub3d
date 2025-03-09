@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 20:14:01 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:32:05 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 #define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
 #define EPSILON 0.0000001
-#define INITIAL_FPS 30
+#define INITIAL_FPS 20
 #define WALK_SPEED 1.5
 #define ROTATION_SPEED 1.5
 #define MOUSE_SENSITIVITY 0.001
