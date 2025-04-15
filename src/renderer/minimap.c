@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 19:47:03 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:45:36 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,15 @@ void	draw_minimap(t_game *game)
 	//int	y;
 	//uint32_t color;
 
-	mlx_delete_image(game->graphics->mlx, game->graphics->minimap);
-	game->graphics->minimap = mlx_new_image(game->graphics->mlx, MINI, MINI);
+	if (!game->graphics->minimap)
+	{
+		game->graphics->minimap = mlx_new_image(game->graphics->mlx, MINI, MINI);
+		if (!game->graphics->minimap)
+			error_exit(game, E_MLX_IMAGE);
+		if (mlx_image_to_window(game->graphics->mlx, game->graphics->minimap, 0, 0) == -1)
+			error_exit(game, E_MLX_IMAGE2WIN);
+		game->graphics->minimap->instances[0].z = 1;
+	}
 	draw_circle(game, CENTER_POS, CENTER_POS, CENTER_POS, 0xFFFFFFFF);
 	// y = -6;
 	// while (++y <= 5)
@@ -106,7 +113,4 @@ void	draw_minimap(t_game *game)
 	// }
 	// draw_minimap_tile(game->graphics->minimap, 0, 0, 0xFFFF00FF);
 	// Dibujar orientacion (N, S, E, W)
-	if (mlx_image_to_window(game->graphics->mlx, game->graphics->minimap, 0, 0) == -1)
-		error_exit(game, E_MLX_IMAGE2WIN);
-	game->graphics->minimap->instances[0].z = 1;
 }

@@ -73,6 +73,7 @@ SRC = src/main.c \
 	src/renderer/init_player.c \
 	src/renderer/render_scene.c \
 	src/renderer/calculate_color.c \
+	src/renderer/find_wall_hit.c \
 	src/renderer/color_utils.c \
 	src/renderer/format_fps.c \
 	src/renderer/minimap.c

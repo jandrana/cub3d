@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 18:56:27 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:58:24 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	init_map(t_game *game)
 	game->map->cols = 0;
 	game->map->mt = NULL;
 	game->player = (t_player){-1, -1, 0};
-	game->map->floor_color = (t_color){0, 0, 0};
-	game->map->ceiling_color = (t_color){0, 0, 0};
+	game->map->floor_color = (t_color){0, 0, 0, 0};
+	game->map->ceiling_color = (t_color){0, 0, 0, 0};
 }
 
 static void	init_graphics(t_game *game)
