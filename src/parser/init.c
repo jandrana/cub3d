@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 14:58:24 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:58:01 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_game	*init_game(void)
 	game->parser_state = NULL;
 	game->parser_temp = NULL;
 	game->fps = INITIAL_FPS;
+	game->cursor_locked = true;
 	init_map(game);
 	init_graphics(game);
 	init_parser_state(game);

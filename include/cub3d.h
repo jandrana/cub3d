@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 15:00:27 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:54:42 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 #define INITIAL_FPS 20
 #define WALK_SPEED 1.5
 #define ROTATION_SPEED 1.5
-#define MOUSE_SENSITIVITY 0.001
+#define MOUSE_SENSITIVITY 0.02
 
 // ------------------- ENUMS ------------------- //
 
@@ -123,38 +123,31 @@ typedef struct s_parser_state {
   bool ceiling_color;
 } t_parser_state;
 
-typedef struct s_cursor {
-  int32_t last_cursor_x;
-  int32_t last_cursor_y;
-} t_cursor;
-
 typedef struct s_game {
   t_map *map;
   t_player player;
   t_graphics *graphics;
   t_parser_state *parser_state;
-  t_cursor cursor;
   char **parser_temp;
   double fps;
+  bool cursor_locked;
 } t_game;
 
 // ------------------- calculate_color STRUCTURES ------------------- //
 
-typedef struct s_wall_hit
-{
-	t_direction		direction;
-	double			position[2];
-}					t_wall_hit;
+typedef struct s_wall_hit {
+  t_direction direction;
+  double position[2];
+} t_wall_hit;
 
-typedef struct s_wall_info
-{
-	t_wall_hit		hit;
-	double			height;
-	double			top;
-	double			bottom;
-	double			distance;
-	mlx_texture_t	*texture;
-}					t_wall_info;
+typedef struct s_wall_info {
+  t_wall_hit hit;
+  double height;
+  double top;
+  double bottom;
+  double distance;
+  mlx_texture_t *texture;
+} t_wall_info;
 
 // ------------------------------------------------------ //
 //                     MAIN FUNCTIONS                     //
@@ -194,8 +187,8 @@ void validate_map(t_game *game);
 void init_player(t_game *game);
 void render_scene(t_game *game, unsigned int width, unsigned int height);
 uint32_t calculate_color(t_game *game, unsigned int row, unsigned int col);
-t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt, 
-                          double ray_direction[2]);
+t_wall_hit find_wall_hit(t_game *game, t_map_tile **mt,
+                         double ray_direction[2]);
 uint32_t color_to_uint32(t_color color);
 void format_fps(char *dest, size_t size, double fps);
 void draw_minimap(t_game *game);
@@ -215,9 +208,7 @@ void print_map(t_game *game);
 int print_row(t_game *game, size_t row);
 
 //					INPUT				     //
-void manage_key_pressed(void *ptr);
-void manage_mouse(mouse_key_t button, action_t action, modifier_key_t mods,
-                  void *ptr);
+void manage_input(void *ptr);
 void manage_resize(int32_t width, int32_t height, void *ptr);
 
 #endif /* CUB3D_H */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_key_pressed.c                               :+:      :+:    :+:   */
+/*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/09 19:55:24 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:55:07 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,54 @@ static bool	move_player(t_game *game, double angle_offset)
 	return (true);
 }
 
-static bool	handle_movement(t_game *game)
+static void	handle_movement(t_game *game, bool *moved)
 {
-	bool	moved;
-
-	moved = false;
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_W))
-		moved = move_player(game, 0);
+		*moved = move_player(game, 0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_S))
-		moved = move_player(game, PI);
+		*moved = move_player(game, PI);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_D))
-		moved = move_player(game, PI / 2.0);
+		*moved = move_player(game, PI / 2.0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
-		moved = move_player(game, -PI / 2.0);
+		*moved = move_player(game, -PI / 2.0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
 	{
 		game->player.angle += ROTATION_SPEED / game->fps;
-		moved = true;
+		*moved = true;
 	}
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_LEFT))
 	{
 		game->player.angle -= ROTATION_SPEED / game->fps;
-		moved = true;
+		*moved = true;
 	}
-	return (moved);
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_Q))
+	{
+		game->cursor_locked = false;
+		mlx_set_cursor_mode(game->graphics->mlx, MLX_MOUSE_NORMAL);
+	}
 }
 
-void	manage_key_pressed(void *ptr)
+void	handle_cursor_movement(t_game *game, bool *moved)
+{
+	int32_t	mouse_x;
+	int32_t	mouse_y;
+	double	delta_x;
+
+	mlx_get_mouse_pos(game->graphics->mlx, &mouse_x, &mouse_y);
+	if (mouse_x != game->graphics->mlx->width / 2)
+	{
+		delta_x = (mouse_x - game->graphics->mlx->width / 2);
+		game->player.angle += delta_x * MOUSE_SENSITIVITY / game->fps;
+		*moved = true;
+	}
+	mlx_set_mouse_pos(game->graphics->mlx, game->graphics->mlx->width / 2,
+		game->graphics->mlx->height / 2);
+}
+
+void	manage_input(void *ptr)
 {
 	t_game	*game;
+	bool	moved;
 
 	game = (t_game *)ptr;
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_ESCAPE))
@@ -68,7 +87,11 @@ void	manage_key_pressed(void *ptr)
 		mlx_close_window(game->graphics->mlx);
 		return ;
 	}
-	if (handle_movement(game))
+	moved = false;
+	handle_movement(game, &moved);
+	if (game->cursor_locked)
+		handle_cursor_movement(game, &moved);
+	if (moved)
 		render_scene(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);
 }
