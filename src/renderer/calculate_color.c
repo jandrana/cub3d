@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/04/15 13:15:38 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:03:53 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 	int					tex_x;
 	int					tex_y;
 	double				screen_y_proportion;
-	unsigned long long	index_in_pixels;
+	unsigned long		byte_index;
 
 	if (wall->hit.direction == NORTH || wall->hit.direction == SOUTH)
 		wall_x_fraction = wall->hit.position[0] - floor(wall->hit.position[0]);
@@ -43,8 +43,8 @@ uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 	tex_x = (int)(wall_x_fraction * wall->texture->width);
 	screen_y_proportion = (double)(row - wall->top) / wall->height;
 	tex_y = (int)(screen_y_proportion * wall->texture->height);
-	index_in_pixels = (unsigned long long)tex_y * wall->texture->width + tex_x;
-	return (((uint32_t *)wall->texture->pixels)[index_in_pixels]);
+	byte_index = ((unsigned long)tex_y * wall->texture->width + tex_x) * 4;
+	return (color_to_uint32(*(t_color *)&wall->texture->pixels[byte_index]));
 }
 
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
