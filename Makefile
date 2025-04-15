@@ -57,9 +57,8 @@ RM = rm -rf
 
 SRC = src/main.c \
 	src/error_handler.c \
-	src/manage_key_pressed.c \
+	src/manage_input.c \
 	src/manage_resize.c \
-	src/manage_mouse.c \
 	src/parser/init.c \
 	src/parser/parser.c \
 	src/parser/file.c \
