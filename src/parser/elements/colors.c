@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/05 18:45:52 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:08:42 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	parse_color_line(t_game *game, char *line)
 	identifier = content[0];
 	if (!content[1])
 		error_exit(game, E_COLOR_MISSING, identifier);
-	if (ft_strncmp(identifier, "F", 2) && !check_color_dup(game, 'F'))
+	if (ft_strncmp(identifier, "F", 2) == 0 && !check_color_dup(game, 'F'))
 		game->map->floor_color = parse_color(game, content[1], identifier);
-	else if (ft_strncmp(identifier, "C", 2) && !check_color_dup(game, 'C'))
+	else if (ft_strncmp(identifier, "C", 2) == 0 && !check_color_dup(game, 'C'))
 		game->map->ceiling_color = parse_color(game, content[1], identifier);
 	else
 		error_exit(game, "Invalid Identifier", identifier);
