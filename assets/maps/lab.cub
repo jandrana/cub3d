@@ -4,7 +4,7 @@ WE ./assets/textures/lab_west.png
 EA ./assets/textures/lab_east.png
 
 F 30,20,40
-C 0,255,255
+C 0,0,0
 
         1111111111111111111111111
         1000000000110000000000001
