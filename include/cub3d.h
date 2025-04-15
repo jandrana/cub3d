@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 20:32:05 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:11:47 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,24 @@ typedef struct s_game {
   double fps;
 } t_game;
 
+// ------------------- calculate_color STRUCTURES ------------------- //
+
+typedef struct s_wall_hit
+{
+	t_direction		direction;
+	double			position[2];
+}					t_wall_hit;
+
+typedef struct s_wall_info
+{
+	t_wall_hit		hit;
+	double			height;
+	double			top;
+	double			bottom;
+	double			distance;
+	mlx_texture_t	*texture;
+}					t_wall_info;
+
 // ------------------------------------------------------ //
 //                     MAIN FUNCTIONS                     //
 // ------------------------------------------------------ //
@@ -175,6 +193,8 @@ void validate_map(t_game *game);
 void init_player(t_game *game);
 void render_scene(t_game *game, unsigned int width, unsigned int height);
 uint32_t calculate_color(t_game *game, unsigned int row, unsigned int col);
+t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt, 
+                          double ray_direction[2]);
 uint32_t color_to_uint32(t_color color);
 void format_fps(char *dest, size_t size, double fps);
 void draw_minimap(t_game *game);
