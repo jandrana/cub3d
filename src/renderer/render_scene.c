@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/09 20:23:23 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:46:29 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 static void	draw_scene(t_game *game, unsigned int width, unsigned int height)
 {
-	mlx_image_t		*img;
 	unsigned int	row;
 	unsigned int	col;
 
-	img = mlx_new_image(game->graphics->mlx, width, height);
-	if (!img)
-		error_exit(game, E_MLX_IMAGE);
+	if (!game->graphics->img)
+	{
+		game->graphics->img = mlx_new_image(game->graphics->mlx, width, height);
+		if (!game->graphics->img)
+			error_exit(game, E_MLX_IMAGE);
+		if (mlx_image_to_window(game->graphics->mlx, game->graphics->img, 0,
+				0) == -1)
+			error_exit(game, E_MLX_IMAGE2WIN);
+		game->graphics->img->instances[0].z = 0;
+	}
 	row = 0;
 	while (row < height)
 	{
 		col = 0;
 		while (col < width)
 		{
-			mlx_put_pixel(img, col, row, calculate_color(game, row, col));
+			mlx_put_pixel(game->graphics->img, col, row, calculate_color(game,
+					row, col));
 			col++;
 		}
 		row++;
 	}
-	mlx_delete_image(game->graphics->mlx, game->graphics->img);
-	game->graphics->img = img;
-	if (mlx_image_to_window(game->graphics->mlx, img, 0, 0) == -1)
-		error_exit(game, E_MLX_IMAGE2WIN);
 }
 
 static void	display_fps(t_game *game, unsigned int width, unsigned int height)
@@ -48,12 +51,16 @@ static void	display_fps(t_game *game, unsigned int width, unsigned int height)
 			0.05 * height);
 	if (!fps_img)
 		error_exit(game, E_MLX_IMAGE);
-	mlx_delete_image(game->graphics->mlx, game->graphics->fps);
+	if (!game->graphics->fps)
+	{
+		if (mlx_image_to_window(game->graphics->mlx, fps_img, 0.85 * width, 0.05
+				* height) == -1)
+			error_exit(game, E_MLX_IMAGE2WIN);
+		fps_img->instances[0].z = 2;
+	}
+	else
+		mlx_delete_image(game->graphics->mlx, game->graphics->fps);
 	game->graphics->fps = fps_img;
-	if (mlx_image_to_window(game->graphics->mlx, fps_img, 0.85 * width, 
-			0.05 * height) == -1)
-		error_exit(game, E_MLX_IMAGE2WIN);
-	fps_img->instances[0].z = 1;
 }
 
 void	render_scene(t_game *game, unsigned int width, unsigned int height)
