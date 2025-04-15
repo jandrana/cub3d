@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:26:31 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/03/02 17:19:23 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:34:04 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 uint32_t	color_to_uint32(t_color color)
 {
-	return ((255 << 24) | (color.r << 16) | (color.g << 8) | color.b);
+	return ((color.r << 24) | (color.g << 16) | (color.b << 8) | 255);
 }
