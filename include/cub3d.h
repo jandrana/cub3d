@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 13:11:47 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:57:49 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ typedef enum e_line_type {
 // ------------------- STRUCTURES ------------------- //
 
 typedef struct s_color {
-  int r;
-  int g;
-  int b;
+  unsigned int r;
+  unsigned int g;
+  unsigned int b;
+  unsigned int a;
 } t_color;
 
 typedef struct s_player {
