@@ -58,8 +58,10 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 #define MINI 220
+#define MINI_R 100
+#define VISION_R 100
 #define TILE_SIZE 20
-#define CENTER_POS 100
+#define ORIG 100
 #define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
 #define EPSILON 0.0000001
