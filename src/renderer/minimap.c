@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 16:45:36 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:22:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ int get_rgba(int r, int g, int b, int a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void draw_circle(t_game *game, int pos_x, int pos_y, int radius, uint32_t color)
+void draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color, int w)
 {
-	double	i;
 	double	angle;
 	double	x;
 	double	y;
 
-	i = 0;
-	while (i < 360)
+	angle = 0;
+	while (angle < 360)
 	{
-		angle = i;
-		x = radius * cos(angle * PI / 180);
-		y = radius * sin(angle * PI / 180);
-		mlx_put_pixel(game->graphics->minimap, pos_x + x, pos_y + y, color);
-		i += 0.1;
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		mlx_put_pixel(img, pos[0] + x, pos[1] + y, color);
+		angle += 0.1;
 	}
+	while (w > 0 && w--)
+		draw_circle(img, pos, radius + 1, color, w);
 }
 
 void	draw_minimap_tile(mlx_image_t *minimap, int row, int col, uint32_t color)
