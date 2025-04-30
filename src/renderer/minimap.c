@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/30 20:22:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:29:20 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,80 +37,80 @@ void draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color, int 
 		draw_circle(img, pos, radius + 1, color, w);
 }
 
-void	draw_minimap_tile(mlx_image_t *minimap, int row, int col, uint32_t color)
+/*
+void	draw_cardinal_points(t_game	*game)
 {
-	int	x;
-	int	y;
-	int	pixel_x;
-	int	pixel_y;
-	
-	y = 0;
-	while (++y <= TILE_SIZE)
+	draw_circle(game->graphics->img, (double[]){120, 18}, 0, U_RED, 13); // 20-(8/2)=16
+	mlx_put_string(game->graphics->mlx, "N", 115, 8);
+	draw_circle(game->graphics->img, (double[]){16, 120}, 0, U_RED, 13);
+	mlx_put_string(game->graphics->mlx, "W", 10, 110);
+	draw_circle(game->graphics->img, (double[]){120, 225}, 0, U_RED, 13);
+	mlx_put_string(game->graphics->mlx, "S", 115, 215);
+	draw_circle(game->graphics->img, (double[]){221, 120}, 0, U_RED, 13);
+	mlx_put_string(game->graphics->mlx, "E", 217, 110);
+}
+*/
+
+/*
+distance = sqrt((x1 - x2)^2 + (y1 - y2)^2)
+Comparison:
+	Inside: distance < r
+	circle: distance > r
+*/
+void	draw_tile(t_game *game, double *pos, uint32_t color)
+{
+	double	pixel[2];
+	double	center;
+	double	r;
+		
+	center = 120;
+	r = 5;
+	pixel[0] = center + pos[0] * TILE_SIZE;
+	pixel[1] = center + pos[1] * TILE_SIZE;
+	if (pixel[0] >= 21 && pixel[0] < 219 && pixel[1] >= 21 && pixel[1] < 219)
 	{
-		x = 0;
-		while (++x <= TILE_SIZE)
+		if (sqrt(pow(center - pixel[0], 2) + pow(center - pixel[1], 2)) <= r
+			* TILE_SIZE)
 		{
-			pixel_x = 110 + col * TILE_SIZE + x;
-			pixel_y = 110 + row * TILE_SIZE + y;
-			if (sqrt(pow(CENTER_POS - pixel_x, 2) + pow(CENTER_POS - pixel_y, 2)) < 5 * (TILE_SIZE))
-				mlx_put_pixel(minimap, pixel_y, pixel_x, color);
+			mlx_put_pixel(game->graphics->img, pixel[0], pixel[1], color);
+			mlx_put_pixel(game->graphics->img, pixel[0] + 1, pixel[1], color);
+			mlx_put_pixel(game->graphics->img, pixel[0], pixel[1] + 1, color);
+			mlx_put_pixel(game->graphics->img, pixel[0] + 1, pixel[1] + 1, color);
 		}
 	}
 }
 
-uint32_t	minimap_tile_color(t_game *game, int y, int x)
+void	draw_tiles(t_game *game)
 {
-	double	rot_x;
-	double	rot_y;
-	double	map_x;
-	double	map_y;
-	uint32_t color;
-	
-	rot_x = cos(game->player.angle) * x - sin(game->player.angle) * y;
-	rot_y = sin(game->player.angle) * x + cos(game->player.angle) * y;
-	map_x = game->player.x + rot_x;
-	map_y = game->player.y + rot_y;
-	color = 0x808080FF;
-	if ((size_t)map_x <= game->map->cols
-		&& (size_t)map_y <= game->map->rows)
+	double		rel_pos[2];
+	double		abs_pos[2];
+	uint32_t	color;
+
+	rel_pos[1] = -6;
+	while(rel_pos[1] <= 5)
 	{
-		if (game->map->mt[(int)map_y][(int)map_x] == WALL && printf("1"))
-			color = 0xFF00FFFF; // pink
-		else if (game->map->mt[(int)map_y][(int)map_x] != SPACE && printf("0"))
-			color = 0x00FF00FF; // green
+		rel_pos[0] = -6;
+		while(rel_pos[0] <= 5)
+		{
+			abs_pos[0] = floor(game->player.x + rel_pos[0]);
+			abs_pos[1] = floor(game->player.y + rel_pos[1]);
+			color = 0x606060FF;
+			if (abs_pos[0] >= 0 && abs_pos[0] < game->map->cols
+				&& abs_pos[1] >= 0 && abs_pos[1] <= game->map->rows)
+			{
+				if (game->map->mt[(int)abs_pos[1]][(int)abs_pos[0]] == EMPTY)
+					color = 0x303030FF;
+			}
+			draw_tile(game, rel_pos, color);
+			rel_pos[0] += 0.1;
+		}
+		rel_pos[1] += 0.1;
 	}
-	else
-		printf(" ");
-	return (color);
 }
 
 void	draw_minimap(t_game *game)
 {
-	//int	x;
-	//int	y;
-	//uint32_t color;
-
-	if (!game->graphics->minimap)
-	{
-		game->graphics->minimap = mlx_new_image(game->graphics->mlx, MINI, MINI);
-		if (!game->graphics->minimap)
-			error_exit(game, E_MLX_IMAGE);
-		if (mlx_image_to_window(game->graphics->mlx, game->graphics->minimap, 0, 0) == -1)
-			error_exit(game, E_MLX_IMAGE2WIN);
-		game->graphics->minimap->instances[0].z = 1;
-	}
-	draw_circle(game, CENTER_POS, CENTER_POS, CENTER_POS, 0xFFFFFFFF);
-	// y = -6;
-	// while (++y <= 5)
-	// {
-	// 	x = -6;
-	// 	while (++x <= 5)
-	// 	{
-	// 		color = minimap_tile_color(game, y, x);
-	// 		draw_minimap_tile(game->graphics->minimap, y, x, color);
-	// 	}
-	// 	printf("\n");
-	// }
-	// draw_minimap_tile(game->graphics->minimap, 0, 0, 0xFFFF00FF);
-	// Dibujar orientacion (N, S, E, W)
+	draw_circle(game->graphics->img, (double[]){120, 120}, MINI_R, U_CLEAR, 5);
+	draw_tiles(game);
+	draw_circle(game->graphics->img, (double[]){120, 120}, 0, U_RED, 3);
 }
