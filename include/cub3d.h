@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 17:54:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:55:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@
 #define YELLOW "\033[33m"
 #define MAGENTA "\033[35m"
 #define TURQUOISE "\033[36m"
+
+// ------------------ U_INT COLORS ------------------ //
+
+#define U_WHITE 0xFFFFFFFF
+#define U_PINK 0xFF00FFFF
+#define U_GREEN 0x00FF00FF
+#define U_RED 0xFF0000FF
+#define U_GREY 0x808080FF
+#define U_BLACK 0x424242FF
+#define U_CLEAR 0x00000000
 
 // ------------------ PARSER MACROS ------------------ //
 
