@@ -6,18 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/30 20:33:04 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:36:45 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include <cub3d.h>
 #include <stddef.h>
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
 
 void draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color, int w)
 {
