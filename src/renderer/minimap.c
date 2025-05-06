@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/30 20:36:45 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:12:03 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <cub3d.h>
 #include <stddef.h>
 
-void draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color, int w)
+void	draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color,
+		int w)
 {
 	double	angle;
 	double	x;
@@ -32,21 +33,54 @@ void draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color, int 
 		draw_circle(img, pos, radius + 1, color, w);
 }
 
-bool	pixel_on_wall(t_game *game, double center, double x, double y)
+double	*get_absolute_px(t_game *game, double center, double x, double y)
 {
-	double	abs_pos[2];
-	char	type;
+	double	*abs_pos;
 
+	abs_pos = (double *)malloc(sizeof(double) * 2);
 	abs_pos[0] = game->player.x + (x - center) / TILE_SIZE;
 	abs_pos[1] = game->player.y + (y - center) / TILE_SIZE;
-	if (abs_pos[0] >= 0 && abs_pos[0] < game->map->cols
-		&& abs_pos[1] >= 0 && abs_pos[1] <= game->map->rows)
+	return (abs_pos);
+}
+
+char	get_tile_pos_type(t_map *map, double *pos)
+{
+	char	type;
+
+	if (pos[0] >= 0 && pos[0] < map->cols && pos[1] >= 0 && pos[1] <= map->rows)
 	{
-		type = game->map->mt[(int)abs_pos[1]][(int)abs_pos[0]];
-		if (type != WALL && type != SPACE)
-			return (false);
+		type = map->mt[(int)pos[1]][(int)pos[0]];
+		return (type);
 	}
+	return (SPACE);
+}
+
+bool	pixel_on_wall(t_game *game, double center, double x, double y)
+{
+	double	*pos;
+	char	type;
+
+	pos = get_absolute_px(game, center, x, y);
+	type = get_tile_pos_type(game->map, pos);
+	free(pos);
+	if (type != WALL && type != SPACE)
+		return (false);
 	return (true);
+}
+
+bool	in_player_row_column(t_game *game, double center, double x, double y)
+{
+	double	*pos;
+	double	x_diff;
+	double	y_diff;
+
+	pos = get_absolute_px(game, center, x, y);
+	x_diff = floor(pos[0]) - floor(game->player.x);
+	y_diff = floor(pos[1]) - floor(game->player.y);
+	free(pos);
+	if (x_diff == 0 || y_diff == 0)
+		return (true);
+	return (false);
 }
 
 bool	vision_hits_wall(t_game *game, double center, double *pos)
@@ -56,12 +90,14 @@ bool	vision_hits_wall(t_game *game, double center, double *pos)
 
 	x = pos[0];
 	y = pos[1];
-	if (!pixel_on_wall(game, center, x, y)
-		&& !pixel_on_wall(game, center, x + 1, y)
-		&& !pixel_on_wall(game, center, x, y + 1)
-		&& !pixel_on_wall(game, center, x + 1, y + 1))
-		return (false);
-	return (true);
+	if (pixel_on_wall(game, center, x, y))
+		return (true);
+	if ((pixel_on_wall(game, center, x + 1, y) 
+		|| pixel_on_wall(game, center, x, y + 1) 
+		|| pixel_on_wall(game, center, x + 1, y + 1))
+		&& !in_player_row_column(game, center, x, y))
+		return (true);
+	return (false);
 }
 
 void	draw_vision(t_game *game, double center, double r_len)
@@ -73,7 +109,7 @@ void	draw_vision(t_game *game, double center, double r_len)
 
 	center = 120;
 	angle = -FOV / 2;
-	while (angle <= FOV / 2 )
+	while (angle <= FOV / 2)
 	{
 		hit = false;
 		r = 0;
@@ -95,14 +131,14 @@ void	draw_vision(t_game *game, double center, double r_len)
 distance = sqrt((x1 - x2)^2 + (y1 - y2)^2)
 Comparison:
 	Inside: distance < r
-	circle: distance > r
+	Outside: distance > r
 */
 void	draw_tile(t_game *game, double *pos, uint32_t color)
 {
 	double	pixel[2];
 	double	center;
 	double	r;
-		
+
 	center = 120;
 	r = 5;
 	pixel[0] = center + pos[0] * TILE_SIZE;
@@ -115,60 +151,131 @@ void	draw_tile(t_game *game, double *pos, uint32_t color)
 			mlx_put_pixel(game->graphics->img, pixel[0], pixel[1], color);
 			mlx_put_pixel(game->graphics->img, pixel[0] + 1, pixel[1], color);
 			mlx_put_pixel(game->graphics->img, pixel[0], pixel[1] + 1, color);
-			mlx_put_pixel(game->graphics->img, pixel[0] + 1, pixel[1] + 1, color);
+			mlx_put_pixel(game->graphics->img, pixel[0] + 1, pixel[1] + 1,
+				color);
 		}
 	}
 }
 
-void	draw_tiles(t_game *game)
+t_mini_item	*last_mini_item(t_mini_item *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	add_minimap_items(t_game *g, t_mini_item **map_items, double *rel_pos)
+{
+	t_mini_item	*new_item;
+	t_mini_item	*last_item;
+
+	new_item = (t_mini_item *)malloc(sizeof(t_mini_item));
+	if (!new_item)
+		error_exit(g, E_MEM_ALLOC, "minimap item list");
+	new_item->rel_x = rel_pos[0];
+	new_item->rel_y = rel_pos[1];
+	new_item->next = NULL;
+	if (!(*map_items))
+		*map_items = new_item;
+	else
+	{
+		last_item = last_mini_item(*map_items);
+		last_item->next = new_item;
+	}
+	
+}
+
+void	draw_tiles(t_game *game, t_mini_item **map_items)
 {
 	double		rel_pos[2];
 	double		abs_pos[2];
-	uint32_t	color;
 
 	rel_pos[1] = -6;
-	while(rel_pos[1] <= 5)
+	while (rel_pos[1] <= 5)
 	{
 		rel_pos[0] = -6;
-		while(rel_pos[0] <= 5)
+		while (rel_pos[0] <= 5)
 		{
 			abs_pos[0] = floor(game->player.x + rel_pos[0]);
 			abs_pos[1] = floor(game->player.y + rel_pos[1]);
-			color = 0x606060FF;
-			if (abs_pos[0] >= 0 && abs_pos[0] < game->map->cols
-				&& abs_pos[1] >= 0 && abs_pos[1] <= game->map->rows)
-			{
-				if (game->map->mt[(int)abs_pos[1]][(int)abs_pos[0]] == EMPTY)
-					color = 0x303030FF;
-			}
-			draw_tile(game, rel_pos, color);
+			if (get_tile_pos_type(game->map, abs_pos) == EMPTY
+				|| get_tile_pos_type(game->map, abs_pos) == ITEM)
+				draw_tile(game, rel_pos, 0x303030FF);
+			else
+				draw_tile(game, rel_pos, 0x606060FF);
+			if (get_tile_pos_type(game->map, abs_pos) == ITEM
+				&& fabs(rel_pos[0] - floor(rel_pos[0])) > 0.9999
+				&& fabs(rel_pos[1] - floor(rel_pos[1])) > 0.9999)
+				add_minimap_items(game, map_items, rel_pos);
 			rel_pos[0] += 0.1;
 		}
 		rel_pos[1] += 0.1;
 	}
 }
 
+void	draw_items(t_game *game, t_mini_item *map_items)
+{
+	double	pos[2];
+	int		i = 0;
+
+	if (!map_items)
+		return ;
+	while (map_items && ++i)
+	{
+		pos[0] = 120 + map_items->rel_x * TILE_SIZE;
+		pos[1] = 120 + map_items->rel_y * TILE_SIZE;
+		if (sqrt(pow(120 - pos[0], 2) + pow(120 - pos[1], 2)) <= 5
+			* TILE_SIZE - 5)
+		{
+			pos[0] -= fmod(game->player.x * TILE_SIZE, TILE_SIZE) - 10;
+			pos[1] -= fmod(game->player.y * TILE_SIZE, TILE_SIZE) - 10;
+			draw_circle(game->graphics->img, pos, 0, U_PINK, 5);
+		}
+		map_items = map_items->next;
+	}
+}
+
+void	clear_map_items(t_mini_item **lst)
+{
+	t_mini_item	*current;
+
+	current = *lst;
+	while (current)
+	{
+		*lst = current->next;
+		free(current);
+		current = *lst;
+	}
+}
+
 void	draw_minimap(t_game *game)
 {
+	t_mini_item	*map_items;
+
+	map_items = NULL;
 	draw_circle(game->graphics->img, (double[]){120, 120}, MINI_R, U_CLEAR, 5);
-	draw_tiles(game);
+	draw_tiles(game, &map_items);
 	draw_vision(game, 120, VISION_R);
+	draw_items(game, map_items);
+	clear_map_items(&map_items);
 	draw_circle(game->graphics->img, (double[]){120, 120}, 0, U_RED, 3);
 }
 
 /*
 TODO: cardinal points draw (only once)
 
-void	draw_cardinal_points(t_game	*game)
+void	draw_cardinal_points(t_game *game)
 {
-	draw_circle(game->graphics->img, (double[]){120, 18}, 0, U_RED, 13); // 20-(8/2)=16
-	mlx_put_string(game->graphics->mlx, "N", 115, 8);
-	draw_circle(game->graphics->img, (double[]){16, 120}, 0, U_RED, 13);
-	mlx_put_string(game->graphics->mlx, "W", 10, 110);
-	draw_circle(game->graphics->img, (double[]){120, 225}, 0, U_RED, 13);
-	mlx_put_string(game->graphics->mlx, "S", 115, 215);
-	draw_circle(game->graphics->img, (double[]){221, 120}, 0, U_RED, 13);
-	mlx_put_string(game->graphics->mlx, "E", 217, 110);
+draw_circle(game->graphics->img, (double[]){120, 18}, 0, U_RED, 13);
+// 20-(8/2)=16
+mlx_put_string(game->graphics->mlx, "N", 115, 8);
+draw_circle(game->graphics->img, (double[]){16, 120}, 0, U_RED, 13);
+mlx_put_string(game->graphics->mlx, "W", 10, 110);
+draw_circle(game->graphics->img, (double[]){120, 225}, 0, U_RED, 13);
+mlx_put_string(game->graphics->mlx, "S", 115, 215);
+draw_circle(game->graphics->img, (double[]){221, 120}, 0, U_RED, 13);
+mlx_put_string(game->graphics->mlx, "E", 217, 110);
 }
-
 */
