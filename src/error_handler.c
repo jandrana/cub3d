@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/09 19:21:41 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/01 20:57:47 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	free_map(t_map	*map)
 		return ;
 	while (map->mt && ++i <= (int)map->rows)
 		free(map->mt[i]);
+	if (map->items)
+		free(map->items);
 	free(map->mt);
 	free(map);
 }
