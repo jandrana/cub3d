@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/05 17:45:01 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:29:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,6 @@ static void	init_graphics(t_game *game)
 	game->graphics->textures_lst[EAST] = NULL;
 	game->graphics->textures_lst[WEST] = NULL;
 	game->graphics->textures_lst[4] = NULL;
-	game->graphics->textures_cpy[NORTH] = NULL;
-	game->graphics->textures_cpy[SOUTH] = NULL;
-	game->graphics->textures_cpy[EAST] = NULL;
-	game->graphics->textures_cpy[WEST] = NULL;
-	game->graphics->textures_cpy[4] = NULL;
-	game->graphics->textures[NORTH] = NULL;
-	game->graphics->textures[SOUTH] = NULL;
-	game->graphics->textures[EAST] = NULL;
-	game->graphics->textures[WEST] = NULL;
 }
 
 static void	init_parser_state(t_game *game)
