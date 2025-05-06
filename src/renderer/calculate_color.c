@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/04/15 15:03:53 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:44:56 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 		else
 			return (color_to_uint32(game->map->floor_color));
 	}
-	wall.texture = game->graphics->textures[wall.hit.direction];
+	wall.texture = game->graphics->textures_lst[wall.hit.direction]->content;
 	return (get_wall_color(&wall, row));
 }
