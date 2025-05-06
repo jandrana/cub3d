@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 17:54:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:04:51 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <libft.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <sys/time.h>
@@ -37,9 +38,19 @@
 #define MAGENTA "\033[35m"
 #define TURQUOISE "\033[36m"
 
+// ------------------ U_INT COLORS ------------------ //
+
+#define U_WHITE 0xFFFFFFFF
+#define U_PINK 0xFF00FFFF
+#define U_GREEN 0x00FF00FF
+#define U_RED 0xFF0000FF
+#define U_GREY 0x808080FF
+#define U_BLACK 0x424242FF
+#define U_CLEAR 0x00000000
+
 // ------------------ PARSER MACROS ------------------ //
 
-#define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
+#define VALID_MAP_CHARS "NSEW10I \t\r\v\f\n" // bonus
 #define WHITESPACE " \t\r\v\f\n"
 
 // ------------------- RENDERER MACROS ----------------- //
@@ -48,8 +59,10 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 #define MINI 220
+#define MINI_R 100
+#define VISION_R 100
 #define TILE_SIZE 20
-#define CENTER_POS 100
+#define ORIG 100
 #define PLAYER_HEIGHT 0.5
 #define FOV (PI / 2.0)
 #define EPSILON 0.0000001
@@ -67,7 +80,8 @@ typedef enum e_map_tile {
   PLAYER_NORTH = 'N',
   PLAYER_SOUTH = 'S',
   PLAYER_EAST = 'E',
-  PLAYER_WEST = 'W'
+  PLAYER_WEST = 'W',
+  ITEM = 'I'
 } t_map_tile;
 
 typedef enum e_direction {
@@ -75,8 +89,16 @@ typedef enum e_direction {
   NORTH = 0,
   SOUTH = 1,
   EAST = 2,
-  WEST = 3
+  WEST = 3,
+  D_ITEM = 4
 } t_direction;
+
+typedef enum e_textures_map {
+	M_COMPASS = 0,
+	M_FLOOR = 1,
+	M_WALL = 2,
+	M_SPACE = 3
+  } t_textures_map;
 
 typedef enum e_line_type {
   EMPTY_LINE,
@@ -101,12 +123,28 @@ typedef struct s_player {
   double angle; // Rotation angle (rad)
 } t_player;
 
+typedef struct s_item {
+	double			x;
+	double			y;
+	bool			collected;
+	double			sprite_frame;
+} t_item;
+
+typedef struct	s_mini_item {
+	double				rel_x;
+	double				rel_y;
+	struct s_mini_item	*next;
+} t_mini_item;
+
 typedef struct s_map {
-  unsigned int rows;
-  unsigned int cols;
-  t_map_tile **mt;
-  t_color floor_color;
-  t_color ceiling_color;
+  unsigned int	rows;
+  unsigned int	cols;
+  t_map_tile	**mt;
+  t_color		floor_color;
+  t_color 		ceiling_color;
+  t_item		*items;
+  int			n_items;
+  int			n_collected;
 } t_map;
 
 typedef struct s_graphics {
@@ -115,6 +153,8 @@ typedef struct s_graphics {
   mlx_image_t *minimap;
   mlx_image_t *fps;
   mlx_texture_t *textures[4]; // [NORTH, SOUTH, EAST, WEST]
+  t_list	*textures_lst[5];  // [NORTH, SOUTH, EAST, WEST, ITEM]
+  t_list	*textures_cpy[5];
 } t_graphics;
 
 typedef struct s_parser_state {
@@ -131,6 +171,7 @@ typedef struct s_game {
   char **parser_temp;
   double fps;
   bool cursor_locked;
+  long	frames;
 } t_game;
 
 // ------------------- calculate_color STRUCTURES ------------------- //
@@ -174,6 +215,7 @@ void parse_color_line(t_game *game, char *line);
 
 //                 TEXTURES                  //
 t_direction get_texture_direction(char *content);
+bool	add_texture(mlx_texture_t *texture, t_list **txt_lst);
 void check_textures(t_game *game);
 void parse_texture_line(t_game *game, char *line, t_direction dir);
 
@@ -192,6 +234,7 @@ t_wall_hit find_wall_hit(t_game *game, t_map_tile **mt,
 uint32_t color_to_uint32(t_color color);
 void format_fps(char *dest, size_t size, double fps);
 void draw_minimap(t_game *game);
+void	draw_items2(t_game *game, unsigned int width, unsigned int height);
 
 //                   INIT                    //
 t_game *init_game(void);
