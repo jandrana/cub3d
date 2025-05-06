@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/05 17:36:38 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:08:58 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ void	update_map_sizes(t_game *game, char *filename)
 	close(fd);
 }
 
-void	textures_list_copy(t_game *game)
-{
-	int i;
-
-	i = -1;
-	while (game->graphics->textures_lst[++i])
-		game->graphics->textures_cpy[i] = game->graphics->textures_lst[i];
-}
-
 t_map	*parser(t_game *game, int argc, char **argv)
 {
 	int		fd;
@@ -58,7 +49,6 @@ t_map	*parser(t_game *game, int argc, char **argv)
 	update_map_sizes(game, argv[1]);
 	fd = open_map_file(game, argv[1]);
 	first_map_line = parse_elements(game, fd);
-	textures_list_copy(game);
 	if (!first_map_line)
 		error_exit(game, E_MAP_EMPTY);
 	parser_map(game, fd, first_map_line);
