@@ -47,8 +47,8 @@ static void	display_fps(t_game *game, unsigned int width, unsigned int height)
 	char		fps_str[32];
 
 	format_fps(fps_str, sizeof(fps_str), game->fps);
-	fps_img = mlx_put_string(game->graphics->mlx, fps_str, 0.85 * width, 
-			0.05 * height);
+	fps_img = mlx_put_string(game->graphics->mlx, fps_str, 0.85 * width, 0.05
+			* height);
 	if (!fps_img)
 		error_exit(game, E_MLX_IMAGE);
 	if (!game->graphics->fps)
@@ -69,7 +69,8 @@ void	render_scene(t_game *game, unsigned int width, unsigned int height)
 	double	delta;
 
 	current_time = mlx_get_time();
-	mlx_set_mouse_pos(game->graphics->mlx, game->graphics->mlx->width / 2, game->graphics->mlx->height / 2);
+	mlx_set_mouse_pos(game->graphics->mlx, game->graphics->mlx->width / 2,
+		game->graphics->mlx->height / 2);
 	draw_scene(game, width, height);
 	draw_minimap(game);
 	display_fps(game, width, height);

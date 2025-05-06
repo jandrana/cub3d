@@ -24,8 +24,8 @@ void	manage_resize(int32_t width, int32_t height, void *ptr)
 	game->graphics->fps = NULL;
 	game->graphics->img = NULL;
 	game->graphics->mlx->width = width;
-    game->graphics->mlx->height = height;
+	game->graphics->mlx->height = height;
 	render_scene(game, width, height);
 	if (game->cursor_locked)
-        mlx_set_mouse_pos(game->graphics->mlx, width / 2, height / 2);
+		mlx_set_mouse_pos(game->graphics->mlx, width / 2, height / 2);
 }
