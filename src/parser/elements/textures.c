@@ -6,10 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:21:11 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:33:13 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
+#include "libft.h"
 #include <cub3d.h>
 #include <stdbool.h>
 
@@ -49,6 +51,14 @@ void	check_textures(t_game *game)
 			error_exit(game, E_TEX_MISSING, get_direction_name(i));
 }
 
+bool	add_texture(mlx_texture_t *texture, t_list **txt_lst)
+{
+	if (!texture)
+		return (1);
+	ft_lstadd_back(txt_lst, ft_lstnew(texture));
+	return (0);
+}
+
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
 	char	**content;
@@ -57,8 +67,8 @@ void	parse_texture_line(t_game *game, char *line, t_direction dir)
 
 	if (dir == INVALID)
 		error_exit(game, E_TEX_INVALID, line);
-	else if (game->parser_state->textures[dir] == true)
-		error_exit(game, E_TEX_DUP, get_direction_name(dir));
+	//else if (game->parser_state->textures[dir] == true)
+	//	error_exit(game, E_TEX_DUP, get_direction_name(dir));
 	trimmed = ft_strtrim(line, "\n");
 	if (!trimmed)
 		error_exit(game, E_MEM_ALLOC, "trimming texture");
@@ -72,6 +82,8 @@ void	parse_texture_line(t_game *game, char *line, t_direction dir)
 		error_exit(game, E_TEX_LOAD, content[1]);
 	close(fd);
 	game->graphics->textures[dir] = mlx_load_png(content[1]);
+	if (add_texture(mlx_load_png(content[1]), &game->graphics->textures_lst[dir]))
+		error_exit(game, E_TEX_LOAD, content[1]);
 	if (!game->graphics->textures[dir])
 		error_exit(game, E_TEX_LOAD, content[1]);
 	game->parser_state->textures[dir] = true;
