@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/04/15 17:55:07 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:33:28 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,26 @@ void	handle_cursor_movement(t_game *game, bool *moved)
 		game->graphics->mlx->height / 2);
 }
 
+void	update_sprites(t_game *game)
+{
+	int		i;
+	t_list	**txt_lst;
+
+	i = 0;
+	txt_lst = game->graphics->textures_lst;
+	if (!(game->frames % 30))
+	{
+		while (txt_lst[i] && !(game->frames % 120))
+		{
+			if (!(txt_lst[i]->next))
+				txt_lst[i] = game->graphics->textures_cpy[i];
+			else
+				txt_lst[i] = txt_lst[i]->next;
+			i++;
+		}
+	}
+}
+
 void	manage_input(void *ptr)
 {
 	t_game	*game;
@@ -91,7 +111,10 @@ void	manage_input(void *ptr)
 	handle_movement(game, &moved);
 	if (game->cursor_locked)
 		handle_cursor_movement(game, &moved);
-	if (moved)
+	if (!(game->frames % 60))
+		update_sprites(game);
+	if (moved || !(game->frames % 15))
 		render_scene(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);
+	game->frames += 1;
 }
