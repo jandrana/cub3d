@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/05 16:33:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:07:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	handle_cursor_movement(t_game *game, bool *moved)
 void	update_sprites(t_game *game)
 {
 	int		i;
-	t_list	**txt_lst;
+	t_hlist	**txt_lst;
 
 	i = 0;
 	txt_lst = game->graphics->textures_lst;
@@ -88,7 +88,7 @@ void	update_sprites(t_game *game)
 		while (txt_lst[i] && !(game->frames % 120))
 		{
 			if (!(txt_lst[i]->next))
-				txt_lst[i] = game->graphics->textures_cpy[i];
+				txt_lst[i] = txt_lst[i]->head;
 			else
 				txt_lst[i] = txt_lst[i]->next;
 			i++;
