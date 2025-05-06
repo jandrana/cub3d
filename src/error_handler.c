@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:32:43 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:39:42 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ static void	free_hlist(t_hlist **lst, void (*del)(void *))
 
 static void	end_mlx(t_graphics *graphics)
 {
-	int	i;
-
-	i = -1;
 	if (!graphics)
 		return ;
 	if (graphics->img)
