@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/01 20:57:47 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:32:43 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 #include <stdio.h>
 #include <unistd.h>
 
+static void delete_texture(void *texture)
+{
+	mlx_delete_texture((mlx_texture_t *)texture);
+}
+
+static void	free_hlist(t_hlist **lst, void (*del)(void *))
+{
+	t_hlist	*node;
+
+	node = *lst;
+	while (node)
+	{
+		*lst = node->next;
+		(*del)(node->content);
+		node->head = NULL;
+		free(node);
+		node = *lst;
+	}
+}
+
 static void	end_mlx(t_graphics *graphics)
 {
 	int	i;
@@ -22,11 +42,6 @@ static void	end_mlx(t_graphics *graphics)
 	i = -1;
 	if (!graphics)
 		return ;
-	while (++i < 4)
-	{
-		if (graphics->textures[i])
-			mlx_delete_texture(graphics->textures[i]);
-	}
 	if (graphics->img)
 		mlx_delete_image(graphics->mlx, graphics->img);
 	if (graphics->minimap)
@@ -35,6 +50,7 @@ static void	end_mlx(t_graphics *graphics)
 		mlx_delete_image(graphics->mlx, graphics->fps);
 	if (graphics->mlx)
 		mlx_terminate(graphics->mlx);
+	free_hlist(graphics->textures_lst, delete_texture);
 	free(graphics);
 }
 
