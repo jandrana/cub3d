@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/05 17:33:13 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:30:09 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,50 @@ void	check_textures(t_game *game)
 			error_exit(game, E_TEX_MISSING, get_direction_name(i));
 }
 
-bool	add_texture(mlx_texture_t *texture, t_list **txt_lst)
+t_hlist	*hslt_new_node(void *content, t_hlist *head)
+{
+	t_hlist	*node;
+
+	node = (t_hlist *)malloc(sizeof(t_hlist));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	if (!head)
+		node->head = node;
+	else
+		node->head = head;
+	node->next = NULL;
+	return (node);
+}
+
+t_hlist	*hlst_last_node(t_hlist *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	hlstadd_back(t_hlist **lst, t_hlist *node)
+{
+	t_hlist	*last;
+
+	if (!(*lst))
+		*lst = node;
+	else
+	{
+		node->head = *lst;
+		last = hlst_last_node(*lst);
+		last->next = node;
+	}
+}
+
+bool	add_texture(mlx_texture_t *texture, t_hlist **txt_lst)
 {
 	if (!texture)
 		return (1);
-	ft_lstadd_back(txt_lst, ft_lstnew(texture));
+	hlstadd_back(txt_lst, hslt_new_node(texture, *txt_lst));
 	return (0);
 }
 
@@ -81,10 +120,7 @@ void	parse_texture_line(t_game *game, char *line, t_direction dir)
 	if (fd < 0)
 		error_exit(game, E_TEX_LOAD, content[1]);
 	close(fd);
-	game->graphics->textures[dir] = mlx_load_png(content[1]);
 	if (add_texture(mlx_load_png(content[1]), &game->graphics->textures_lst[dir]))
-		error_exit(game, E_TEX_LOAD, content[1]);
-	if (!game->graphics->textures[dir])
 		error_exit(game, E_TEX_LOAD, content[1]);
 	game->parser_state->textures[dir] = true;
 	free_array(&content);

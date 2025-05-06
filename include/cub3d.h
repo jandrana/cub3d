@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:07:57 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:42:39 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,14 +147,19 @@ typedef struct s_map {
   int			n_collected;
 } t_map;
 
+typedef struct s_hlist
+{
+	struct s_hlist	*head;
+	void			*content;
+	struct s_hlist	*next;
+}					t_hlist;
+
 typedef struct s_graphics {
   mlx_t *mlx;
   mlx_image_t *img;
   mlx_image_t *minimap;
   mlx_image_t *fps;
-  mlx_texture_t *textures[4]; // [NORTH, SOUTH, EAST, WEST]
-  t_list	*textures_lst[5];  // [NORTH, SOUTH, EAST, WEST, ITEM]
-  t_list	*textures_cpy[5];
+  t_hlist	*textures_lst[5];  // [NORTH, SOUTH, EAST, WEST, ITEM]
 } t_graphics;
 
 typedef struct s_parser_state {
@@ -215,7 +220,7 @@ void parse_color_line(t_game *game, char *line);
 
 //                 TEXTURES                  //
 t_direction get_texture_direction(char *content);
-bool	add_texture(mlx_texture_t *texture, t_list **txt_lst);
+bool	add_texture(mlx_texture_t *texture, t_hlist **txt_lst);
 void check_textures(t_game *game);
 void parse_texture_line(t_game *game, char *line, t_direction dir);
 
