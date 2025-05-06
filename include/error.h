@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 18:12:48 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/01 21:14:02 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@
 # define E_MAP_CHAR "Invalid character in map: '%c' at [%d,%d]"	// char row,col
 # define E_MAP_MULTI_PLAYER "Multiple player positions found"	// no args
 # define E_MAP_NO_PLAYER "No player position found in map"		// no args
+# define E_ITEM_REACH "Item at [%d, %d] not reachable"			// row, col
 
 // ------------------- TEXTURE ERRORS ------------------- //
 # define E_TEX_MISSING "Missing texture for %s direction"	// NO/SO/WE/EA
 # define E_TEX_INVALID "Invalid texture path: %s"			// texture_path
 # define E_TEX_LOAD "Failed to load texture: %s"			// texture_path
+# define E_TEX_IMG "Failed converting texture %s to image"	// texture_path
 # define E_TEX_DUP "Duplicate texture for direction: %s"    // direction
 
 // ------------------- COLOR ERRORS ------------------- //
