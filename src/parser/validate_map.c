@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/03/01 18:18:58 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/01 21:00:46 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #define NEAR_SPACE " 1\n"
-#define NEAR_PLAYABLE "10NSWE"
+#define NEAR_PLAYABLE "10NSWEI"
 
 bool	valid_tile(size_t tile, size_t max_tile)
 {
@@ -81,6 +81,8 @@ void	validate_map(t_game *game)
 		while (col <= game->map->cols)
 		{
 			validate_near_tiles(game, row, col);
+			if (game->map->mt[row][col] == ITEM)
+				game->map->n_items += 1;
 			col++;
 		}
 		row++;
