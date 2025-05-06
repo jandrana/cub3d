@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 17:58:01 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:45:01 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	init_map(t_game *game)
 	game->player = (t_player){-1, -1, 0};
 	game->map->floor_color = (t_color){0, 0, 0, 0};
 	game->map->ceiling_color = (t_color){0, 0, 0, 0};
+	game->map->items = NULL;
+	game->map->n_items = 0;
+	game->map->n_collected = 0;
 }
 
 static void	init_graphics(t_game *game)
@@ -36,6 +39,17 @@ static void	init_graphics(t_game *game)
 	game->graphics->mlx = NULL;
 	game->graphics->img = NULL;
 	game->graphics->minimap = NULL;
+	game->graphics->fps = NULL;
+	game->graphics->textures_lst[NORTH] = NULL;
+	game->graphics->textures_lst[SOUTH] = NULL;
+	game->graphics->textures_lst[EAST] = NULL;
+	game->graphics->textures_lst[WEST] = NULL;
+	game->graphics->textures_lst[4] = NULL;
+	game->graphics->textures_cpy[NORTH] = NULL;
+	game->graphics->textures_cpy[SOUTH] = NULL;
+	game->graphics->textures_cpy[EAST] = NULL;
+	game->graphics->textures_cpy[WEST] = NULL;
+	game->graphics->textures_cpy[4] = NULL;
 	game->graphics->textures[NORTH] = NULL;
 	game->graphics->textures[SOUTH] = NULL;
 	game->graphics->textures[EAST] = NULL;
@@ -68,6 +82,7 @@ t_game	*init_game(void)
 	game->parser_temp = NULL;
 	game->fps = INITIAL_FPS;
 	game->cursor_locked = true;
+	game->frames = 0;
 	init_map(game);
 	init_graphics(game);
 	init_parser_state(game);
