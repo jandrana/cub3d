@@ -30,11 +30,11 @@ void	calculate_wall_info(t_game *game, double angle_offset,
 
 uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 {
-	double				wall_x_fraction;
-	int					tex_x;
-	int					tex_y;
-	double				screen_y_proportion;
-	unsigned long		byte_index;
+	double			wall_x_fraction;
+	int				tex_x;
+	int				tex_y;
+	double			screen_y_proportion;
+	unsigned long	byte_index;
 
 	if (wall->hit.direction == NORTH || wall->hit.direction == SOUTH)
 		wall_x_fraction = wall->hit.position[0] - floor(wall->hit.position[0]);
@@ -54,8 +54,8 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	double		ray_direction[2];
 	t_wall_info	wall;
 
-	angle_offset = (col - game->graphics->mlx->width / 2.0) * 
-		(FOV / game->graphics->mlx->width);
+	angle_offset = (col - game->graphics->mlx->width / 2.0) * (FOV
+			/ game->graphics->mlx->width);
 	ray_angle = angle_offset + game->player.angle;
 	ray_direction[0] = cos(ray_angle);
 	ray_direction[1] = sin(ray_angle);

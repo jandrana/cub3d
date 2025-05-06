@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/04/30 17:39:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:32:15 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	draw_scene(t_game *game, unsigned int width, unsigned int height)
 				0) == -1)
 			error_exit(game, E_MLX_IMAGE2WIN);
 		game->graphics->img->instances[0].z = 0;
-		mlx_set_mouse_pos(game->graphics->mlx, game->graphics->mlx->width / 2,
-			game->graphics->mlx->height / 2);
 	}
 	row = 0;
 	while (row < height)
@@ -49,8 +47,8 @@ static void	display_fps(t_game *game, unsigned int width, unsigned int height)
 	char		fps_str[32];
 
 	format_fps(fps_str, sizeof(fps_str), game->fps);
-	fps_img = mlx_put_string(game->graphics->mlx, fps_str, 0.85 * width, 
-			0.05 * height);
+	fps_img = mlx_put_string(game->graphics->mlx, fps_str, 0.85 * width, 0.05
+			* height);
 	if (!fps_img)
 		error_exit(game, E_MLX_IMAGE);
 	if (!game->graphics->fps)

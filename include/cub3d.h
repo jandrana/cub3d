@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:30:01 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:42:39 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@
 // ------------------- RENDERER MACROS ----------------- //
 
 #define PI 3.14159265358979323846
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 768
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 1024
 #define MINI 220
 #define MINI_R 100
 #define VISION_R 100
 #define TILE_SIZE 20
 #define ORIG 100
 #define PLAYER_HEIGHT 0.5
-#define FOV (PI / 2.0)
+#define FOV (PI * 0.42)
 #define EPSILON 0.0000001
 #define INITIAL_FPS 20
 #define WALK_SPEED 1.5
