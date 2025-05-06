@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/06 21:23:14 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:32:15 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	render_scene(t_game *game, unsigned int width, unsigned int height)
 	double	delta;
 
 	current_time = mlx_get_time();
-	mlx_set_mouse_pos(game->graphics->mlx, game->graphics->mlx->width / 2,
-		game->graphics->mlx->height / 2);
 	draw_scene(game, width, height);
 	draw_minimap(game);
 	display_fps(game, width, height);
