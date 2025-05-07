@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 20:07:06 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:14:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,9 @@ void		manage_input(void *ptr);
 ///                manage_resize.c:                     /// (missing -> static)
 void		manage_resize(int32_t width, int32_t height, void *ptr);
 
-///                    /PARSER:                         ///
+// ----------------------------------------------------- //
+//                     PARSER FOLDER                     //
+// ----------------------------------------------------- //
 
 	///                    init.c:                      ///
 t_game		*init_game(void);
@@ -252,7 +254,10 @@ t_line_type	get_line_type(char *line);
 void		print_map(t_game *game); // used? (print_utils.c)
 int			print_row(t_game *game, size_t row); // used? (print_utils.c)
 
-	///                    PARSER/ELEMENTS:             ///
+	// ------------------------------------------------- //
+	//                  ELEMENTS FOLDER                  //
+	// ------------------------------------------------- //
+
 		///                    elements.c:              ///
 char		*parse_elements(t_game *game, int fd);
 
@@ -269,7 +274,9 @@ t_color		get_color(t_game *game, char **rgb);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game, char *line);
 
-///                    /RENDERER:                        ///
+// ----------------------------------------------------- //
+//                    RENDERER FOLDER                    //
+// ----------------------------------------------------- //
 
 	///                    init_player.c:               ///
 void		init_player(t_game *game);
@@ -292,7 +299,10 @@ void		format_fps(char *dest, size_t size, double fps);
 	///                    color_utils.c:               ///
 uint32_t	color_to_uint32(t_color color);
 
-	///                    RENDERER/MINIMAP:            ///
+	// ------------------------------------------------- //
+	//                  MINIMAP FOLDER                   //
+	// ------------------------------------------------- //
+
 		///                    minimap.c:               ///
 void		draw_circle(mlx_image_t *img, double *pos, int radius,
 				uint32_t color, int w);
