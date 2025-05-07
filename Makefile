@@ -75,7 +75,9 @@ SRC = src/main.c \
 	src/renderer/find_wall_hit.c \
 	src/renderer/color_utils.c \
 	src/renderer/format_fps.c \
-	src/renderer/minimap.c
+	src/renderer/minimap/minimap.c \
+	src/renderer/minimap/vision_utils.c \
+	src/renderer/minimap/item_utils.c
 
 OBJECTS = $(SRC:.c=.o)
 
