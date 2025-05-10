@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/06 19:44:56 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:28:42 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 	return (color_to_uint32(*(t_color *)&wall->texture->pixels[byte_index]));
 }
 
+void select_texture(t_game *game, t_wall_info *wall)
+{
+	if (wall->hit.tile == WALL)
+		wall->texture = game->graphics->textures_lst[wall->hit.direction]->content;
+	else if (wall->hit.tile == ITEM)
+		wall->texture = game->graphics->textures_lst[WEST]->content;
+	else if (wall->hit.tile == DOOR)
+		wall->texture = game->graphics->textures_lst[D_DOOR]->content;
+}
+
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 {
 	double		angle_offset;
@@ -68,6 +78,6 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 		else
 			return (color_to_uint32(game->map->floor_color));
 	}
-	wall.texture = game->graphics->textures_lst[wall.hit.direction]->content;
+	select_texture(game, &wall);
 	return (get_wall_color(&wall, row));
 }

@@ -6,13 +6,13 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/04/15 13:15:03 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:41:45 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_wall_hit	determine_wall_direction(int hit_side,
+static t_wall_hit	determine_wall_direction(t_map_tile **mt, int hit_side,
 		double ray_direction[2], double position[2])
 {
 	t_wall_hit	wall_hit;
@@ -33,6 +33,7 @@ static t_wall_hit	determine_wall_direction(int hit_side,
 	}
 	wall_hit.position[0] = position[0];
 	wall_hit.position[1] = position[1];
+	wall_hit.tile = mt[(int)position[1]][(int)position[0]];
 	return (wall_hit);
 }
 
@@ -63,16 +64,31 @@ static void	calculate_delta(double position[2], double ray_direction[2],
 	}
 }
 
+bool	check_stop_condition(t_map_tile **mt, double position[2], 
+		bool *first_step)
+{
+	if (*first_step)
+	{
+		*first_step = false;
+		return (true);
+	}
+	return (mt[(int)position[1]][(int)position[0]] != WALL &&
+		mt[(int)position[1]][(int)position[0]] != ITEM &&
+		mt[(int)position[1]][(int)position[0]] != DOOR);
+}
+
 t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 		double ray_direction[2])
 {
 	double	delta[2];
 	double	position[2];
 	int		hit_side;
+	bool	first_step;
 
+	first_step = true;
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (mt[(int)position[1]][(int)position[0]] != WALL)
+	while (check_stop_condition(mt, position, &first_step))
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])
@@ -88,5 +104,5 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 			hit_side = 1;
 		}
 	}
-	return (determine_wall_direction(hit_side, ray_direction, position));
+	return (determine_wall_direction(mt, hit_side, ray_direction, position));
 }

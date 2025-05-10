@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/10 22:09:36 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:10:38 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ typedef enum e_map_tile
 	PLAYER_SOUTH = 'S',
 	PLAYER_EAST = 'E',
 	PLAYER_WEST = 'W',
-	ITEM = 'I'
+	ITEM = 'I',
+  DOOR = 'D'
 }	t_map_tile;
 
 typedef enum e_direction
@@ -92,7 +93,8 @@ typedef enum e_direction
 	SOUTH = 1,
 	EAST = 2,
 	WEST = 3,
-	D_ITEM = 4
+	D_ITEM = 4,
+  D_DOOR = 5
 }	t_direction;
 
 typedef enum e_textures_map
@@ -169,7 +171,7 @@ typedef struct s_graphics
 	mlx_image_t	*img;
 	mlx_image_t	*minimap;
 	mlx_image_t	*fps;
-	t_hlist		*textures_lst[5]; // [NORTH, SOUTH, EAST, WEST, ITEM]
+	t_hlist		*textures_lst[6]; // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
 }	t_graphics;
 
 typedef struct s_parser_state
@@ -196,6 +198,7 @@ typedef struct s_game
 typedef struct s_wall_hit
 {
 	t_direction	direction;
+  t_map_tile tile;
 	double		position[2];
 }	t_wall_hit;
 

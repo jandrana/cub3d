@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:29:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:20:32 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	init_graphics(t_game *game)
 	game->graphics->textures_lst[SOUTH] = NULL;
 	game->graphics->textures_lst[EAST] = NULL;
 	game->graphics->textures_lst[WEST] = NULL;
-	game->graphics->textures_lst[4] = NULL;
+	game->graphics->textures_lst[D_ITEM] = NULL;
+	game->graphics->textures_lst[D_DOOR] = NULL;
 }
 
 static void	init_parser_state(t_game *game)
