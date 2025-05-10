@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/10 22:02:24 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:19:12 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	stop_condition(t_map_tile **mt, double position[2],
 	if (*step_one)
 	{
 		*step_one = false;
-		return (true);
+		return (false);
 	}
 	return (mt[(int)position[1]][(int)position[0]] == WALL ||
 		(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item) ||
