@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/04/15 15:08:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:54:10 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_color	get_color(t_game *game, char **rgb)
 			color.g = ft_atoi(trimmed);
 		else if (i == 2)
 			color.b = ft_atoi(trimmed);
+		color.a = 255;
 		free_str(&trimmed);
 	}
 	return (color);
