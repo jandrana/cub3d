@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/10 22:11:21 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:24:58 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,11 @@ typedef struct s_map
 	unsigned int	rows;
 	unsigned int	cols;
 	t_map_tile		**mt;
-	t_color			floor_color;
-	t_color			ceiling_color;
-	t_item			*items;
-	int				n_items;
-	int				n_collected;
+	t_color			  floor_color;
+	t_color			  ceiling_color;
+	t_item			  *items;
+	int				    n_items;
+	int				    n_collected;
 }	t_map;
 
 typedef struct s_hlist
@@ -166,12 +166,12 @@ typedef struct s_hlist
 }					t_hlist;
 
 typedef struct s_graphics {
-  bool		    skip_item;
   mlx_t       *mlx;
   mlx_image_t *img;
   mlx_image_t *minimap;
   mlx_image_t *fps;
-  t_hlist	*textures_lst[6];  // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
+  bool		    skip_item;
+  t_hlist	    *textures_lst[6];  // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
 } t_graphics;
 
 typedef struct s_parser_state
@@ -183,14 +183,14 @@ typedef struct s_parser_state
 
 typedef struct s_game
 {
-	t_map			*map;
-	t_player		player;
-	t_graphics		*graphics;
-	t_parser_state	*parser_state;
-	char			**parser_temp;
-	double			fps;
-	bool			cursor_locked;
-	long			frames;
+	t_map			       *map;
+	t_player		      player;
+	t_graphics		    *graphics;
+	t_parser_state	  *parser_state;
+	char			        **parser_temp;
+	double			      fps;
+	bool			        cursor_locked;
+	long			        frames;
 }	t_game;
 
 // ------------------- calculate_color STRUCTURES ------------------- //
@@ -205,10 +205,10 @@ typedef struct s_wall_hit
 typedef struct s_wall_info
 {
 	t_wall_hit		hit;
-	double			height;
-	double			top;
-	double			bottom;
-	double			distance;
+	double			  height;
+	double			  top;
+	double			  bottom;
+	double			  distance;
 	mlx_texture_t	*texture;
 }	t_wall_info;
 
@@ -288,7 +288,7 @@ void		init_player(t_game *game);
 void		render_scene(t_game *game, unsigned int width,
 				unsigned int height);
 
-	///                    calculate_color.c:           ///
+	///                    manage_color.c:           ///
 uint32_t	manage_color(t_game *game, unsigned int row,
 				unsigned int col);
 
