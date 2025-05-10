@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 20:14:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:09:36 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_item
 {
 	double			x;
 	double			y;
-	bool			collected;
+	bool			  collected;
 	double			sprite_frame;
 }	t_item;
 
@@ -159,7 +159,7 @@ typedef struct s_map
 typedef struct s_hlist
 {
 	struct s_hlist	*head;
-	void			*content;
+	void			      *content;
 	struct s_hlist	*next;
 }					t_hlist;
 
