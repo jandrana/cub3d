@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/10 22:10:38 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:11:21 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,14 +165,14 @@ typedef struct s_hlist
 	struct s_hlist	*next;
 }					t_hlist;
 
-typedef struct s_graphics
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*minimap;
-	mlx_image_t	*fps;
-	t_hlist		*textures_lst[6]; // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
-}	t_graphics;
+typedef struct s_graphics {
+  bool		    skip_item;
+  mlx_t       *mlx;
+  mlx_image_t *img;
+  mlx_image_t *minimap;
+  mlx_image_t *fps;
+  t_hlist	*textures_lst[6];  // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
+} t_graphics;
 
 typedef struct s_parser_state
 {
@@ -289,7 +289,7 @@ void		render_scene(t_game *game, unsigned int width,
 				unsigned int height);
 
 	///                    calculate_color.c:           ///
-uint32_t	calculate_color(t_game *game, unsigned int row,
+uint32_t	manage_color(t_game *game, unsigned int row,
 				unsigned int col);
 
 	///                    find_wall_hit.c:             ///

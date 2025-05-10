@@ -6,11 +6,12 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/10 20:28:42 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:03:48 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdint.h>
 
 void	calculate_wall_info(t_game *game, double angle_offset,
 		t_wall_info *wall)
@@ -47,10 +48,11 @@ uint32_t	get_wall_color(t_wall_info *wall, unsigned int row)
 	return (color_to_uint32(*(t_color *)&wall->texture->pixels[byte_index]));
 }
 
-void select_texture(t_game *game, t_wall_info *wall)
+void	select_texture(t_game *game, t_wall_info *wall)
 {
 	if (wall->hit.tile == WALL)
-		wall->texture = game->graphics->textures_lst[wall->hit.direction]->content;
+		wall->texture = 
+			game->graphics->textures_lst[wall->hit.direction]->content;
 	else if (wall->hit.tile == ITEM)
 		wall->texture = game->graphics->textures_lst[WEST]->content;
 	else if (wall->hit.tile == DOOR)
@@ -80,4 +82,19 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 	}
 	select_texture(game, &wall);
 	return (get_wall_color(&wall, row));
+}
+
+uint32_t	manage_color(t_game *game, unsigned int row, unsigned int col)
+{
+	uint32_t	color;
+
+	game->graphics->skip_item = false;
+	color = calculate_color(game, row, col);
+	if ((color & 0x000000FF) != 0x000000FF)
+	{
+		game->graphics->skip_item = true;
+		color = calculate_color(game, row, col);
+		return (color);
+	}
+	return (color);
 }

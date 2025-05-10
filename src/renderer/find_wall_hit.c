@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/10 20:41:45 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:02:24 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ static void	calculate_delta(double position[2], double ray_direction[2],
 	}
 }
 
-bool	check_stop_condition(t_map_tile **mt, double position[2], 
-		bool *first_step)
+bool	stop_condition(t_map_tile **mt, double position[2], 
+		bool *step_one, bool skip_item)
 {
-	if (*first_step)
+	if (*step_one)
 	{
-		*first_step = false;
+		*step_one = false;
 		return (true);
 	}
-	return (mt[(int)position[1]][(int)position[0]] != WALL &&
-		mt[(int)position[1]][(int)position[0]] != ITEM &&
-		mt[(int)position[1]][(int)position[0]] != DOOR);
+	return (mt[(int)position[1]][(int)position[0]] == WALL ||
+		(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item) ||
+		(mt[(int)position[1]][(int)position[0]] == DOOR && !skip_item));
 }
 
 t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
@@ -83,12 +83,12 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 	double	delta[2];
 	double	position[2];
 	int		hit_side;
-	bool	first_step;
+	bool	step_one;
 
-	first_step = true;
+	step_one = true;
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (check_stop_condition(mt, position, &first_step))
+	while (!stop_condition(mt, position, &step_one, game->graphics->skip_item))
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])
