@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 20:14:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:24:58 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ typedef enum e_map_tile
 	PLAYER_SOUTH = 'S',
 	PLAYER_EAST = 'E',
 	PLAYER_WEST = 'W',
-	ITEM = 'I'
+	ITEM = 'I',
+  DOOR = 'D'
 }	t_map_tile;
 
 typedef enum e_direction
@@ -92,7 +93,8 @@ typedef enum e_direction
 	SOUTH = 1,
 	EAST = 2,
 	WEST = 3,
-	D_ITEM = 4
+	D_ITEM = 4,
+  D_DOOR = 5
 }	t_direction;
 
 typedef enum e_textures_map
@@ -133,7 +135,7 @@ typedef struct s_item
 {
 	double			x;
 	double			y;
-	bool			collected;
+	bool			  collected;
 	double			sprite_frame;
 }	t_item;
 
@@ -149,28 +151,28 @@ typedef struct s_map
 	unsigned int	rows;
 	unsigned int	cols;
 	t_map_tile		**mt;
-	t_color			floor_color;
-	t_color			ceiling_color;
-	t_item			*items;
-	int				n_items;
-	int				n_collected;
+	t_color			  floor_color;
+	t_color			  ceiling_color;
+	t_item			  *items;
+	int				    n_items;
+	int				    n_collected;
 }	t_map;
 
 typedef struct s_hlist
 {
 	struct s_hlist	*head;
-	void			*content;
+	void			      *content;
 	struct s_hlist	*next;
 }					t_hlist;
 
-typedef struct s_graphics
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*minimap;
-	mlx_image_t	*fps;
-	t_hlist		*textures_lst[5]; // [NORTH, SOUTH, EAST, WEST, ITEM]
-}	t_graphics;
+typedef struct s_graphics {
+  mlx_t       *mlx;
+  mlx_image_t *img;
+  mlx_image_t *minimap;
+  mlx_image_t *fps;
+  bool		    skip_item;
+  t_hlist	    *textures_lst[6];  // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
+} t_graphics;
 
 typedef struct s_parser_state
 {
@@ -181,14 +183,14 @@ typedef struct s_parser_state
 
 typedef struct s_game
 {
-	t_map			*map;
-	t_player		player;
-	t_graphics		*graphics;
-	t_parser_state	*parser_state;
-	char			**parser_temp;
-	double			fps;
-	bool			cursor_locked;
-	long			frames;
+	t_map			       *map;
+	t_player		      player;
+	t_graphics		    *graphics;
+	t_parser_state	  *parser_state;
+	char			        **parser_temp;
+	double			      fps;
+	bool			        cursor_locked;
+	long			        frames;
 }	t_game;
 
 // ------------------- calculate_color STRUCTURES ------------------- //
@@ -196,16 +198,17 @@ typedef struct s_game
 typedef struct s_wall_hit
 {
 	t_direction	direction;
+  t_map_tile tile;
 	double		position[2];
 }	t_wall_hit;
 
 typedef struct s_wall_info
 {
 	t_wall_hit		hit;
-	double			height;
-	double			top;
-	double			bottom;
-	double			distance;
+	double			  height;
+	double			  top;
+	double			  bottom;
+	double			  distance;
 	mlx_texture_t	*texture;
 }	t_wall_info;
 
@@ -285,8 +288,8 @@ void		init_player(t_game *game);
 void		render_scene(t_game *game, unsigned int width,
 				unsigned int height);
 
-	///                    calculate_color.c:           ///
-uint32_t	calculate_color(t_game *game, unsigned int row,
+	///                    manage_color.c:           ///
+uint32_t	manage_color(t_game *game, unsigned int row,
 				unsigned int col);
 
 	///                    find_wall_hit.c:             ///
