@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/21 12:36:48 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:22:43 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ typedef struct s_graphics
 	mlx_image_t	*fps;
 	bool		skip_item;
 	t_hlist		*textures_lst[6]; // [NORTH, SOUTH, EAST, WEST, ITEM, DOOR]
+	t_hlist		*items_lst[9];
 }	t_graphics;
 
 typedef struct s_parser_state
@@ -189,6 +190,7 @@ typedef struct s_game
 	t_graphics		*graphics;
 	t_parser_state	*parser_state;
 	char			**parser_temp;
+	int				item_sprite_n;
 	double			fps;
 	bool			cursor_locked;
 	long			frames;
@@ -241,7 +243,7 @@ void		update_map_sizes(t_game *game, char *filename);
 
 	///                    file.c:                      ///
 void		check_file_extension(t_game *game, const char *filename);
-int			open_map_file(t_game *game, const char *filename);
+int			open_map_file(t_game *game, const char *filename, bool map);
 
 	///                    map.c:                       /// (todo: items prot)
 void		parser_map(t_game *game, int fd, char *map_line);
