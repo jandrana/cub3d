@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/10 21:03:16 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:23:06 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ static void	init_graphics(t_game *game)
 	game->graphics->textures_lst[WEST] = NULL;
 	game->graphics->textures_lst[D_ITEM] = NULL;
 	game->graphics->textures_lst[D_DOOR] = NULL;
+	game->graphics->items_lst[0] = NULL;
+	game->graphics->items_lst[1] = NULL;
+	game->graphics->items_lst[2] = NULL;
+	game->graphics->items_lst[3] = NULL;
+	game->graphics->items_lst[4] = NULL;
+	game->graphics->items_lst[6] = NULL;
+	game->graphics->items_lst[7] = NULL;
+	game->graphics->items_lst[8] = NULL;
 }
 
 static void	init_parser_state(t_game *game)
@@ -76,6 +84,7 @@ t_game	*init_game(void)
 	game->fps = INITIAL_FPS;
 	game->cursor_locked = true;
 	game->frames = 0;
+	game->item_sprite_n = 0;
 	init_map(game);
 	init_graphics(game);
 	init_parser_state(game);
