@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:30:09 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:53:25 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_hlist	*hslt_new_node(void *content, t_hlist *head)
 {
 	t_hlist	*node;
 
+	if (!content)
+		return (NULL);
 	node = (t_hlist *)malloc(sizeof(t_hlist));
 	if (!node)
 		return (NULL);
@@ -80,21 +82,34 @@ void	hlstadd_back(t_hlist **lst, t_hlist *node)
 {
 	t_hlist	*last;
 
+	if (!node)
+		return ;
 	if (!(*lst))
+	{
 		*lst = node;
+		node->head = node;
+	}
 	else
 	{
-		node->head = *lst;
 		last = hlst_last_node(*lst);
-		last->next = node;
+		if (last)
+		{
+			node->head = *lst;
+			last->next = node;
+		}
 	}
 }
 
 bool	add_texture(mlx_texture_t *texture, t_hlist **txt_lst)
 {
-	if (!texture)
+	t_hlist	*new_node;
+
+	if (!texture || !txt_lst)
 		return (1);
-	hlstadd_back(txt_lst, hslt_new_node(texture, *txt_lst));
+	new_node = hslt_new_node(texture, *txt_lst);
+	if (!new_node)
+		return (1);
+	hlstadd_back(txt_lst, new_node);
 	return (0);
 }
 
