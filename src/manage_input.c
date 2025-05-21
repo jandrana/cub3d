@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/06 21:07:48 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:27:01 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void	update_sprites(t_game *game)
 				txt_lst[i] = txt_lst[i]->next;
 			i++;
 		}
+		if (game->item_sprite_n < 8 && (game->frames % 120))
+			game->item_sprite_n += 1;
+		else
+			game->item_sprite_n = 0;
 	}
 }
 
