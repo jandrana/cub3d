@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate_color.c                                  :+:      :+:    :+:   */
+/*   manage_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/10 22:03:48 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:40:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	select_texture(t_game *game, t_wall_info *wall)
 		wall->texture = 
 			game->graphics->textures_lst[wall->hit.direction]->content;
 	else if (wall->hit.tile == ITEM)
-		wall->texture = game->graphics->textures_lst[WEST]->content;
+		wall->texture = game->graphics->items_lst[0]->content;
 	else if (wall->hit.tile == DOOR)
 		wall->texture = game->graphics->textures_lst[D_DOOR]->content;
 }
