@@ -6,12 +6,26 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/01 21:14:02 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/29 21:12:51 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
+
+// # ifdef BONUS
+// #  include "bonus/free_bonus.h"
+// # else
+// #  include "mandatory/free.h"
+// # endif
+
+# include <stddef.h>
+
+typedef struct s_game	t_game;
+
+// ----------------------------------------------------- //
+//                     ERROR MACROS                      //
+// ----------------------------------------------------- //
 
 // ------------------- ARGUMENT ERRORS ------------------- //
 # define E_ARGS_COUNT "Invalid number of arguments. Usage: %s <map.cub>" // arg0
@@ -25,6 +39,7 @@
 // ------------------- MAP ERRORS ------------------- //
 # define E_MAP_EMPTY "Empty map or missing map section"			// no args
 # define E_MAP_FORMAT "Invalid map format: %s"					// error_detail
+# define E_MAP_UNKNOWN "Invalid element/character in line: %s" // error_detail
 # define E_MAP_SIZE "Invalid map dimensions: %dx%d"				// width, height
 # define E_MAP_WALLS "Map not properly enclosed with walls: [%d, %d]"// row,col
 # define E_MAP_PLAYER "Invalid player configuration: %s"		// error_detail
@@ -42,7 +57,7 @@
 
 // ------------------- COLOR ERRORS ------------------- //
 # define E_COLOR_FORMAT "Invalid color format for %s: %s"     // F/C, value
-# define E_COLOR_RANGE "Color value out of range [0-255]: %s" // color_value
+# define E_COLOR_RANGE "Color value out of range [0-255]: %i" // color_value
 # define E_COLOR_MISSING "Missing color definition for %s"    // type (F/C)
 # define E_COLOR_DUP "Duplicate color definition for: %s"     // Floor/Ceiling
 # define E_COLOR_INVALID "Invalid color identifier: %s"       // identifier
@@ -60,5 +75,16 @@
 // ------------------- RESOURCE ERRORS ------------------- //
 # define E_RES_LOAD "Failed to load resource: %s" // resource_path
 # define E_RES_FREE "Failed to free resource: %s" // resource_name
+
+// ----------------------------------------------------- //
+//                 ERROR/EXIT PROTOTYPES                 //
+// ----------------------------------------------------- //
+
+void	error_exit(t_game *game, const char *msg, ...);
+void	*safe_calloc(size_t count, size_t size, void *free_exit, char *type);
+void	safe_free(void *ptr);
+void	*free_array(char ***array);
+void	free_core_game(t_game *game);
+void	free_game(t_game *game);
 
 #endif /* ERROR_H */
