@@ -6,7 +6,7 @@
 #    By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 03:35:21 by ana-cast          #+#    #+#              #
-#    Updated: 2025/01/18 04:15:58 by ana-cast         ###   ########.fr        #
+#    Updated: 2025/05/29 17:12:55 by ana-cast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,58 +28,89 @@ else
   $(error No compiler found)
 endif
 
+# EXECUTABLES #
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 # FOLDERS #
 LIBFT = ./lib/libft/
-MLX = /sgoinfre/shared/MLX42/
-#MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
+#MLX = ./sgoinfre/shared/MLX42/
+MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
 
 # HEADERS #
-HLIBFT = $(LIBFT)/include
-HMLX = $(MLX)/include
-HCUB3D = ./include
-HEADERS = -I$(HCUB3D) -I$(HLIBFT) -I$(HMLX)
+HLIBFT = ./lib/libft/include
+HMLX = ./lib/MLX42/include
+HCORE = ./include/core
+HCUB3D = ./include/mandatory
+HCUB3D_BONUS = ./include/bonus
+HEADERS = -I$(HCORE) -I$(HCUB3D) -I$(HLIBFT) -I$(HMLX)
+HEADERS_BONUS = -I$(HCORE) -I$(HCUB3D_BONUS) -I$(HLIBFT) -I$(HMLX)
 
 # STATIC #
-LLIBFT = $(LIBFT)/libft.a
-LMLX = $(MLX)/build/libmlx42.a
+LLIBFT = ./lib/libft/libft.a
+LMLX = ./lib/MLX42/build/libmlx42.a
 MLX_DEPS = -ldl -lglfw -pthread -lm
 LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
-# Delete -g flag (used for debugging and showing valgrind line error)
-CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto -fomit-frame-pointer -funroll-loops -ftree-vectorize -g
+
+CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto -fomit-frame-pointer -funroll-loops -ftree-vectorize
+
+# Sanitizer flags
+#SAN_FLAGS := $(CFLAGS) -fsanitize=address,undefined -g
+
+SAN_FLAGS = -g -O0
+
+
 RM = rm -rf
 
 ################################################################################
 ##                              SOURCES AND OBJECTS                           ##
 ################################################################################
 
-SRC = src/main.c \
-	src/error_handler.c \
-	src/manage_input.c \
-	src/manage_resize.c \
-	src/parser/init.c \
-	src/parser/parser.c \
-	src/parser/file.c \
-	src/parser/elements/elements.c \
-	src/parser/elements/textures.c \
-	src/parser/elements/colors.c \
-	src/parser/map.c \
-	src/parser/validate_map.c \
-	src/parser/utils.c \
-	src/parser/print_utils.c \
-	src/renderer/init_player.c \
-	src/renderer/render_scene.c \
-	src/renderer/manage_color.c \
-	src/renderer/find_wall_hit.c \
-	src/renderer/color_utils.c \
-	src/renderer/format_fps.c \
-	src/renderer/minimap/minimap.c \
-	src/renderer/minimap/vision_utils.c \
-	src/renderer/minimap/item_utils.c
+# CORE SOURCES #
+SRC_CORE =  src/core/error_handler.c \
+			src/core/utils.c \
+			src/core/parser/init.c \
+			src/core/parser/parser.c \
+			src/core/parser/file.c \
+			src/core/parser/elements/elements.c \
+			src/core/parser/elements/textures.c \
+			src/core/parser/elements/colors.c \
+			src/core/parser/map.c \
+			src/core/parser/validate_map.c \
+			src/core/parser/utils.c \
+			src/core/parser/print_utils.c \
+			src/core/renderer/init_player.c \
+			src/core/renderer/render_scene.c \
+			src/core/renderer/manage_color.c \
+			src/core/renderer/find_wall_hit.c \
+			src/core/renderer/color_utils.c \
+			src/core/renderer/format_fps.c
 
+# MANDATORY SOURCES #
+SRC =	$(SRC_CORE) \
+		src/mandatory/main.c \
+		src/mandatory/free_utils.c \
+		src/mandatory/manage_input.c \
+		src/mandatory/manage_resize.c \
+
+# BONUS SOURCES #
+SRC_BONUS =	$(SRC_CORE) \
+			src/bonus/main_bonus.c \
+			src/bonus/init_bonus.c \
+			src/bonus/free_bonus.c \
+			src/bonus/manage_input_bonus.c \
+			src/bonus/manage_resize_bonus.c \
+			src/bonus/minimap/minimap.c \
+			src/bonus/minimap/vision_utils.c \
+			src/bonus/minimap/item_utils.c \
+			src/bonus/sprites/sprite_handler_bonus.c \
+			src/bonus/doors/door_handler_bonus.c
+
+
+# OBJECTS #
 OBJECTS = $(SRC:.c=.o)
+OBJECTS_BONUS = $(SRC_BONUS:.c=.o)
 
 ################################################################################
 ##                                    COLORS                                 ##
@@ -98,9 +129,17 @@ TURQUOISE=\033[36m
 ##                                     RULES                                  ##
 ################################################################################
 
+# New targets:
+
 all : head libft $(NAME)
 
-bonus : all
+bonus : head libft $(NAME_BONUS)
+
+debug_all: fclean
+	@$(MAKE) CFLAGS="$(CFLAGS) $(SAN_FLAGS)" all
+
+debug_bonus: fclean
+	@$(MAKE) CFLAGS="$(CFLAGS) $(SAN_FLAGS)" bonus
 
 # Font name: ANSI Shadow
 head :
@@ -128,23 +167,38 @@ libft :
 
 $(NAME) : $(OBJECTS)
 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $(NAME)
+	@echo "$(GREEN)$(BOLD)  ✓ Mandatory part compiled $(END)"
 
-%.o : %.c
+$(NAME_BONUS) : $(OBJECTS_BONUS)
+	@$(CC) $(CFLAGS) $(OBJECTS_BONUS) $(LIBS) -o $(NAME_BONUS)
+	@echo "$(GREEN)$(BOLD)  ✓ Bonus part compiled $(END)"
+
+src/core/%.o : src/core/%.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
-	@echo "$(GREEN)  ✓ Compiled: $(notdir $<)$(END)"
+	@echo "$(GREEN)  ✓ Compiled core: $(notdir $<)$(END)"
+
+src/mandatory/%.o : src/mandatory/%.c
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@echo "$(GREEN)  ✓ Compiled mandatory: $(notdir $<)$(END)"
+
+src/bonus/%.o : src/bonus/%.c
+	@$(CC) $(CFLAGS) $(HEADERS_BONUS) -c $< -o $@
+	@echo "$(GREEN)  ✓ Compiled bonus: $(notdir $<)$(END)"
 
 clean :
 	@echo "$(RED)$(BOLD)  CLEANING...$(END)"
-	@$(RM) $(OBJECTS)
+	@$(RM) $(OBJECTS) $(OBJECTS_BONUS)
 	@make clean -s -C $(LIBFT)
-	@echo  "$(RED)  ✓  Removed library objects$(END)"
+	@echo  "$(RED)  ✓  Removed objects$(END)"
 
 fclean : clean
-	@$(RM) $(NAME)
-	@echo "$(RED)  ✓  Removed $(NAME) $(END)"
+	@$(RM) $(NAME) $(NAME_BONUS)
+	@echo "$(RED)  ✓  Removed executables $(END)"
 	@make fclean -s -C $(LIBFT)
 	@echo "$(RED)  ✓  Removed libraries $(END)"
 
 re : fclean all
 
-.PHONY: all bonus head line clean fclean re
+rebonus : fclean bonus
+
+.PHONY: all bonus head clean fclean re rebonus debug_all debug_bonus
