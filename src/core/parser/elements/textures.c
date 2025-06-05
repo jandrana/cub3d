@@ -6,24 +6,34 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/21 12:53:25 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:14:08 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
+#include "error.h"
 #include "libft.h"
+#include "macros.h"
 #include <cub3d.h>
 #include <stdbool.h>
+#include <fcntl.h>
 
 t_direction	get_texture_direction(char *content)
 {
-	if (!ft_strncmp(content, "NO ", 3))
+	char	*dir;
+	int		i;
+
+	i = -1;
+	dir = content;
+	while (ft_strchr(WHITESPACE, content[++i]))
+		++dir;
+	if (!ft_strncmp(dir, "NO ", 3))
 		return (NORTH);
-	else if (!ft_strncmp(content, "SO ", 3))
+	else if (!ft_strncmp(dir, "SO ", 3))
 		return (SOUTH);
-	else if (!ft_strncmp(content, "WE ", 3))
+	else if (!ft_strncmp(dir, "WE ", 3))
 		return (WEST);
-	else if (!ft_strncmp(content, "EA ", 3))
+	else if (!ft_strncmp(dir, "EA ", 3))
 		return (EAST);
 	return (INVALID);
 }
@@ -113,30 +123,43 @@ bool	add_texture(mlx_texture_t *texture, t_hlist **txt_lst)
 	return (0);
 }
 
+bool	check_extension(char *filename, char *extension)
+{
+	char	*ext;
+
+	ext = ft_strrchr(filename, '.');
+	if (!ext)
+		return (1);
+	if (ft_strncmp(ext, extension, ft_strlen(extension) + 1) != 0)
+		return (1);
+	return (0);
+}
+
 void	parse_texture_line(t_game *game, char *line, t_direction dir)
 {
 	char	**content;
-	char	*trimmed;
+	char	*path;
 	int		fd;
 
 	if (dir == INVALID)
 		error_exit(game, E_TEX_INVALID, line);
-	//else if (game->parser_state->textures[dir] == true)
-	//	error_exit(game, E_TEX_DUP, get_direction_name(dir));
-	trimmed = ft_strtrim(line, "\n");
-	if (!trimmed)
-		error_exit(game, E_MEM_ALLOC, "trimming texture");
-	content = ft_split(trimmed, ' ');
-	if (!free_str(&trimmed) && !content)
+	else if (!ALLOW_SPRITES && game->parser_state->textures[dir] == true) // check allow sprites
+		error_exit(game, E_TEX_DUP, get_direction_name(dir));
+	content = ft_split(line, ' ');
+	if (!content)
 		error_exit(game, E_MEM_ALLOC, "parsing texture");
 	if (!content[1])
 		error_exit(game, E_TEX_MISSING, content[0]);
-	fd = open(content[1], O_RDONLY);
-	if (fd < 0)
-		error_exit(game, E_TEX_LOAD, content[1]);
+	path = ft_strtrim(content[1], WHITESPACE);
+	if (!path && !free_array(&content))
+		error_exit(game, E_TEX_MISSING, content[0]);
+	fd = open(path, O_RDONLY);
+	if (fd < 0 || check_extension(path, ".png"))
+		error_exit(game, E_TEX_LOAD, path);
 	close(fd);
-	if (add_texture(mlx_load_png(content[1]), &game->graphics->textures_lst[dir]))
-		error_exit(game, E_TEX_LOAD, content[1]);
+	if (add_texture(mlx_load_png(path), &game->graphics->textures_lst[dir]))
+		error_exit(game, E_TEX_LOAD, path);
 	game->parser_state->textures[dir] = true;
 	free_array(&content);
+	free_str(&path);
 }

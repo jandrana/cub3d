@@ -6,11 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:52:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 19:01:35 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:09:18 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
+#include <stdlib.h>
+#include <math.h>
 
 void	clear_map_items(t_mini_item **lst)
 {

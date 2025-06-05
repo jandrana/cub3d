@@ -6,79 +6,62 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/06 21:39:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:57:28 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
-#include <cub3d.h>
+#include "cub3d.h"
+#include "error.h"
+#include "libft.h"
+#include "types.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-static void delete_texture(void *texture)
+void	free_map_tiles(t_game *game)
 {
-	mlx_delete_texture((mlx_texture_t *)texture);
-}
+	t_map	*map;
+	int		i;
 
-static void	free_hlist(t_hlist **lst, void (*del)(void *))
-{
-	t_hlist	*node;
-
-	node = *lst;
-	while (node)
-	{
-		*lst = node->next;
-		(*del)(node->content);
-		node->head = NULL;
-		free(node);
-		node = *lst;
-	}
-}
-
-static void	end_mlx(t_graphics *graphics)
-{
-	if (!graphics)
+	if (!game->map)
 		return ;
-	if (graphics->img)
-		mlx_delete_image(graphics->mlx, graphics->img);
-	if (graphics->minimap)
-		mlx_delete_image(graphics->mlx, graphics->minimap);
-	if (graphics->fps)
-		mlx_delete_image(graphics->mlx, graphics->fps);
-	if (graphics->mlx)
-		mlx_terminate(graphics->mlx);
-	free_hlist(graphics->textures_lst, delete_texture);
-	free(graphics);
-}
-
-static void	free_map(t_map	*map)
-{
-	int	i;
-
+	map = game->map;
 	i = -1;
-	if (!map)
-		return ;
 	while (map->mt && ++i <= (int)map->rows)
 		free(map->mt[i]);
-	if (map->items)
-		free(map->items);
 	free(map->mt);
-	free(map);
 }
 
-void	free_game(t_game *game)
+static void	free_core_graphics(t_game *game)
+{
+	t_graphics	*graphics;
+
+	if (!game->graphics)
+		return ;
+	graphics = game->graphics;
+	if (!graphics)
+		return ;
+	free_hlist(&(graphics->textures_lst[NORTH]), delete_texture);
+	free_hlist(&(graphics->textures_lst[SOUTH]), delete_texture);
+	free_hlist(&(graphics->textures_lst[EAST]), delete_texture);
+	free_hlist(&(graphics->textures_lst[WEST]), delete_texture);
+	if (graphics->img)
+		mlx_delete_image(graphics->mlx, graphics->img);
+	if (graphics->fps)
+		mlx_delete_image(graphics->mlx, graphics->fps);
+}
+
+void	free_core_game(t_game *game)
 {
 	if (!game)
 		return ;
-	if (game->map)
-		free_map(game->map);
-	if (game->graphics)
-		end_mlx(game->graphics);
-	if (game->parser_state)
-		free(game->parser_state);
+	free_map_tiles(game);
+	free_core_graphics(game);
+	safe_free(game->parser_state->free_line);
+	safe_free(game->parser_state);
 	if (game->parser_temp)
 		free_array(&game->parser_temp);
-	free(game);
 }
 
 void	error_exit(t_game *game, const char *msg, ...)

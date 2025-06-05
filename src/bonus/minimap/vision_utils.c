@@ -6,11 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:49:26 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 19:01:40 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:13:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
+#include <stdlib.h>
+#include <math.h>
 
 static double	*get_absolute_px(t_game *game, double center, double x,
 		double y)

@@ -6,13 +6,14 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/07 19:52:30 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:13:02 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
-#include <cub3d.h>
-#include <stddef.h>
+#include <cub3d_bonus.h>
+#include <macros.h> // for null and other macros
+#include <math.h>
 
 void	draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color,
 	int w)

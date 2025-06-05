@@ -6,11 +6,15 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:21:46 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/05 13:42:52 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "error.h"
+#include "parser.h"
+#include "types.h"
 #include <cub3d.h>
+#include <libft.h>
 
 static void	check_missing_values(t_game *game)
 {
@@ -31,6 +35,8 @@ char	*parse_elements(t_game *game, int fd)
 	while (line && type != INVALID_LINE)
 	{
 		type = get_line_type(line);
+		if (type == INVALID_LINE)
+			game->parser_state->free_line = ft_strdup(line);
 		if (type == TEXTURE_LINE)
 			parse_texture_line(game, line, get_texture_direction(line));
 		else if (type == COLOR_LINE)
@@ -41,6 +47,8 @@ char	*parse_elements(t_game *game, int fd)
 			return (line);
 		}
 		free_str(&line);
+		if (type == INVALID_LINE)
+			error_exit(game, E_MAP_UNKNOWN, game->parser_state->free_line);
 		line = get_next_line(fd);
 	}
 	return (line);

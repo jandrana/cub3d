@@ -6,12 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/21 13:40:49 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:44:19 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdint.h>
+#include <math.h>
 
 void	calculate_wall_info(t_game *game, double angle_offset,
 		t_wall_info *wall)
@@ -53,10 +54,10 @@ void	select_texture(t_game *game, t_wall_info *wall)
 	if (wall->hit.tile == WALL)
 		wall->texture = 
 			game->graphics->textures_lst[wall->hit.direction]->content;
-	else if (wall->hit.tile == ITEM)
-		wall->texture = game->graphics->items_lst[0]->content;
-	else if (wall->hit.tile == DOOR)
-		wall->texture = game->graphics->textures_lst[D_DOOR]->content;
+	// else if (wall->hit.tile == ITEM)
+	// 	wall->texture = game->graphics->items_lst[0]->content;
+	// else if (wall->hit.tile == DOOR)
+	// 	wall->texture = game->graphics->textures_lst[D_DOOR]->content;
 }
 
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
@@ -88,13 +89,13 @@ uint32_t	manage_color(t_game *game, unsigned int row, unsigned int col)
 {
 	uint32_t	color;
 
-	game->graphics->skip_item = false;
-	color = calculate_color(game, row, col);
-	if ((color & 0x000000FF) != 0x000000FF)
-	{
-		game->graphics->skip_item = true;
-		color = calculate_color(game, row, col);
-		return (color);
-	}
+	// game->graphics->skip_item = false;
+	color = calculate_color(game, row, col); // function not needed in mandatory
+	// if ((color & 0x000000FF) != 0x000000FF)
+	// {
+	// 	game->graphics->skip_item = true;
+	// 	color = calculate_color(game, row, col);
+	// 	return (color);
+	// }
 	return (color);
 }

@@ -6,13 +6,15 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:17:54 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/21 13:14:07 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:42:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <libft.h>
+#include <fcntl.h>
 
-void	check_file_extension(t_game *game, const char	*filename)
+void	check_file_extension(t_game *game, const char *filename)
 {
 	char	*extension;
 

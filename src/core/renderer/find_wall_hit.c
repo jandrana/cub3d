@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   find_wall_hit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/10 22:19:12 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:57:54 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 static t_wall_hit	determine_wall_direction(t_map_tile **mt, int hit_side,
 		double ray_direction[2], double position[2])
@@ -72,9 +73,10 @@ bool	stop_condition(t_map_tile **mt, double position[2],
 		*step_one = false;
 		return (false);
 	}
-	return (mt[(int)position[1]][(int)position[0]] == WALL ||
-		(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item) ||
-		(mt[(int)position[1]][(int)position[0]] == DOOR && !skip_item));
+	(void) skip_item; // delete this when uncommenting real return
+	return (mt[(int)position[1]][(int)position[0]] == WALL); // ||
+		//(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item) ||
+		//(mt[(int)position[1]][(int)position[0]] == DOOR && !skip_item));
 }
 
 t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
@@ -88,7 +90,7 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 	step_one = true;
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (!stop_condition(mt, position, &step_one, game->graphics->skip_item))
+	while (!stop_condition(mt, position, &step_one, false)) //game->graphics->skip_item))
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])

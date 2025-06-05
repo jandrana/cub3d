@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   manage_resize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 17:10:36 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:20:24 by ana-cast         ###   ########.fr       */
+/*   Created: 2025/03/02 16:44:23 by jorvarea          #+#    #+#             */
+/*   Updated: 2025/05/27 19:58:40 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "cub3d.h"
 
-void	print_map(t_game *game)
+void	manage_resize(int32_t width, int32_t height, void *ptr)
 {
-	size_t	row;
+	t_game	*game;
 
-	row = 0;
-	while (row <= game->map->rows)
-	{
-		print_row(game, row);
-		row++;
-	}
-}
-
-int	print_row(t_game *game, size_t row)
-{
-	size_t	col;
-
-	col = 0;
-	while (col < game->map->cols)
-	{
-		printf("%c", game->map->mt[row][col]);
-		col++;
-	}
-	printf("\n");
-	return (1);
+	game = (t_game *)ptr;
+	mlx_delete_image(game->graphics->mlx, game->graphics->fps);
+	mlx_delete_image(game->graphics->mlx, game->graphics->img);
+	game->graphics->fps = NULL;
+	game->graphics->img = NULL;
+	game->graphics->mlx->width = width;
+	game->graphics->mlx->height = height;
+	render_scene(game, width, height);
 }

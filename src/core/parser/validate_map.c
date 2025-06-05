@@ -6,13 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/01 21:00:46 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:31:53 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-#define NEAR_SPACE " 1\n"
-#define NEAR_PLAYABLE "10NSWEI"
+#include <libft.h>
 
 bool	valid_tile(size_t tile, size_t max_tile)
 {
@@ -54,7 +53,7 @@ void	validate_near_tiles(t_game *game, size_t row, size_t col)
 	if (current != WALL)
 	{
 		validate_walls(game, row, col, current);
-		if (current == SPACE)
+		if (current == SPACE) // CHANGE TO ALL SPACE CHARS
 			surrounding = NEAR_SPACE;
 		else
 			surrounding = NEAR_PLAYABLE;
@@ -81,8 +80,8 @@ void	validate_map(t_game *game)
 		while (col <= game->map->cols)
 		{
 			validate_near_tiles(game, row, col);
-			if (game->map->mt[row][col] == ITEM)
-				game->map->n_items += 1;
+			//if (game->map->mt[row][col] == ITEM)
+			//	game->map->n_items += 1;
 			col++;
 		}
 		row++;

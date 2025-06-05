@@ -6,11 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:53:17 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/02/25 17:10:51 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:07:24 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <libft.h>
 
 bool	is_empty_line(char *line)
 {
@@ -50,7 +51,7 @@ t_line_type	get_line_type(char *line)
 	return (free(trimmed), MAP_LINE);
 }
 
-void	free_array(char ***array)
+void	*free_array(char ***array)
 {
 	int	i;
 
@@ -62,6 +63,7 @@ void	free_array(char ***array)
 		free(*array);
 		*array = NULL;
 	}
+	return (NULL);
 }
 
 int	array_len(char **array)
@@ -76,8 +78,6 @@ int	array_len(char **array)
 
 bool	check_color_value(t_color color)
 {
-	if (color.r < 0 || color.g < 0 || color.b < 0)
-		return (1);
 	if (color.r > 255 || color.g > 255 || color.b > 255)
 		return (1);
 	return (0);
