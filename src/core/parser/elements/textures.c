@@ -29,13 +29,15 @@ t_direction	get_texture_direction(char *content)
 	dir = content;
 	while (ft_strchr(WHITESPACE, content[++i]))
 		++dir;
-	if (!ft_strncmp(dir, "NO ", 3))
+	if (ft_strlen(dir) < 3 || !ft_strchr(WHITESPACE, dir[2]))
+		return (INVALID);
+	if (!ft_strncmp(dir, "NO", 2))
 		return (NORTH);
-	else if (!ft_strncmp(dir, "SO ", 3))
+	else if (!ft_strncmp(dir, "SO", 2))
 		return (SOUTH);
-	else if (!ft_strncmp(dir, "WE ", 3))
+	else if (!ft_strncmp(dir, "WE", 2))
 		return (WEST);
-	else if (!ft_strncmp(dir, "EA ", 3))
+	else if (!ft_strncmp(dir, "EA", 2))
 		return (EAST);
 	return (INVALID);
 }
