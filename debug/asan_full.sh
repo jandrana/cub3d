@@ -4,7 +4,7 @@
 # CONFIG
 # ---------------------------
 MAP_DIR="./assets/maps/"
-MAP_FILE="lab.cub"
+MAP_FILE="test.cub"
 MAP_PATH="${MAP_DIR}${MAP_FILE}"
 SAN_FLAGS="-fsanitize=address -fno-omit-frame-pointer -fno-common -fsanitize=undefined -g"
 SKIP_BUILD=false
