@@ -6,14 +6,30 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/05 14:12:12 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:18:15 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "error.h"
 #include "libft.h"
 #include <cub3d.h>
 #include <fcntl.h>
+
+void	free_parser(t_parser_state *parser) // move with free core functions
+{
+	if (!parser)
+		return ;
+	if (parser->fd > 0)
+	{
+		close(parser->fd);
+		parser->fd = -1;
+	}
+	safe_free(parser->line);
+	if (parser->element)
+		free_array(&parser->element);
+	safe_free(parser);
+}
 
 void	update_map_sizes(t_game *game, char *filename)
 {
@@ -25,7 +41,7 @@ void	update_map_sizes(t_game *game, char *filename)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (get_line_type(line) == MAP_LINE 
+		if (get_line_type(line) == MAP_LINE
 			|| (game->map->rows && get_line_type(line) == EMPTY_LINE))
 		{
 			len = ft_strlen(line);
@@ -45,21 +61,19 @@ void	update_map_sizes(t_game *game, char *filename)
 
 t_map	*parser(t_game *game, int argc, char **argv)
 {
-	int		fd;
-	char	*first_map_line;
+	t_parser_state	*parser;
 
+	parser = game->parser_state;
 	if (argc != 2)
 		error_exit(game, E_ARGS_COUNT, argv[0]);
 	update_map_sizes(game, argv[1]);
-	fd = open_map_file(game, argv[1], 1);
-	first_map_line = parse_elements(game, fd);
+	parser->fd = open_map_file(game, argv[1], 1);
+	parse_elements(game);
 	//add_item_textures(game, 0);
-	if (!first_map_line)
-	{
-		close(fd);
+	if (!parser->line)
 		error_exit(game, E_MAP_EMPTY);
-	}
-	parser_map(game, fd, first_map_line);
-	close(fd);
+	parser_map(game, parser->fd, parser->line); // delete parser-> args
+	free_parser(game->parser_state);
+	game->parser_state = NULL;
 	return (game->map);
 }

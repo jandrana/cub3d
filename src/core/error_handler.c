@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 20:57:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:26:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "cub3d.h"
 #include "error.h"
 #include "libft.h"
+#include "parser.h"
 #include "types.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -58,8 +59,7 @@ void	free_core_game(t_game *game)
 		return ;
 	free_map_tiles(game);
 	free_core_graphics(game);
-	safe_free(game->parser_state->free_line);
-	safe_free(game->parser_state);
+	free_parser(game->parser_state);
 	if (game->parser_temp)
 		free_array(&game->parser_temp);
 }

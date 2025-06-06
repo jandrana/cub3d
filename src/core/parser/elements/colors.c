@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/03 13:36:29 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:23:59 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ t_color	get_color(t_game *game, char **rgb)
 {
 	int		val;
 	int		i;
-	char	*trimmed;
+	char	*line;
 	t_color	color;
 
 	i = -1;
 	while (++i < 3)
 	{
-		trimmed = ft_strtrim(rgb[i], " \t\r\v\f");
-		if (!trimmed && !free_array(&rgb))
+		line = ft_strtrim(rgb[i], " \t\r\v\f");
+		free_str(&game->parser_state->line);
+		game->parser_state->line = line;
+		if (!line && !free_array(&rgb))
 			error_exit(game, E_MEM_ALLOC, "trimming color");
-		val = ft_atoi(trimmed);
-		if ((val < 0 || val > 255) && !free_str(&trimmed) && !free_array(&rgb))
+		val = ft_atoi(line);
+		if ((val < 0 || val > 255) && !free_array(&rgb))
 			error_exit(game, E_COLOR_RANGE, val);
 		if (i == 0)
 			color.r = val;
@@ -52,12 +54,11 @@ t_color	get_color(t_game *game, char **rgb)
 		else if (i == 2)
 			color.b = val;
 		color.a = 255;
-		free_str(&trimmed);
 	}
 	return (color);
 }
 
-bool	represents_number(char *str) // check this implementation, check leaks, etc
+bool	represents_number(char *str)
 {
 	int		i;
 	bool	digit;
@@ -73,7 +74,7 @@ bool	represents_number(char *str) // check this implementation, check leaks, etc
 		i++;
 	}
 	return (digit);
-} // test this new implementation (see damage_report for current bugs) (fixed 8?)
+}
 
 bool	valid_color_format(char *content)
 {
@@ -129,31 +130,31 @@ t_color	parse_color(t_game *game, char *content, char *identifier)
 	return (color);
 }
 
-void	parse_color_line(t_game *game, char *line)
+void	parse_color_line(t_game *game)
 {
-	char	*identifier;
-	char	*value;
-	int		start;
-	int		i;
+	t_parser_state	*parser;
+	char			**element;
+	int				start;
+	int				i;
 
 	i = -1;
-	while (line[++i] && ft_strchr(WHITESPACE, line[i]))
+	parser = game->parser_state;
+	while (parser->line[++i] && ft_strchr(WHITESPACE, parser->line[i]))
 		;
 	start = i;
-	while (line[++i] && !ft_strchr(WHITESPACE, line[i]))
+	while (parser->line[++i] && !ft_strchr(WHITESPACE, parser->line[i]))
 		;
-	identifier = ft_substr(line, start, i - start);
-	value = ft_substr(line, i, ft_strlen(line) - i - 1);
-	game->parser_state->free_line = line;
-	if (!identifier || (!value && !free_str(&identifier)))
+	parser->element = safe_calloc(3, sizeof(char *), game, "color");
+	element = parser->element;
+	element[0] = ft_substr(parser->line, start, i - start);
+	element[1] = ft_substr(parser->line, i, ft_strlen(parser->line) - i - 1);
+	if (!element[0] || !element[1])
 		error_exit(game, E_MEM_ALLOC, "parsing color");
-	if (!ft_strncmp(identifier, "F", 2) && !check_color_dup(game, 'F'))
-		game->map->floor_color = parse_color(game, value, identifier);
-	else if (!ft_strncmp(identifier, "C", 2) && !check_color_dup(game, 'C'))
-		game->map->ceiling_color = parse_color(game, value, identifier);
+	if (!ft_strncmp(element[0], "F", 2) && !check_color_dup(game, 'F'))
+		game->map->floor_color = parse_color(game, element[1], element[0]);
+	else if (!ft_strncmp(element[0], "C", 2) && !check_color_dup(game, 'C'))
+		game->map->ceiling_color = parse_color(game, element[1], element[0]);
 	else
-		error_exit(game, "Invalid Identifier", line);
-	game->parser_state->free_line = NULL;
-	free_str(&identifier);
-	free_str(&value);
+		error_exit(game, "Invalid Identifier", parser->line);
+	free_array(&parser->element);
 }

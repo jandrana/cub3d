@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 20:17:34 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:16:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_map
 	t_color			floor_color;
 	t_color			ceiling_color;
 }	t_map;
-
 
 // Game Graphics 
 typedef struct s_graphics

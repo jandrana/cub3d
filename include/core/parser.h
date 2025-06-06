@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/05 13:43:10 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:21:48 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ typedef enum e_line_type
 typedef struct s_parser_state
 {
 	bool	textures[4]; // [NORTH, SOUTH, EAST, WEST] (check other textures)
-	char	*free_line;
 	bool	floor_color;
 	bool	ceiling_color;
 	char	*line;
+	char	**element;
+	int		fd;
 }	t_parser_state;
 
 // ----------------- PARSER PROTOTYPES ----------------- //
@@ -73,19 +74,20 @@ int			print_row(t_game *game, size_t row); // used? (print_utils.c)
 	// ------------------------------------------------- //
 
 		///                    elements.c:              ///
-char		*parse_elements(t_game *game, int fd);
+void		parse_elements(t_game *game);
 
 		///                    textures.c:              ///
 t_direction	get_texture_direction(char *content);
 bool		add_texture(mlx_texture_t *texture, t_hlist **txt_lst);
 void		check_textures(t_game *game);
-void		parse_texture_line(t_game *game, char *line,
-				t_direction dir);
+void		parse_texture_line(t_game *game, t_direction dir);
 
 		///                    colors.c:                ///
 int			check_color_dup(t_game *game, char identifier);
 t_color		get_color(t_game *game, char **rgb);
 t_color		parse_color(t_game *game, char *content, char *identifier);
-void		parse_color_line(t_game *game, char *line);
+void		parse_color_line(t_game *game);
+
+void		free_parser(t_parser_state *parser);
 
 #endif /* PARSER_H */

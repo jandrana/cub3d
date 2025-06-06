@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/05 13:42:52 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:24:33 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,29 @@ static void	check_missing_values(t_game *game)
 		error_exit(game, E_COLOR_MISSING, "Ceiling");
 }
 
-char	*parse_elements(t_game *game, int fd)
+void	parse_elements(t_game *game)
 {
-	char		*line;
-	t_line_type	type;
+	t_line_type		type;
+	t_parser_state	*parser;
 
-	line = get_next_line(fd);
 	type = EMPTY_LINE;
-	while (line && type != INVALID_LINE)
+	parser = game->parser_state;
+	parser->line = get_next_line(parser->fd);
+	while (parser->line && type != INVALID_LINE)
 	{
-		type = get_line_type(line);
-		if (type == INVALID_LINE)
-			game->parser_state->free_line = ft_strdup(line);
+		type = get_line_type(parser->line);
 		if (type == TEXTURE_LINE)
-			parse_texture_line(game, line, get_texture_direction(line));
+			parse_texture_line(game, get_texture_direction(parser->line));
 		else if (type == COLOR_LINE)
-			parse_color_line(game, line);
+			parse_color_line(game);
 		else if (type == MAP_LINE)
 		{
 			check_missing_values(game);
-			return (line);
+			return ;
 		}
-		free_str(&line);
-		if (type == INVALID_LINE)
-			error_exit(game, E_MAP_UNKNOWN, game->parser_state->free_line);
-		line = get_next_line(fd);
+		else if (type == INVALID_LINE)
+			error_exit(game, E_MAP_UNKNOWN, parser->line);
+		free_str(&parser->line);
+		parser->line = get_next_line(parser->fd);
 	}
-	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/04 17:31:53 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:56:03 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	validate_near_tiles(t_game *game, size_t row, size_t col)
 {
 	t_map_tile	current;
 	char		*surrounding;
-	t_map		*map;
 
-	map = game->map;
-	current = map->mt[row][col];
+	current = game->map->mt[row][col];
 	if (current != WALL)
 	{
 		validate_walls(game, row, col, current);

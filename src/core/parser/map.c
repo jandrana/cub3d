@@ -6,10 +6,11 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/05 14:11:30 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/06 19:20:53 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "error.h"
 #include <cub3d.h>
 #include <libft.h>
 
@@ -81,6 +82,7 @@ void	fill_map_line(t_game *game, char *t_line, size_t row)
 	}
 }
 
+/* BONUS FUNCTION
 bool	reach_player(t_game *game, size_t x, size_t y)
 {
 	char		player_char;
@@ -104,6 +106,7 @@ bool	reach_player(t_game *game, size_t x, size_t y)
 		return (1);
 	return (0);
 }
+*/
 
 void	restore_map(t_map *map)
 {
@@ -130,19 +133,20 @@ void	parser_map(t_game *game, int fd, char *map_line)
 {
 	char	*line;
 	size_t	row;
-	char	*trimmed;
 
 	allocate_map_tiles(game);
-	line = map_line;
+	line = ft_strdup(map_line);
 	row = 0;
 	while (line)
 	{
-		trimmed = ft_strtrim(line, "\n");
-		fill_map_line(game, trimmed, row);
-		row++;
-		free_str(&trimmed);
+		free_str(&game->parser_state->line);
+		game->parser_state->line = ft_strtrim(line, "\n");
 		free_str(&line);
+		if (!game->parser_state->line)
+			error_exit(game, E_MEM_ALLOC, "trimming map line");
+		fill_map_line(game, game->parser_state->line, row);
 		line = get_next_line(fd);
+		row++;
 	}
 	validate_map(game);
 	//update_map_items(game);
