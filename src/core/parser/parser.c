@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:18:15 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:32:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <cub3d.h>
 #include <fcntl.h>
 
-void	free_parser(t_parser_state *parser) // move with free core functions
+void	free_parser(t_parser *parser) // move with free core functions
 {
 	if (!parser)
 		return ;
@@ -61,9 +61,9 @@ void	update_map_sizes(t_game *game, char *filename)
 
 t_map	*parser(t_game *game, int argc, char **argv)
 {
-	t_parser_state	*parser;
+	t_parser	*parser;
 
-	parser = game->parser_state;
+	parser = game->parser;
 	if (argc != 2)
 		error_exit(game, E_ARGS_COUNT, argv[0]);
 	update_map_sizes(game, argv[1]);
@@ -73,7 +73,7 @@ t_map	*parser(t_game *game, int argc, char **argv)
 	if (!parser->line)
 		error_exit(game, E_MAP_EMPTY);
 	parser_map(game, parser->fd, parser->line); // delete parser-> args
-	free_parser(game->parser_state);
-	game->parser_state = NULL;
+	free_parser(game->parser);
+	game->parser = NULL;
 	return (game->map);
 }

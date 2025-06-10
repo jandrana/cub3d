@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 18:02:09 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:29:45 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,7 @@ typedef struct s_game
 	t_map			*map;
 	t_player		player;
 	t_graphics		*graphics;
-	t_parser_state	*parser_state;
-	char			**parser_temp;
+	t_parser		*parser;
 	double			fps;
 	long			frames;
 	int				item_sprite_n; // only bonus, check use

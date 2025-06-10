@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:25:26 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:31:25 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_textures(t_game *game)
 
 	i = -1;
 	while (++i < 4)
-		if (game->parser_state->textures[i] == false)
+		if (game->parser->textures[i] == false)
 			error_exit(game, E_TEX_MISSING, get_direction_name(i));
 }
 
@@ -166,11 +166,11 @@ bool	check_extension(char *path, char *extension)
 	return (0);
 }
 
-char	*path_from_texture(t_game *game, t_parser_state *parser)
+char	*path_from_texture(t_game *game, t_parser *parser)
 {
 	char	*path;
 
-	parser->element = ft_split(game->parser_state->line, ' ');
+	parser->element = ft_split(game->parser->line, ' ');
 	if (!parser->element)
 		error_exit(game, E_MEM_ALLOC, "parsing texture");
 	if (!parser->element[1])
@@ -188,18 +188,18 @@ char	*path_from_texture(t_game *game, t_parser_state *parser)
 
 void	parse_texture_line(t_game *game, t_direction dir)
 {
-	t_parser_state	*parser;
+	t_parser		*parser;
 	char			*path;
 	int				fd;
 
-	parser = game->parser_state;
+	parser = game->parser;
 	if (dir == INVALID)
 		error_exit(game, E_TEX_INVALID, parser->line);
 	else if (!ALLOW_SPRITES && parser->textures[dir] == true) // check sprites
 		error_exit(game, E_TEX_DUP, get_direction_name(dir));
 	path = path_from_texture(game, parser);
-	free_str(&game->parser_state->line);
-	game->parser_state->line = path;
+	free_str(&game->parser->line);
+	game->parser->line = path;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		error_exit(game, E_TEX_LOAD, path);

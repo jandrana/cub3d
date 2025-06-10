@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:22:05 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:37:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ static void	init_graphics(t_game *game)
 	game->graphics->textures_lst[WEST] = NULL;
 }
 
-static void	init_parser_state(t_game *game)
+static void	init_parser(t_game *game)
 {
 	unsigned long	alloc_size;
 
-	alloc_size = sizeof(t_parser_state);
-	game->parser_state = safe_calloc(1, alloc_size, game, "parser state");
-	game->parser_state->textures[NORTH] = false;
-	game->parser_state->textures[SOUTH] = false;
-	game->parser_state->textures[EAST] = false;
-	game->parser_state->textures[WEST] = false;
-	game->parser_state->floor_color = false;
-	game->parser_state->ceiling_color = false;
-	game->parser_state->line = NULL;
-	game->parser_state->element = NULL;
-	game->parser_state->fd = -1;
+	alloc_size = sizeof(t_parser);
+	game->parser = safe_calloc(1, alloc_size, game, "parser structure");
+	game->parser->textures[NORTH] = false;
+	game->parser->textures[SOUTH] = false;
+	game->parser->textures[EAST] = false;
+	game->parser->textures[WEST] = false;
+	game->parser->floor_color = false;
+	game->parser->ceiling_color = false;
+	game->parser->line = NULL;
+	game->parser->element = NULL;
+	game->parser->fd = -1;
 }
 
 t_game	*init_game_core(void)
@@ -78,10 +78,10 @@ t_game	*init_game_core(void)
 	game = safe_calloc(1, alloc_size, NULL, "game");
 	game->map = NULL;
 	game->graphics = NULL;
-	game->parser_state = NULL;
+	game->parser = NULL;
 	game->fps = INITIAL_FPS;
 	game->frames = 0;
-	init_parser_state(game);
+	init_parser(game);
 	init_graphics(game);
 	init_map(game);
 	return (game);

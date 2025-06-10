@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:21:48 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:28:41 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_line_type
 /**
  * \brief	Parser state tracking
  */
-typedef struct s_parser_state
+typedef struct s_parser
 {
 	bool	textures[4]; // [NORTH, SOUTH, EAST, WEST] (check other textures)
 	bool	floor_color;
@@ -42,7 +42,7 @@ typedef struct s_parser_state
 	char	*line;
 	char	**element;
 	int		fd;
-}	t_parser_state;
+}	t_parser;
 
 // ----------------- PARSER PROTOTYPES ----------------- //
 
@@ -88,6 +88,6 @@ t_color		get_color(t_game *game, char **rgb);
 t_color		parse_color(t_game *game, char *content, char *identifier);
 void		parse_color_line(t_game *game);
 
-void		free_parser(t_parser_state *parser);
+void		free_parser(t_parser *parser);
 
 #endif /* PARSER_H */

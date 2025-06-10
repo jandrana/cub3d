@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:20:53 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:32:36 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,17 @@ void	parser_map(t_game *game, int fd, char *map_line)
 
 	allocate_map_tiles(game);
 	line = ft_strdup(map_line);
+	if (!line)
+		error_exit(game, E_MEM_ALLOC, "parsing map line");
 	row = 0;
 	while (line)
 	{
-		free_str(&game->parser_state->line);
-		game->parser_state->line = ft_strtrim(line, "\n");
+		free_str(&game->parser->line);
+		game->parser->line = ft_strtrim(line, "\n");
 		free_str(&line);
-		if (!game->parser_state->line)
+		if (!game->parser->line)
 			error_exit(game, E_MEM_ALLOC, "trimming map line");
-		fill_map_line(game, game->parser_state->line, row);
+		fill_map_line(game, game->parser->line, row);
 		line = get_next_line(fd);
 		row++;
 	}

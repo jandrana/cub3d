@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:21:59 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:29:35 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_game
 	t_map			*map;
 	t_player		player;
 	t_graphics		*graphics;
-	t_parser_state	*parser_state;
+	t_parser		*parser;
 	double			fps;
 	long			frames;
 }	t_game;

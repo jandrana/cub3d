@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:55:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:24:33 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:30:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 static void	check_missing_values(t_game *game)
 {
 	check_textures(game);
-	if (!game->parser_state->floor_color)
+	if (!game->parser->floor_color)
 		error_exit(game, E_COLOR_MISSING, "Floor");
-	if (!game->parser_state->ceiling_color)
+	if (!game->parser->ceiling_color)
 		error_exit(game, E_COLOR_MISSING, "Ceiling");
 }
 
 void	parse_elements(t_game *game)
 {
 	t_line_type		type;
-	t_parser_state	*parser;
+	t_parser		*parser;
 
 	type = EMPTY_LINE;
-	parser = game->parser_state;
+	parser = game->parser;
 	parser->line = get_next_line(parser->fd);
 	while (parser->line && type != INVALID_LINE)
 	{

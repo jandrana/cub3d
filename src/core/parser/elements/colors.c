@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:23:59 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:30:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	check_color_dup(t_game *game, char identifier)
 {
 	if (identifier == 'F')
 	{
-		if (game->parser_state->floor_color == true)
+		if (game->parser->floor_color == true)
 			error_exit(game, E_COLOR_DUP, "Floor");
 	}
 	else if (identifier == 'C')
-		if (game->parser_state->ceiling_color == true)
+		if (game->parser->ceiling_color == true)
 			error_exit(game, E_COLOR_DUP, "Ceiling");
 	return (0);
 }
@@ -40,8 +40,8 @@ t_color	get_color(t_game *game, char **rgb)
 	while (++i < 3)
 	{
 		line = ft_strtrim(rgb[i], " \t\r\v\f");
-		free_str(&game->parser_state->line);
-		game->parser_state->line = line;
+		free_str(&game->parser->line);
+		game->parser->line = line;
 		if (!line && !free_array(&rgb))
 			error_exit(game, E_MEM_ALLOC, "trimming color");
 		val = ft_atoi(line);
@@ -124,21 +124,21 @@ t_color	parse_color(t_game *game, char *content, char *identifier)
 	color = get_color(game, rgb);
 	free_array(&rgb);
 	if (!ft_strncmp(identifier, "F", 2))
-		game->parser_state->floor_color = true;
+		game->parser->floor_color = true;
 	else if (!ft_strncmp(identifier, "C", 2))
-		game->parser_state->ceiling_color = true;
+		game->parser->ceiling_color = true;
 	return (color);
 }
 
 void	parse_color_line(t_game *game)
 {
-	t_parser_state	*parser;
+	t_parser		*parser;
 	char			**element;
 	int				start;
 	int				i;
 
 	i = -1;
-	parser = game->parser_state;
+	parser = game->parser;
 	while (parser->line[++i] && ft_strchr(WHITESPACE, parser->line[i]))
 		;
 	start = i;
