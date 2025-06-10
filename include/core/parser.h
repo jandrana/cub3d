@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:28:41 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:45:38 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		check_file_extension(t_game *game, const char *filename);
 int			open_map_file(t_game *game, const char *filename, bool map);
 
 	///                    map.c:                       /// (todo: items prot)
-void		parser_map(t_game *game, int fd, char *map_line);
+void		parser_map(t_game *game);
 void		allocate_map_tiles(t_game *game);
 t_line_type	check_map_line(t_game *game, char *line, size_t row); // used?
 

@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:32:36 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:44:30 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ void	restore_map(t_map *map)
 	}
 }
 
-void	parser_map(t_game *game, int fd, char *map_line)
+void	parser_map(t_game *game)
 {
 	char	*line;
 	size_t	row;
 
 	allocate_map_tiles(game);
-	line = ft_strdup(map_line);
+	line = ft_strdup(game->parser->line);
 	if (!line)
 		error_exit(game, E_MEM_ALLOC, "parsing map line");
 	row = 0;
@@ -147,7 +147,7 @@ void	parser_map(t_game *game, int fd, char *map_line)
 		if (!game->parser->line)
 			error_exit(game, E_MEM_ALLOC, "trimming map line");
 		fill_map_line(game, game->parser->line, row);
-		line = get_next_line(fd);
+		line = get_next_line(game->parser->fd);
 		row++;
 	}
 	validate_map(game);

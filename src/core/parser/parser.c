@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:32:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:46:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_map	*parser(t_game *game, int argc, char **argv)
 	//add_item_textures(game, 0);
 	if (!parser->line)
 		error_exit(game, E_MAP_EMPTY);
-	parser_map(game, parser->fd, parser->line); // delete parser-> args
+	parser_map(game);
 	free_parser(game->parser);
 	game->parser = NULL;
 	return (game->map);
