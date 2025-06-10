@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 19:21:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:22:05 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_game	*init_game_core(void)
 	game->map = NULL;
 	game->graphics = NULL;
 	game->parser_state = NULL;
-	game->parser_temp = NULL;
 	game->fps = INITIAL_FPS;
 	game->frames = 0;
 	init_parser_state(game);
