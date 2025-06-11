@@ -1,10 +1,11 @@
 #!/bin/bash
 
-PROJECT_DIR=$(pwd)/..
+# Move out of assets folder and execute in parent directory
+PROJECT_DIR=$(pwd)
 OUTPUT_FILE="$PROJECT_DIR/compile_commands.json"
 
 # Include paths and flags from the Makefile
-INCLUDE_PATH="-I$PROJECT_DIR/include -I$PROJECT_DIR/lib/libft/include -I/sgoinfre/shared/MLX42/include"
+INCLUDE_PATH="-I$PROJECT_DIR/include/core -I$PROJECT_DIR/include/bonus -I$PROJECT_DIR/include/mandatory -I$PROJECT_DIR/lib/libft/include -I/home/ana-cast/Desktop/Repos/cub3d/lib/MLX42/include"
 FLAGS="-Wall -Wextra -Werror"
 CC="clang" 
 

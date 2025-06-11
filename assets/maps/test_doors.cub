@@ -1,0 +1,25 @@
+                WE              ./cub3d_destroyer/wolftex/wood.png
+
+             SO	                       ./cub3d_destroyer/wolftex/redbrick.png
+                      F                 122,122,122
+                                 NO ./cub3d_destroyer/wolftex/greystone.png
+                                         S          ./cub3d_destroyer/wolftex/barrel.png
+                                                                    R           1080                  720
+                                                      EA                  ./cub3d_destroyer/wolftex/wood.png
+P ./assets/textures/lab_east.png
+
+                          C	                       255,200,160
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002001D10020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
