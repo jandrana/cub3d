@@ -75,10 +75,3 @@ int	array_len(char **array)
 		;
 	return (len);
 }
-
-bool	check_color_value(t_color color)
-{
-	if (color.r > 255 || color.g > 255 || color.b > 255)
-		return (1);
-	return (0);
-}
