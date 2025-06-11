@@ -6,11 +6,11 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:23 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 19:58:40 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:04:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_mandatory.h"
 
 void	manage_resize(int32_t width, int32_t height, void *ptr)
 {
