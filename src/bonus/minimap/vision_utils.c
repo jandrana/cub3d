@@ -6,10 +6,11 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:49:26 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 16:13:49 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:35:25 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "types.h"
 #include <cub3d_bonus.h>
 #include <stdlib.h>
 #include <math.h>
@@ -45,7 +46,7 @@ static bool	pixel_on_wall(t_game *game, double center, double x, double y)
 	pos = get_absolute_px(game, center, x, y);
 	type = get_tile_pos_type(game->map, pos);
 	free(pos);
-	if (type != WALL && type != SPACE)
+	if (type != WALL && type != SPACE && type != DOOR)
 		return (false);
 	return (true);
 }

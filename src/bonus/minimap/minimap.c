@@ -6,13 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 16:13:02 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:37:14 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include <cub3d_bonus.h>
-#include <macros.h> // for null and other macros
+#include <macros.h>
 #include <math.h>
 
 void	draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color,
@@ -67,7 +67,7 @@ Comparison:
 	Inside: distance < r
 	Outside: distance > r
 */
-void	draw_tile(t_game *game, double *pos, uint32_t color)
+void	draw_tile(t_game *game, double *pos, double *abs_pos, uint32_t color)
 {
 	double	pixel[2];
 	double	center;
@@ -77,6 +77,8 @@ void	draw_tile(t_game *game, double *pos, uint32_t color)
 	r = 5;
 	pixel[0] = center + pos[0] * TILE_SIZE;
 	pixel[1] = center + pos[1] * TILE_SIZE;
+	if (get_tile_pos_type(game->map, abs_pos) == DOOR)
+		color = 0x808080FF;
 	if (pixel[0] >= 21 && pixel[0] < 219 && pixel[1] >= 21 && pixel[1] < 219)
 	{
 		if (sqrt(pow(center - pixel[0], 2) + pow(center - pixel[1], 2)) <= r
@@ -106,9 +108,9 @@ void	draw_tiles(t_game *game, t_mini_item **map_items)
 			abs_pos[1] = floor(game->player.y + rel_pos[1]);
 			if (get_tile_pos_type(game->map, abs_pos) == EMPTY
 				|| get_tile_pos_type(game->map, abs_pos) == ITEM)
-				draw_tile(game, rel_pos, 0x303030FF);
+				draw_tile(game, rel_pos, abs_pos, 0x303030FF);
 			else
-				draw_tile(game, rel_pos, 0x606060FF);
+				draw_tile(game, rel_pos, abs_pos, 0x606060FF);
 			if (get_tile_pos_type(game->map, abs_pos) == ITEM
 				&& fabs(rel_pos[0] - floor(rel_pos[0])) > 0.9999
 				&& fabs(rel_pos[1] - floor(rel_pos[1])) > 0.9999)
