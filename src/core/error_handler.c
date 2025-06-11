@@ -6,13 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:42:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:33:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:47:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
-#include "cub3d.h"
 #include "error.h"
+#include "macros.h"
 #include "libft.h"
 #include "parser.h"
 #include "types.h"
