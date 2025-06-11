@@ -6,11 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/29 16:44:19 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:50:34 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "types.h"
+#include "renderer.h"
+#include "macros.h"
 #include <stdint.h>
 #include <math.h>
 
