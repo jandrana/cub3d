@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:46:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:13:43 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	update_map_sizes(t_game *game, char *filename)
 	char	*line;
 	size_t	len;
 
-	fd = open_map_file(game, filename, 1);
+	fd = open_map_file(game, filename);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -57,23 +57,4 @@ void	update_map_sizes(t_game *game, char *filename)
 	close(fd);
 	if (game->map->rows == 0)
 		error_exit(game, E_MAP_EMPTY);
-}
-
-t_map	*parser(t_game *game, int argc, char **argv)
-{
-	t_parser	*parser;
-
-	parser = game->parser;
-	if (argc != 2)
-		error_exit(game, E_ARGS_COUNT, argv[0]);
-	update_map_sizes(game, argv[1]);
-	parser->fd = open_map_file(game, argv[1], 1);
-	parse_elements(game);
-	//add_item_textures(game, 0);
-	if (!parser->line)
-		error_exit(game, E_MAP_EMPTY);
-	parser_map(game);
-	free_parser(game->parser);
-	game->parser = NULL;
-	return (game->map);
 }

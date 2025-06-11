@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/06 16:56:03 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:28:29 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,4 @@ void	validate_near_tiles(t_game *game, size_t row, size_t col)
 		validate_tile(game, row + 1, col - 1, surrounding);
 		validate_tile(game, row + 1, col + 1, surrounding);
 	}
-}
-
-void	validate_map(t_game *game)
-{
-	size_t	row;
-	size_t	col;
-
-	row = 0;
-	while (row <= game->map->rows)
-	{
-		col = 0;
-		while (col <= game->map->cols)
-		{
-			validate_near_tiles(game, row, col);
-			//if (game->map->mt[row][col] == ITEM)
-			//	game->map->n_items += 1;
-			col++;
-		}
-		row++;
-	}
-	if (game->player.x < 0 || game->player.y < 0)
-		error_exit(game, E_MAP_NO_PLAYER);
 }
