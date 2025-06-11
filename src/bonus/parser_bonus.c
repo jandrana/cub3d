@@ -6,214 +6,139 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:26:58 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 19:12:28 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:22:16 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// bonus version of validate_map (n_items condition)
-
-// bonus version adding add_item_textures to parser
-
-// bonus version of map.c
-
-// bonus version of elements/textures + refactor
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/26 20:28:02 by ana-cast         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libft.h"
-#include <cub3d.h>
+#include "error.h"
+#include <libft.h>
 #include <fcntl.h>
+#include "MLX42/MLX42.h"
+#include "cub3d_bonus.h"
+#include "parser.h"
+#include "types.h"
 
-void	add_item_textures(t_game *game, int i) // add to bonus.h
+// update_map_sizes					--> [  SAME  ] <--
+// open_map_file					--> [  SAME  ] <--
+// parse_elements					--> [NOT SAME] <--
+// parser_map (+update_map_items)	--> [  SAME  ] <--
+// free_parser						--> [  SAME  ] <-- (for now)
+
+// parse_elements --> get_line_type (utils.c)  --> [NOT SAME] <--
+// parse_elements --> parse_texture_line (textures.c)  --> [NOT SAME] <--
+// parser_map --> implement door parsing + map items
+
+// if there is a door in map, check there is door texture
+
+void	parse_door_line(t_game *game)
 {
-	char	*str_i;
 	char	*path;
-	char	*file;
+	int		fd;
 
-	i = 0;
-	while (i <= 8)
+	if (game->door_texture == true)
+		error_exit(game, E_TEX_DUP, "door texture");
+	path = path_from_texture(game, game->parser);
+	free_str(&game->parser->line);
+	game->parser->line = path;
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_exit(game, E_TEX_LOAD, path);
+	close(fd);
+	if (add_texture(mlx_load_png(path), &game->graphics->door_lst[0]))
+		error_exit(game, E_TEX_LOAD, path);
+	game->door_texture = true;
+	free_array(&game->parser->element);
+}
+
+void	parse_elements(t_game *game)
+{
+	t_line_type		type;
+	t_parser		*parser;
+
+	type = EMPTY_LINE;
+	parser = game->parser;
+	parser->line = get_next_line(parser->fd);
+	while (parser->line && type != INVALID_LINE)
 	{
-		str_i = ft_itoa(i);
-		file = ft_strjoin(str_i, ".png");
-		free_str(&str_i);
-		path = ft_strjoin("assets/textures/item_sprites/", file);
-		free_str(&file);
-		open_map_file(game, path, 0);
-		// if (add_texture(mlx_load_png(path), &game->graphics->items_lst[i]))
-		// {
-		// 	free_str(&path);
-		// 	error_exit(game, E_TEX_LOAD, "Item Texture");
-		// }
-		free_str(&path);
-		i++;
+		type = get_line_type(parser->line);
+		if (type == TEXTURE_LINE)
+			parse_texture_line(game, get_texture_direction(parser->line));
+		else if (type == COLOR_LINE)
+			parse_color_line(game);
+		else if (type == DOOR_LINE)
+			parse_door_line(game);
+		else if (type == MAP_LINE)
+		{
+			check_missing_values(game);
+			return ;
+		}
+		else if (type == INVALID_LINE)
+			error_exit(game, E_MAP_UNKNOWN, parser->line);
+		free_str(&parser->line);
+		parser->line = get_next_line(parser->fd);
 	}
 }
 
-t_map	*parser(t_game *game, int argc, char **argv)
+bool	check_wall(t_game *game, size_t row, size_t col)
 {
-	int		fd;
-	char	*first_map_line;
+	if (valid_tile(row, game->map->rows) && valid_tile(col, game->map->cols))
+	{
+		if (game->map->mt[row][col] == '1')
+			return (0);
+	}
+	return (1);
+}
 
+void	check_door_tile(t_game *game, size_t row, size_t col)
+{
+	if (game->door_texture == false)
+		error_exit(game, "Missing door texture");
+	if ((check_wall(game, row + 1, col) || check_wall(game, row - 1, col))
+		&& (check_wall(game, row, col + 1) || check_wall(game, row, col - 1)))
+		error_exit(game, "Door needs wall to hold it [%zu,%zu]", row, col);
+}
+
+void	validate_map(t_game *game)
+{
+	size_t	row;
+	size_t	col;
+
+	row = 0;
+	while (row <= game->map->rows)
+	{
+		col = 0;
+		while (col <= game->map->cols)
+		{
+			validate_near_tiles(game, row, col);
+			//if (game->map->mt[row][col] == ITEM)
+			//	game->map->n_items += 1;
+			if (game->map->mt[row][col] == 'D')
+				check_door_tile(game, row, col);
+			col++;
+		}
+		row++;
+	}
+	if (game->player.x < 0 || game->player.y < 0)
+		error_exit(game, E_MAP_NO_PLAYER);
+}
+
+t_map	*parser_bonus(t_game *game, int argc, char **argv)
+{
+	t_parser	*parser;
+
+	parser = game->parser;
 	if (argc != 2)
 		error_exit(game, E_ARGS_COUNT, argv[0]);
 	update_map_sizes(game, argv[1]);
-	fd = open_map_file(game, argv[1], 1);
-	first_map_line = parse_elements(game, fd);
+	parser->fd = open_map_file(game, argv[1]);
+	parse_elements(game);
 	//add_item_textures(game, 0);
-	if (!first_map_line)
+	if (!parser->line)
 		error_exit(game, E_MAP_EMPTY);
-	parser_map(game, fd, first_map_line);
-	close(fd);
-	return (game->map);
-}
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 17:56:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/26 20:18:59 by ana-cast         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <cub3d.h>
-#include <libft.h>
-
-t_line_type	check_map_line(t_game *game, char *line, size_t row)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (!ft_strchr(VALID_MAP_CHARS, line[i]))
-			error_exit(game, E_MAP_CHAR, line[i], row, i);
-	}
-	return (MAP_LINE);
-}
-
-void	allocate_map_tiles(t_game *game)
-{
-	size_t	i;
-	size_t	j;
-
-	game->map->mt = malloc(sizeof(t_map_tile *) * (game->map->rows + 1));
-	if (!game->map->mt)
-		error_exit(game, E_MEM_ALLOC, "map rows");
-	i = 0;
-	while (i <= game->map->rows)
-	{
-		game->map->mt[i] = malloc(sizeof(t_map_tile) * (game->map->cols + 1));
-		if (!game->map->mt[i])
-			error_exit(game, E_MEM_ALLOC, "map columns");
-		j = 0;
-		while (j <= game->map->cols)
-		{
-			game->map->mt[i][j] = SPACE;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	set_player(t_game *game, t_map_tile tile, size_t row, size_t col)
-{
-	if (!(tile == PLAYER_EAST || tile == PLAYER_NORTH || tile == PLAYER_SOUTH
-			|| tile == PLAYER_WEST))
-		return ;
-	if (game->player.x != -1 || game->player.y != -1)
-		error_exit(game, E_MAP_MULTI_PLAYER);
-	game->player.x = col + 0.5;
-	game->player.y = row + 0.5;
-}
-
-void	restore_map(t_map *map)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < map->rows)
-	{
-		j = 0;
-		while (j < map->cols)
-		{
-			if (map->mt[i][j] == 'V')
-				map->mt[i][j] = '0';
-			if (map->mt[i][j] == 'C')
-				map->mt[i][j] = 'I';
-			j++;
-		}
-		i++;
-	}
-}
-
-// void	new_item(t_game *game, size_t y, size_t x, size_t item_no)
-// {
-// 	game->map->items[item_no].x = x;
-// 	game->map->items[item_no].y = y;
-// 	game->map->items[item_no].collected = false;
-// 	game->map->items[item_no].sprite_frame = 0;
-// 	if (!reach_player(game, x, y))
-// 		error_exit(game, E_ITEM_REACH, y, x);
-// 	restore_map(game->map);
-// }
-
-// void	update_map_items(t_game *game)
-// {
-// 	size_t	row;
-// 	size_t	col;
-// 	size_t	i;
-
-// 	i = 0;
-// 	game->map->items = (t_item *)malloc(sizeof(t_item) * game->map->n_items);
-// 	if (!game->map->items)
-// 		error_exit(game, E_MEM_ALLOC, "map items");
-// 	row = 0;
-// 	while (row <= game->map->rows)
-// 	{
-// 		col = 0;
-// 		while (col <= game->map->cols)
-// 		{
-// 			if (game->map->mt[row][col] == ITEM)
-// 				new_item(game, row, col, i++);
-// 			col++;
-// 		}
-// 		row++;
-// 	}
-// }
-
-void	parser_map(t_game *game, int fd, char *map_line)
-{
-	char	*line;
-	size_t	row;
-	char	*trimmed;
-
-	allocate_map_tiles(game);
-	line = map_line;
-	row = 0;
-	while (line)
-	{
-		trimmed = ft_strtrim(line, "\n");
-		fill_map_line(game, trimmed, row);
-		row++;
-		free_str(&trimmed);
-		free_str(&line);
-		line = get_next_line(fd);
-	}
+	parser_map(game);
 	validate_map(game);
 	//update_map_items(game);
+	free_parser(game->parser);
+	game->parser = NULL;
+	return (game->map);
 }
