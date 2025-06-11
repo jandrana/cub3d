@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:43:09 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 16:46:33 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:37:03 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "types.h"
 # include <stddef.h>
-
-typedef struct s_game	t_game;
 
 /**
  * \brief	Wall hit information for raycasting

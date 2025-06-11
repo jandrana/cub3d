@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 16:26:51 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:00:23 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h> // variadic functions
 
-typedef struct s_game	t_game;
+# include "types.h"
 
 	///                    parser/init.c:               ///
 t_game	*init_game(void);

@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 21:12:51 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:21:40 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 // # endif
 
 # include <stddef.h>
-
-typedef struct s_game	t_game;
+# include <types.h>
 
 // ----------------------------------------------------- //
 //                     ERROR MACROS                      //
