@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:29:45 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:58:32 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 
 // ------------------- CORE INCLUDES ------------------- //
 
-# include "core/error.h"
-# include "core/game.h"
-# include "core/macros.h"
-# include "core/parser.h"
-# include "core/renderer.h"
-# include "core/types.h"
-# include "core/init.h"
-# include "bonus/free_bonus.h"
+# define IS_BONUS 1
+
+# include "../core/error.h"
+# include "../core/game.h"
+# include "../core/macros.h"
+# include "../core/parser.h"
+# include "../core/renderer.h"
+# include "../core/types.h"
+# include "../core/init.h"
+# include "free_bonus.h"
 
 // -------------------- BONUS MACROS ------------------- //
 
@@ -34,8 +36,8 @@
 # define BONUS 1
 
 # define NO_REACH_PLAYER "1 VC"
-# define VALID_MAP_CHARS "NSEW10I \t\r\v\f\n"
-# define NEAR_PLAYABLE "NSEW10I"
+# define VALID_MAP_CHARS "NSEW10ID2 \t\r\v\f\n" // delete "2"
+# define NEAR_PLAYABLE "NSEW10ID"
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 1
 
@@ -53,74 +55,17 @@ typedef enum e_textures_minimap // not used?
 	M_SPACE = 3
 }	t_textures_map;
 
-// ------------------ BONUS STRUCTURES ----------------- //
-
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	double	angle;
-	double	sprite_frame; // only bonus
-}	t_player;
-
-typedef struct s_item
-{
-	double			x;
-	double			y;
-	bool			collected;
-	double			sprite_frame;
-}	t_item;
-
-typedef struct s_map
-{
-	unsigned int	rows;
-	unsigned int	cols;
-	t_map_tile		**mt;
-	t_color			floor_color;
-	t_color			ceiling_color;
-	t_item			*items;
-	int				n_items;
-	int				n_collected;
-}	t_map;
-
-typedef struct s_mini_item
-{
-	double				rel_x;
-	double				rel_y;
-	struct s_mini_item	*next;
-}	t_mini_item; // change with t_2D_item
-
-typedef struct s_graphics
-{
-	mlx_t		*mlx;
-	t_hlist		*textures_lst[4]; // [NORTH, SOUTH, EAST, WEST]
-	mlx_image_t	*img;
-	mlx_image_t	*fps;
-	mlx_image_t	*minimap; //implement minimap in its own image
-	t_hlist		*door_lst[4]; //implement door textures
-	t_hlist		*items_lst[9];
-	bool		skip_item;
-}	t_graphics;
-
-typedef struct s_game
-{
-	t_map			*map;
-	t_player		player;
-	t_graphics		*graphics;
-	t_parser		*parser;
-	double			fps;
-	long			frames;
-	int				item_sprite_n; // only bonus, check use
-	bool			cursor_locked; // only bonus, check use
-}	t_game;
-
 // ------------------ BONUS FUNCTIONS ------------------ //
+
+t_map		*parser_bonus(t_game *game, int argc, char **argv);
+void		parse_elements(t_game *game);
+void		validate_map(t_game *game);
 
 /**
  * \brief	Initializes the game bonus structure 
  */
 t_game		*init_game_bonus(void);
-
+void		allocate_structures(t_game *game); // unused
 
 /**
  * \brief		Input handler for bonus game
@@ -135,6 +80,8 @@ void		manage_input(void *ptr);
  * \param ptr		Pointer to game structure
  */
 void		manage_resize(int32_t width, int32_t height, void *ptr);
+
+void		render_bonus(t_game *game, unsigned int width, unsigned int height);
 
 	// ------------------------------------------------- //
 	//                  MINIMAP FOLDER                   //
