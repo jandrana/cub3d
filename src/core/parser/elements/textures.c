@@ -16,7 +16,7 @@
 #include "macros.h"
 #include "parser.h"
 #include "types.h"
-#include <cub3d.h>
+#include "cub3d.h"
 #include <stdbool.h>
 #include <fcntl.h>
 
@@ -42,7 +42,7 @@ t_direction	get_texture_direction(char *content)
 	return (INVALID);
 }
 
-static char	*get_direction_name(t_direction dir)
+char	*get_direction_name(t_direction dir)
 {
 	if (dir == NORTH)
 		return ("NO");
@@ -53,65 +53,6 @@ static char	*get_direction_name(t_direction dir)
 	else if (dir == EAST)
 		return ("EA");
 	return ("INVALID DIRECTION");
-}
-
-void	check_textures(t_game *game)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-		if (game->parser->textures[i] == false)
-			error_exit(game, E_TEX_MISSING, get_direction_name(i));
-}
-
-t_hlist	*hslt_new_node(void *content, t_hlist *head)
-{
-	t_hlist	*node;
-
-	if (!content)
-		return (NULL);
-	node = (t_hlist *)malloc(sizeof(t_hlist));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	if (!head)
-		node->head = node;
-	else
-		node->head = head;
-	node->next = NULL;
-	return (node);
-}
-
-t_hlist	*hlst_last_node(t_hlist *lst)
-{
-	if (!lst)
-		return (0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	hlstadd_back(t_hlist **lst, t_hlist *node)
-{
-	t_hlist	*last;
-
-	if (!node)
-		return ;
-	if (!(*lst))
-	{
-		*lst = node;
-		node->head = node;
-	}
-	else
-	{
-		last = hlst_last_node(*lst);
-		if (last)
-		{
-			node->head = *lst;
-			last->next = node;
-		}
-	}
 }
 
 bool	add_texture(mlx_texture_t *texture, t_hlist **txt_lst)
