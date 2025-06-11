@@ -6,12 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:27:29 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 18:53:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:38:01 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_mandatory.h"
 #include "MLX42/MLX42.h"
+#include "error.h"
 #include "init.h"
 
 int	main(int argc, char **argv)
