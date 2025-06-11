@@ -73,12 +73,13 @@ SRC_CORE =  src/core/error_handler.c \
 			src/core/parser/init.c \
 			src/core/parser/parser.c \
 			src/core/parser/file.c \
-			src/core/parser/elements/elements.c \
 			src/core/parser/elements/textures.c \
 			src/core/parser/elements/colors.c \
+			src/core/parser/elements/check.c \
 			src/core/parser/map.c \
 			src/core/parser/validate_map.c \
 			src/core/parser/utils.c \
+			src/core/parser/hlst_utils.c \
 			src/core/parser/print_utils.c \
 			src/core/renderer/init_player.c \
 			src/core/renderer/render_scene.c \
@@ -90,22 +91,25 @@ SRC_CORE =  src/core/error_handler.c \
 # MANDATORY SOURCES #
 SRC =	$(SRC_CORE) \
 		src/mandatory/main.c \
+		src/mandatory/parser.c \
 		src/mandatory/free_utils.c \
 		src/mandatory/manage_input.c \
 		src/mandatory/manage_resize.c \
 
 # BONUS SOURCES #
-SRC_BONUS =	$(SRC_CORE) \
+SRC_BONUS = $(SRC_CORE) \
 			src/bonus/main_bonus.c \
 			src/bonus/init_bonus.c \
+			src/bonus/parser_bonus.c \
 			src/bonus/free_bonus.c \
+			src/bonus/render_bonus.c \
 			src/bonus/manage_input_bonus.c \
 			src/bonus/manage_resize_bonus.c \
 			src/bonus/minimap/minimap.c \
 			src/bonus/minimap/vision_utils.c \
 			src/bonus/minimap/item_utils.c \
 			src/bonus/sprites/sprite_handler_bonus.c \
-			src/bonus/doors/door_handler_bonus.c
+			src/bonus/doors/door_handler_bonus.c \
 
 
 # OBJECTS #
@@ -133,7 +137,8 @@ TURQUOISE=\033[36m
 
 all : head libft $(NAME)
 
-bonus : head libft $(NAME_BONUS)
+bonus : head libft
+	@$(MAKE) CFLAGS="$(CFLAGS) -D IS_BONUS" $(NAME_BONUS)
 
 debug_all: fclean
 	@$(MAKE) CFLAGS="$(CFLAGS) $(SAN_FLAGS)" all
