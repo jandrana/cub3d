@@ -6,11 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:59:21 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 19:42:03 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:49:51 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "error.h"
+#include "MLX42/MLX42.h"
 
 void	free_game(t_game *game)
 {
