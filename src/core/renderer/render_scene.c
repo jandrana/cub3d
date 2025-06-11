@@ -6,11 +6,14 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/26 20:20:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:55:34 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "MLX42/MLX42.h"
+#include "renderer.h"
+#include "error.h"
+#include "types.h"
 
 static void	draw_scene(t_game *game, unsigned int width, unsigned int height)
 {
