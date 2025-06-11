@@ -6,11 +6,11 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 22:24:29 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:04:46 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_mandatory.h"
 #include <math.h>
 
 static bool	move_player(t_game *game, double angle_offset)
