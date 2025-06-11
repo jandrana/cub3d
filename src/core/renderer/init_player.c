@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "types.h"
+#include "macros.h"
 
 void	init_player(t_game *game)
 {
