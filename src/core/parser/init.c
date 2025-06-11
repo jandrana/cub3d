@@ -6,27 +6,19 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:37:57 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:57:20 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "types.h"
 #include "init.h"
+#include "error.h"
 #include "macros.h"
-#include "parser.h"
 #include <stdlib.h>
-
-#ifdef BONUS
-# include "cub3d_bonus.h"
-#else
-# include "cub3d.h"
-#endif
 
 static void	init_map(t_game *game)
 {
-	unsigned long	alloc_size;
-
-	alloc_size = sizeof(t_map);
-	game->map = safe_calloc(1, alloc_size, game, "map");
+	game->map = safe_calloc(1, sizeof(t_map), game, "map");
 	game->map->rows = 0;
 	game->map->cols = 0;
 	game->map->mt = NULL;
@@ -39,10 +31,7 @@ static void	init_map(t_game *game)
 
 static void	init_graphics(t_game *game)
 {
-	unsigned long	alloc_size;
-
-	alloc_size = sizeof(t_graphics);
-	game->graphics = safe_calloc(1, alloc_size, game, "graphics");
+	game->graphics = safe_calloc(1, sizeof(t_graphics), game, "graphics");
 	game->graphics->mlx = NULL;
 	game->graphics->img = NULL;
 	game->graphics->fps = NULL;
@@ -54,10 +43,7 @@ static void	init_graphics(t_game *game)
 
 static void	init_parser(t_game *game)
 {
-	unsigned long	alloc_size;
-
-	alloc_size = sizeof(t_parser);
-	game->parser = safe_calloc(1, alloc_size, game, "parser structure");
+	game->parser = safe_calloc(1, sizeof(t_parser), game, "parser structure");
 	game->parser->textures[NORTH] = false;
 	game->parser->textures[SOUTH] = false;
 	game->parser->textures[EAST] = false;
@@ -72,10 +58,8 @@ static void	init_parser(t_game *game)
 t_game	*init_game_core(void)
 {
 	t_game			*game;
-	unsigned long	alloc_size;
 
-	alloc_size = sizeof(t_game);
-	game = safe_calloc(1, alloc_size, NULL, "game");
+	game = safe_calloc(1, sizeof(t_game), NULL, "game");
 	game->map = NULL;
 	game->graphics = NULL;
 	game->parser = NULL;
