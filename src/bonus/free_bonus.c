@@ -6,11 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:59:21 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 19:41:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:38:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "error.h"
+#include "types.h"
 #include "MLX42/MLX42.h"
 
 static void	free_bonus_graphics(t_game *game)
