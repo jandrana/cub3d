@@ -6,11 +6,13 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 19:57:54 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:51:41 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "renderer.h"
+#include "macros.h"
+#include "types.h"
 #include <math.h>
 
 static t_wall_hit	determine_wall_direction(t_map_tile **mt, int hit_side,
