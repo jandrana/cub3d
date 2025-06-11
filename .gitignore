@@ -44,6 +44,7 @@ build/
 *.x86_64
 *.hex
 cub3D
+cub3D_bonus
 
 # Debug files
 *.dSYM/
