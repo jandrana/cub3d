@@ -6,28 +6,15 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:03:46 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 17:30:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:41:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "macros.h"
 #include "parser.h"
-#include <cub3d.h>
+#include "types.h"
 #include <libft.h>
-
-int	check_color_dup(t_game *game, char identifier)
-{
-	if (identifier == 'F')
-	{
-		if (game->parser->floor_color == true)
-			error_exit(game, E_COLOR_DUP, "Floor");
-	}
-	else if (identifier == 'C')
-		if (game->parser->ceiling_color == true)
-			error_exit(game, E_COLOR_DUP, "Ceiling");
-	return (0);
-}
 
 t_color	get_color(t_game *game, char **rgb)
 {
