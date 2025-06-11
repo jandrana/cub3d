@@ -6,11 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 16:06:24 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:59:06 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+#include "types.h"
 #include <math.h>
 #include "MLX42/MLX42.h"
 
@@ -121,7 +122,7 @@ void	manage_input(void *ptr)
 	if (!(game->frames % 60))
 		update_sprites(game);
 	if (moved || !(game->frames % 15))
-		render_scene(game, game->graphics->mlx->width,
+		render_bonus(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);
 	game->frames += 1;
 }
