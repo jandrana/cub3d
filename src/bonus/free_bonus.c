@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:59:21 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 18:38:49 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:08:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	free_bonus_graphics(t_game *game)
 	free_hlist(graphics->items_lst, delete_texture);
 	if (graphics->minimap)
 		mlx_delete_image(graphics->mlx, graphics->minimap);
+	if (graphics->items_img)
+		mlx_delete_image(graphics->mlx, graphics->items_img);
 	if (graphics->mlx)
 		mlx_terminate(game->graphics->mlx);
 }

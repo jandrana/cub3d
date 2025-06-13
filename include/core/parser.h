@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 14:58:56 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:25:07 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_line_type
 	TEXTURE_LINE,
 	COLOR_LINE,
 	DOOR_LINE,
+	ITEM_LINE,
 	INVALID_LINE
 }	t_line_type;
 

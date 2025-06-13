@@ -26,13 +26,13 @@ static void	init_graphics_bonus(t_game *game)
 	int	i;
 
 	game->graphics->minimap = NULL;
+	game->graphics->items_img = NULL;
 	i = -1;
 	while (++i < 4)
 		game->graphics->door_lst[i] = NULL;
 	i = -1;
-	while (++i < 9)
+	while (++i < 9) // delete!
 		game->graphics->items_lst[i] = NULL;
-	game->graphics->skip_item = false;
 }
 
 t_game	*init_game_bonus(void)
@@ -44,6 +44,7 @@ t_game	*init_game_bonus(void)
 	game->cursor_locked = true;
 	game->player.sprite_frame = 0; // check
 	game->door_texture = false;
+	game->item_texture = false;
 	init_map_bonus(game);
 	init_graphics_bonus(game);
 	return (game);

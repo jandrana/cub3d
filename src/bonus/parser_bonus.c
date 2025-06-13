@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:26:58 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 18:22:16 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:18:53 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@
 
 // if there is a door in map, check there is door texture
 
-void	parse_door_line(t_game *game)
-{
-	char	*path;
-	int		fd;
-
-	if (game->door_texture == true)
-		error_exit(game, E_TEX_DUP, "door texture");
-	path = path_from_texture(game, game->parser);
-	free_str(&game->parser->line);
-	game->parser->line = path;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		error_exit(game, E_TEX_LOAD, path);
-	close(fd);
-	if (add_texture(mlx_load_png(path), &game->graphics->door_lst[0]))
-		error_exit(game, E_TEX_LOAD, path);
-	game->door_texture = true;
-	free_array(&game->parser->element);
-}
 
 void	parse_elements(t_game *game)
 {
@@ -65,8 +46,8 @@ void	parse_elements(t_game *game)
 			parse_texture_line(game, get_texture_direction(parser->line));
 		else if (type == COLOR_LINE)
 			parse_color_line(game);
-		else if (type == DOOR_LINE)
-			parse_door_line(game);
+		else if (type == DOOR_LINE || type == ITEM_LINE)
+			parse_bonus_textures(game, type);
 		else if (type == MAP_LINE)
 		{
 			check_missing_values(game);
@@ -92,7 +73,7 @@ bool	check_wall(t_game *game, size_t row, size_t col)
 void	check_door_tile(t_game *game, size_t row, size_t col)
 {
 	if (game->door_texture == false)
-		error_exit(game, "Missing door texture");
+		error_exit(game, "Door found in map. Specify texture(s): 'P ./path'");
 	if ((check_wall(game, row + 1, col) || check_wall(game, row - 1, col))
 		&& (check_wall(game, row, col + 1) || check_wall(game, row, col - 1)))
 		error_exit(game, "Door needs wall to hold it [%zu,%zu]", row, col);
@@ -110,14 +91,16 @@ void	validate_map(t_game *game)
 		while (col <= game->map->cols)
 		{
 			validate_near_tiles(game, row, col);
-			//if (game->map->mt[row][col] == ITEM)
-			//	game->map->n_items += 1;
+			if (game->map->mt[row][col] == ITEM)
+				game->map->n_items += 1;
 			if (game->map->mt[row][col] == 'D')
 				check_door_tile(game, row, col);
 			col++;
 		}
 		row++;
 	}
+	if (game->map->n_items > 0 && game->item_texture == false)
+		error_exit(game, "Item found in map. Specify texture(s): 'S ./path'");
 	if (game->player.x < 0 || game->player.y < 0)
 		error_exit(game, E_MAP_NO_PLAYER);
 }
@@ -132,12 +115,11 @@ t_map	*parser_bonus(t_game *game, int argc, char **argv)
 	update_map_sizes(game, argv[1]);
 	parser->fd = open_map_file(game, argv[1]);
 	parse_elements(game);
-	//add_item_textures(game, 0);
 	if (!parser->line)
 		error_exit(game, E_MAP_EMPTY);
 	parser_map(game);
 	validate_map(game);
-	//update_map_items(game);
+	update_map_items(game);
 	free_parser(game->parser);
 	game->parser = NULL;
 	return (game->map);

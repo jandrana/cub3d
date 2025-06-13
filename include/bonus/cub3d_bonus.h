@@ -41,12 +41,6 @@
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 1
 
-typedef enum e_map_tile_bonus
-{
-	ITEM = 'I',
-	DOOR = 'D'
-}	t_map_tile_bonus;
-
 typedef enum e_textures_minimap // not used?
 {
 	//M_COMPASS = 0,
@@ -60,6 +54,8 @@ typedef enum e_textures_minimap // not used?
 t_map		*parser_bonus(t_game *game, int argc, char **argv);
 void		parse_elements(t_game *game);
 void		validate_map(t_game *game);
+void		update_map_items(t_game *game);
+void		parse_bonus_textures(t_game *game, t_line_type type);
 
 /**
  * \brief	Initializes the game bonus structure 
