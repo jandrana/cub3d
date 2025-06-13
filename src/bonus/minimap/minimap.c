@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 22:51:52 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:50:43 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ void	draw_tile(t_game *game, double *pos, double *abs_pos, uint32_t color)
 	r = 5;
 	pixel[0] = center + pos[0] * TILE_SIZE;
 	pixel[1] = center + pos[1] * TILE_SIZE;
-	if (get_tile_pos_type(game->map, abs_pos) == DOOR
-		|| get_tile_pos_type(game->map, abs_pos) == 'o')
-		color = 0x808080FF;
+	if (get_tile_pos_type(game->map, abs_pos) == DOOR)
+		color = 0xFF0000FF;
+	else if (get_tile_pos_type(game->map, abs_pos) == 'o')
+		color = 0x00FF00FF;
 	if (pixel[0] >= 21 && pixel[0] < 219 && pixel[1] >= 21 && pixel[1] < 219)
 	{
 		if (sqrt(pow(center - pixel[0], 2) + pow(center - pixel[1], 2)) <= r

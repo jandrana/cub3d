@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 16:27:31 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:47:58 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static	void	toggle_door(t_game *game, int y, int x)
 		game->map->mt[y][x] = DOOR;
 }
 
-static bool	toggle_doors(t_game	*game)
+static void	toggle_doors(t_game	*game)
 {
 	if (valid_tile(game->player.y + 1, game->map->rows)
 		&& valid_tile(game->player.x, game->map->cols))
@@ -158,7 +158,21 @@ static bool	toggle_doors(t_game	*game)
 	if (valid_tile(game->player.y, game->map->rows)
 		&& valid_tile(game->player.x - 1, game->map->cols))
 		toggle_door(game, (int)game->player.y, (int)(game->player.x - 1));
-	return (true);
+}
+
+static void	handle_door_toggle(t_game *game, bool *moved)
+{
+	static bool	e_prev_state = false;
+	bool		e_curr_state;
+
+	e_curr_state = mlx_is_key_down(game->graphics->mlx, MLX_KEY_E);
+	if (e_curr_state && !e_prev_state)
+	{
+		toggle_doors(game);
+		e_prev_state = e_curr_state;
+		*moved = true;
+	}
+	e_prev_state = e_curr_state;
 }
 
 static void	handle_movement(t_game *game, bool *moved)
@@ -171,8 +185,6 @@ static void	handle_movement(t_game *game, bool *moved)
 		*moved = move_player(game, PI / 2.0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
 		*moved = move_player(game, -PI / 2.0);
-	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_E))
-		*moved = toggle_doors(game);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
 	{
 		game->player.angle += ROTATION_SPEED / game->fps;
@@ -244,6 +256,7 @@ void	manage_input(void *ptr)
 		return ;
 	}
 	moved = false;
+	handle_door_toggle(game, &moved);
 	handle_movement(game, &moved);
 	if (game->cursor_locked)
 		handle_cursor_movement(game, &moved);
