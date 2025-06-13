@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 16:47:58 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:53:35 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ static void	collected_item(t_game *game, double x, double y)
 	{
 		if (&game->map->items[i]) // ?
 		{
-			if (floor(x) == floor(game->map->items[i].x)
-				&& floor(y) == floor(game->map->items[i].y))
+			if ((int)x == (int)game->map->items[i].x && (int)y == (int)game->map->items[i].y)
 			{
 				game->map->items[i].collected = true;
 				game->map->n_collected++;
 				update_collected(game);
+				found_item = true;
 			}
 		}
 		i++;
