@@ -34,12 +34,12 @@ NAME_BONUS = cub3D_bonus
 
 # FOLDERS #
 LIBFT = ./lib/libft/
-#MLX = ./sgoinfre/shared/MLX42/
-MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
+MLX = ./sgoinfre/shared/MLX42/
+#MLX = ./lib/MLX42/ # To use this one, add libmlx to all (all : head libmlx...)
 
 # HEADERS #
 HLIBFT = ./lib/libft/include
-HMLX = ./lib/MLX42/include
+HMLX = /sgoinfre/shared/MLX42/include
 HCORE = ./include/core
 HCUB3D = ./include/mandatory
 HCUB3D_BONUS = ./include/bonus
@@ -48,7 +48,7 @@ HEADERS_BONUS = -I$(HCORE) -I$(HCUB3D_BONUS) -I$(HLIBFT) -I$(HMLX)
 
 # STATIC #
 LLIBFT = ./lib/libft/libft.a
-LMLX = ./lib/MLX42/build/libmlx42.a
+LMLX = /sgoinfre/shared/MLX42/build/libmlx42.a
 MLX_DEPS = -ldl -lglfw -pthread -lm
 LIBS = $(LLIBFT) $(LMLX) $(MLX_DEPS)
 
