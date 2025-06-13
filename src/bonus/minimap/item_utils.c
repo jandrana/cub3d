@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   item_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:52:15 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/27 16:09:18 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:39:27 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	draw_items(t_game *game, t_mini_item *map_items)
 		{
 			pos[0] -= fmod(game->player.x * TILE_SIZE, TILE_SIZE) - 10;
 			pos[1] -= fmod(game->player.y * TILE_SIZE, TILE_SIZE) - 10;
-			draw_circle(game->graphics->img, pos, 0, U_PINK, 5);
+			draw_filled_circle(game->graphics->img, pos, 5, U_PINK);
 		}
 		map_items = map_items->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:26:58 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 21:18:53 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:15:41 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 // parser_map --> implement door parsing + map items
 
 // if there is a door in map, check there is door texture
-
 
 void	parse_elements(t_game *game)
 {
