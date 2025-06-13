@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:56:27 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 15:06:38 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:04:14 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ uint32_t	manage_color(t_game *game, unsigned int row, unsigned int col)
 
 	game->graphics->skip_item = false;
 	color = calculate_color(game, row, col);
-	if ((color & 0x000000FF) != 0x000000FF)
+	if ((color & 0x000000FF) < 128)
 	{
 		game->graphics->skip_item = true;
 		color = calculate_color(game, row, col);
