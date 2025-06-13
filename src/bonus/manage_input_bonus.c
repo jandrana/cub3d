@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/12 22:46:29 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:27:31 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static	void	toggle_door(t_game *game, int y, int x)
 		game->map->mt[y][x] = DOOR;
 }
 
-static void	toggle_doors(t_game	*game)
+static bool	toggle_doors(t_game	*game)
 {
 	if (valid_tile(game->player.y + 1, game->map->rows)
 		&& valid_tile(game->player.x, game->map->cols))
@@ -158,6 +158,7 @@ static void	toggle_doors(t_game	*game)
 	if (valid_tile(game->player.y, game->map->rows)
 		&& valid_tile(game->player.x - 1, game->map->cols))
 		toggle_door(game, (int)game->player.y, (int)(game->player.x - 1));
+	return (true);
 }
 
 static void	handle_movement(t_game *game, bool *moved)
@@ -171,7 +172,7 @@ static void	handle_movement(t_game *game, bool *moved)
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
 		*moved = move_player(game, -PI / 2.0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_E))
-		toggle_doors(game);
+		*moved = toggle_doors(game);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
 	{
 		game->player.angle += ROTATION_SPEED / game->fps;
