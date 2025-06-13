@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 13:19:27 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:34:51 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void		update_collected(t_game *game);
 		///                    minimap.c:               ///
 void		draw_circle(mlx_image_t *img, double *pos, int radius,
 				uint32_t color, int w);
+void		draw_filled_circle(mlx_image_t *img, double *pos, int radius,
+				uint32_t color);
 
 void		draw_minimap(t_game *game);
 
