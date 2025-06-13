@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/11 17:55:34 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:23:10 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	render_scene(t_game *game, unsigned int width, unsigned int height)
 
 	current_time = mlx_get_time();
 	draw_scene(game, width, height);
-	//draw_minimap(game);
 	display_fps(game, width, height);
 	delta = mlx_get_time() - current_time;
 	game->fps = 0.9 * game->fps + 0.1 * (1.0 / delta);

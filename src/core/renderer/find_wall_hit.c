@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/11 16:51:41 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:58:16 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,6 @@ static void	calculate_delta(double position[2], double ray_direction[2],
 	}
 }
 
-bool	stop_condition(t_map_tile **mt, double position[2], 
-		bool *step_one, bool skip_item)
-{
-	if (*step_one)
-	{
-		*step_one = false;
-		return (false);
-	}
-	(void) skip_item; // delete this when uncommenting real return
-	return (mt[(int)position[1]][(int)position[0]] == WALL); // ||
-		//(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item) ||
-		//(mt[(int)position[1]][(int)position[0]] == DOOR && !skip_item));
-}
-
 t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 		double ray_direction[2])
 {
@@ -92,7 +78,7 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 	step_one = true;
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (!stop_condition(mt, position, &step_one, false)) //game->graphics->skip_item))
+	while (!stop_condition(mt, position, &step_one, game->graphics->skip_item))
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])
