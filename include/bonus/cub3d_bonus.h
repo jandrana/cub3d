@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 17:58:32 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:19:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void		manage_input(void *ptr);
 void		manage_resize(int32_t width, int32_t height, void *ptr);
 
 void		render_bonus(t_game *game, unsigned int width, unsigned int height);
+void		update_collected(t_game *game);
 
 	// ------------------------------------------------- //
 	//                  MINIMAP FOLDER                   //

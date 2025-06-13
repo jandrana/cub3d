@@ -109,6 +109,7 @@ typedef struct s_map
 	t_item			*items;
 	int				n_items;
 	int				n_collected;
+	double			time_end;
 }	t_map;
 
 typedef struct s_graphics

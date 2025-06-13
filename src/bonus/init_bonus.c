@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 15:20:18 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:43:35 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_map_bonus(t_game *game)
 	game->map->items = NULL;
 	game->map->n_items = 0;
 	game->map->n_collected = 0;
+	game->map->time_end = -1;
 }
 
 static void	init_graphics_bonus(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:56:27 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 13:35:10 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:35:19 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ uint32_t	manage_color(t_game *game, unsigned int row, unsigned int col)
 
 void	render_bonus(t_game *game, unsigned int width, unsigned int height)
 {
+	if (!game->graphics->img)
+		update_collected(game);
+	if (game->map->time_end != -1 && mlx_get_time() - game->map->time_end > 3)
+	{
+		if (game->graphics->items_img)
+			mlx_delete_image(game->graphics->mlx, game->graphics->items_img);
+		game->map->time_end = -1;
+	}
 	render_scene(game, width, height);
 	draw_minimap(game);
 }
