@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/10 19:04:46 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:57:49 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void	manage_input(void *ptr)
 	}
 	moved = false;
 	handle_movement(game, &moved);
-	// if (!(game->frames % 60))
-	// 	update_sprites(game);
 	if (moved || !(game->frames % 15))
 		render_scene(game, game->graphics->mlx->width,
 			game->graphics->mlx->height);

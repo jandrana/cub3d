@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 17:34:51 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:19:06 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,19 @@ void		clear_map_items(t_mini_item **lst);
 void		add_minimap_items(t_game *g, t_mini_item **map_items,
 				double *rel_pos);
 void		draw_items(t_game *game, t_mini_item *map_items);
+
+	// ------------------------------------------------- //
+	//                    DOORS FOLDER                   //
+	// ------------------------------------------------- //
+	
+		///                    door_handler_bonus.c:   ///
+void		handle_door_toggle(t_game *game, bool *moved);
+
+	// ------------------------------------------------- //
+	//                    ITEMS FOLDER                   //
+	// ------------------------------------------------- //
+
+		///                    items_handler_bonus.c:   ///
+void		collected_item(t_game *game, double x, double y);
 
 #endif /* CUB3D_BONUS_H */
