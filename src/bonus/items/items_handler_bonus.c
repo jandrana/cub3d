@@ -6,12 +6,13 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 19:37:55 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 18:17:35 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:54:51 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include "cub3d_bonus.h"
+#include <math.h>
 #include "libft.h"
 #include "types.h"
 
@@ -82,27 +83,26 @@ void	update_collected(t_game *game)
 		finished_game_window(game);
 }
 
-void	collected_item(t_game *game, double x, double y)
+void	check_collected_item(t_game *game)
 {
 	bool	found_item;
 	int		i;
+	double	distance;
 
 	found_item = false;
 	i = 0;
-	while (game->map->n_items > i && !found_item)
+	while (i < game->map->n_items && !found_item)
 	{
-		if (game->map->items[i])
+		distance = sqrt(pow(game->player.x - game->map->items[i].x, 2) + 
+						pow(game->player.y - game->map->items[i].y, 2));
+		if (distance < 1.0 && !game->map->items[i].collected)
 		{
-			if ((int)x == (int)game->map->items[i].x
-				&& (int)y == (int)game->map->items[i].y)
-			{
-				game->map->items[i].collected = true;
-				game->map->n_collected++;
-				update_collected(game);
-				found_item = true;
-			}
+			game->map->items[i].collected = true;
+			game->map->n_collected++;
+			update_collected(game);
+			game->map->mt[(int)game->player.y][(int)game->player.x] = EMPTY;
+			found_item = true;
 		}
 		i++;
 	}
-	game->map->mt[(int)(y)][(int)(x)] = EMPTY;
 }

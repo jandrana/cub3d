@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 18:06:24 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:54:41 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ static bool	move_player(t_game *game, double angle_offset)
 		game->player.x = new_x;
 		game->player.y = new_y;
 		if (game->map->mt[(int)(new_y)][(int)(new_x)] == ITEM)
-		{
-			if (fabs((double)(new_x - (floor(new_x + 0.5)) < 0.3))
-				&& fabs((double)(new_y - (floor(new_y + 0.5)) < 0.3)))
-				collected_item(game, new_x, new_y);
-		}
+			check_collected_item(game);
 	}
 	return (true);
 }
