@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:43:09 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 16:37:03 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:29:12 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,16 @@ void		render_scene(t_game *game, unsigned int width,
 uint32_t	manage_color(t_game *game, unsigned int row,
 				unsigned int col);
 
+uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col);
+
+void		select_texture(t_game *game, t_wall_info *wall);
+
 	///                    find_wall_hit.c:             ///
 t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 				double ray_direction[2]);
+
+bool		stop_condition(t_map_tile **mt, double position[2],
+				bool *step_one, bool skip_item);
 
 	///                    format_fps.c:                ///
 void		format_fps(char *dest, size_t size, double fps);

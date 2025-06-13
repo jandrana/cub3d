@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 19:06:13 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:23:26 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	validate_map(t_game *game)
 		while (col <= game->map->cols)
 		{
 			validate_near_tiles(game, row, col);
-			//if (game->map->mt[row][col] == ITEM)
-			//	game->map->n_items += 1;
 			col++;
 		}
 		row++;
@@ -58,7 +56,7 @@ void	parse_elements(t_game *game)
 			check_missing_values(game);
 			return ;
 		}
-		else if (type == INVALID_LINE || type == DOOR_LINE)
+		else if (type == INVALID_LINE || type == DOOR_LINE || type == ITEM_LINE)
 			error_exit(game, E_MAP_UNKNOWN, parser->line);
 		free_str(&parser->line);
 		parser->line = get_next_line(parser->fd);

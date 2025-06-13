@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 17:52:31 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:42:50 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef enum e_map_tile
 	PLAYER_SOUTH = 'S',
 	PLAYER_EAST = 'E',
 	PLAYER_WEST = 'W',
+	ITEM = 'I',
+	DOOR = 'D'
 }	t_map_tile;
 
 typedef enum e_direction
@@ -107,6 +109,7 @@ typedef struct s_map
 	t_item			*items;
 	int				n_items;
 	int				n_collected;
+	double			time_end;
 }	t_map;
 
 typedef struct s_graphics
@@ -116,8 +119,9 @@ typedef struct s_graphics
 	mlx_image_t	*img;
 	mlx_image_t	*fps;
 	mlx_image_t	*minimap; //implement minimap in its own image
+	mlx_image_t	*items_img;
 	t_hlist		*door_lst[4]; //implement door textures
-	t_hlist		*items_lst[9];
+	t_hlist		*items_lst[9]; // delete [9], use **
 	bool		skip_item;
 }	t_graphics;
 
@@ -132,6 +136,7 @@ typedef struct s_game
 	int				item_sprite_n; // only bonus, check use
 	bool			cursor_locked; // only bonus, check use
 	bool			door_texture;
+	bool			item_texture;
 }	t_game;
 
 # else
@@ -159,6 +164,7 @@ typedef struct s_graphics
 	t_hlist		*textures_lst[4];
 	mlx_image_t	*img; // rework for no sprites in no bonus, fix leaks bonus
 	mlx_image_t	*fps;
+	bool		skip_item;
 }	t_graphics;
 
 /**

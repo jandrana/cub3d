@@ -6,14 +6,108 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:04:04 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/11 17:59:06 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:46:29 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include "types.h"
 #include <math.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include "MLX42/MLX42.h"
+#include "libft.h"
+
+void	format_items(char *dest, int n_items, size_t size)
+{
+	char	*num_str;
+
+	if (size < 1)
+		return ;
+	dest[0] = '\0';
+	num_str = ft_itoa(n_items);
+	ft_strlcpy(dest, "Items left: ", size);
+	ft_strlcat(dest, num_str, size);
+	free_str(&num_str);
+}
+
+void	finished_game_window(t_game *game)
+{
+	unsigned int	width;
+	unsigned int	height;
+	mlx_image_t		*img;
+	char			str[68];
+
+	str[0] = '\0';
+	ft_strlcpy(str,
+		"Congratulations! You finished the game after collecting every item",
+		sizeof(str));
+	width = game->graphics->mlx->width * 0.24;
+	height = game->graphics->mlx->height * 0.95;
+	img = mlx_put_string(game->graphics->mlx, str, width, height);
+	if (!img)
+		error_exit(game, E_MLX_IMAGE);
+	if (!game->graphics->items_img)
+	{
+		if (mlx_image_to_window(game->graphics->mlx, img, width, height) == -1)
+			error_exit(game, E_MLX_IMAGE2WIN);
+		img->instances[0].z = 2;
+	}
+	else
+		mlx_delete_image(game->graphics->mlx, game->graphics->items_img);
+	game->graphics->items_img = img;
+	game->map->time_end = mlx_get_time();
+}
+
+void	update_collected(t_game *game)
+{
+	mlx_image_t		*img;
+	char			str[32];
+	unsigned int	width;
+	unsigned int	height;
+
+	width = game->graphics->mlx->width * 0.85;
+	height = game->graphics->mlx->height * 0.07;
+	format_items(str, game->map->n_items - game->map->n_collected, sizeof(str));
+	img = mlx_put_string(game->graphics->mlx, str, width, height);
+	if (!img)
+		error_exit(game, E_MLX_IMAGE);
+	if (!game->graphics->items_img)
+	{
+		if (mlx_image_to_window(game->graphics->mlx, img, width, height) == -1)
+			error_exit(game, E_MLX_IMAGE2WIN);
+		img->instances[0].z = 2;
+	}
+	else
+		mlx_delete_image(game->graphics->mlx, game->graphics->items_img);
+	game->graphics->items_img = img;
+	if (game->map->n_collected == game->map->n_items && game->map->n_items > 0)
+		finished_game_window(game);
+}
+
+static void	collected_item(t_game *game, double x, double y)
+{
+	bool	found_item;
+	int		i;
+
+	found_item = false;
+	i = 0;
+	while (game->map->n_items > i && !found_item)
+	{
+		if (&game->map->items[i]) // ?
+		{
+			if (floor(x) == floor(game->map->items[i].x)
+				&& floor(y) == floor(game->map->items[i].y))
+			{
+				game->map->items[i].collected = true;
+				game->map->n_collected++;
+				update_collected(game);
+			}
+		}
+		i++;
+	}
+	game->map->mt[(int)(y)][(int)(x)] = EMPTY;
+}
 
 static bool	move_player(t_game *game, double angle_offset)
 {
@@ -27,12 +121,43 @@ static bool	move_player(t_game *game, double angle_offset)
 	direction[1] = sin(move_angle);
 	new_x = game->player.x + direction[0] * WALK_SPEED / game->fps;
 	new_y = game->player.y + direction[1] * WALK_SPEED / game->fps;
-	if (game->map->mt[(int)(new_y)][(int)(new_x)] != WALL)
+	if (game->map->mt[(int)(new_y)][(int)(new_x)] != WALL
+		&& game->map->mt[(int)(new_y)][(int)(new_x)] != DOOR)
 	{
 		game->player.x = new_x;
 		game->player.y = new_y;
+		if (game->map->mt[(int)(new_y)][(int)(new_x)] == ITEM)
+		{
+			if (fabs((double)(new_x - (floor(new_x + 0.5)) < 0.3))
+				&& fabs((double)(new_y - (floor(new_y + 0.5)) < 0.3)))
+				collected_item(game, new_x, new_y);
+		}
 	}
 	return (true);
+}
+
+static	void	toggle_door(t_game *game, int y, int x)
+{
+	if (game->map->mt[y][x] == DOOR)
+		game->map->mt[y][x] = 'o';
+	else if (game->map->mt[y][x] == 'o')
+		game->map->mt[y][x] = DOOR;
+}
+
+static void	toggle_doors(t_game	*game)
+{
+	if (valid_tile(game->player.y + 1, game->map->rows)
+		&& valid_tile(game->player.x, game->map->cols))
+		toggle_door(game, (int)game->player.y + 1, (int)(game->player.x));
+	if (valid_tile(game->player.y - 1, game->map->rows)
+		&& valid_tile(game->player.x, game->map->cols))
+		toggle_door(game, (int)game->player.y - 1, (int)(game->player.x));
+	if (valid_tile(game->player.y, game->map->rows)
+		&& valid_tile(game->player.x + 1, game->map->cols))
+		toggle_door(game, (int)game->player.y, (int)(game->player.x + 1));
+	if (valid_tile(game->player.y, game->map->rows)
+		&& valid_tile(game->player.x - 1, game->map->cols))
+		toggle_door(game, (int)game->player.y, (int)(game->player.x - 1));
 }
 
 static void	handle_movement(t_game *game, bool *moved)
@@ -45,6 +170,8 @@ static void	handle_movement(t_game *game, bool *moved)
 		*moved = move_player(game, PI / 2.0);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_A))
 		*moved = move_player(game, -PI / 2.0);
+	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_E))
+		toggle_doors(game);
 	if (mlx_is_key_down(game->graphics->mlx, MLX_KEY_RIGHT))
 	{
 		game->player.angle += ROTATION_SPEED / game->fps;
@@ -97,7 +224,7 @@ void	update_sprites(t_game *game)
 				txt_lst[i] = txt_lst[i]->next;
 			i++;
 		}
-		if (game->item_sprite_n < 8 && (game->frames % 120))
+		if (game->item_sprite_n < game->map->n_items && (game->frames % 120))
 			game->item_sprite_n += 1;
 		else
 			game->item_sprite_n = 0;

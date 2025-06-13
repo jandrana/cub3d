@@ -92,6 +92,7 @@ SRC_CORE =  src/core/error_handler.c \
 SRC =	$(SRC_CORE) \
 		src/mandatory/main.c \
 		src/mandatory/parser.c \
+		src/mandatory/render.c \
 		src/mandatory/free_utils.c \
 		src/mandatory/manage_input.c \
 		src/mandatory/manage_resize.c \
@@ -101,6 +102,7 @@ SRC_BONUS = $(SRC_CORE) \
 			src/bonus/main_bonus.c \
 			src/bonus/init_bonus.c \
 			src/bonus/parser_bonus.c \
+			src/bonus/elements_bonus.c \
 			src/bonus/free_bonus.c \
 			src/bonus/render_bonus.c \
 			src/bonus/manage_input_bonus.c \

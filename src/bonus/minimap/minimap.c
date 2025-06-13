@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 18:37:14 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:51:52 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	draw_tile(t_game *game, double *pos, double *abs_pos, uint32_t color)
 	r = 5;
 	pixel[0] = center + pos[0] * TILE_SIZE;
 	pixel[1] = center + pos[1] * TILE_SIZE;
-	if (get_tile_pos_type(game->map, abs_pos) == DOOR)
+	if (get_tile_pos_type(game->map, abs_pos) == DOOR
+		|| get_tile_pos_type(game->map, abs_pos) == 'o')
 		color = 0x808080FF;
 	if (pixel[0] >= 21 && pixel[0] < 219 && pixel[1] >= 21 && pixel[1] < 219)
 	{

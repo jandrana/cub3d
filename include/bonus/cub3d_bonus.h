@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 17:58:32 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:19:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 1
 
-typedef enum e_map_tile_bonus
-{
-	ITEM = 'I',
-	DOOR = 'D'
-}	t_map_tile_bonus;
-
 typedef enum e_textures_minimap // not used?
 {
 	//M_COMPASS = 0,
@@ -60,6 +54,8 @@ typedef enum e_textures_minimap // not used?
 t_map		*parser_bonus(t_game *game, int argc, char **argv);
 void		parse_elements(t_game *game);
 void		validate_map(t_game *game);
+void		update_map_items(t_game *game);
+void		parse_bonus_textures(t_game *game, t_line_type type);
 
 /**
  * \brief	Initializes the game bonus structure 
@@ -82,6 +78,7 @@ void		manage_input(void *ptr);
 void		manage_resize(int32_t width, int32_t height, void *ptr);
 
 void		render_bonus(t_game *game, unsigned int width, unsigned int height);
+void		update_collected(t_game *game);
 
 	// ------------------------------------------------- //
 	//                  MINIMAP FOLDER                   //
