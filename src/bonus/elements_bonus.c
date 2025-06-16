@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:13:14 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 21:18:47 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:46:39 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static bool	reach_player(t_game *game, size_t x, size_t y)
 
 static void	new_item(t_game *game, size_t y, size_t x, size_t item_no)
 {
-	game->map->items[item_no].x = x;
-	game->map->items[item_no].y = y;
+	game->map->items[item_no].x = x + 0.5;
+	game->map->items[item_no].y = y + 0.5;
 	game->map->items[item_no].collected = false;
 	game->map->items[item_no].sprite_frame = 0;
 	if (!reach_player(game, x, y))

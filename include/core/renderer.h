@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:43:09 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 13:29:12 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:32:24 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ void		render_scene(t_game *game, unsigned int width,
 				unsigned int height);
 
 	///                    manage_color.c:           ///
-uint32_t	manage_color(t_game *game, unsigned int row,
-				unsigned int col);
-
 uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col);
 
 void		select_texture(t_game *game, t_wall_info *wall);
@@ -61,7 +58,7 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 				double ray_direction[2]);
 
 bool		stop_condition(t_map_tile **mt, double position[2],
-				bool *step_one, bool skip_item);
+				bool *step_one);
 
 	///                    format_fps.c:                ///
 void		format_fps(char *dest, size_t size, double fps);

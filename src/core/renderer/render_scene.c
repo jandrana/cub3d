@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:18:05 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 13:23:10 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:31:19 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	draw_scene(t_game *game, unsigned int width, unsigned int height)
 		while (col < width)
 		{
 			mlx_put_pixel(game->graphics->img, col, row,
-				manage_color(game, row, col));
+				calculate_color(game, row, col));
 			col++;
 		}
 		row++;
