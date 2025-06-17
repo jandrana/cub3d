@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/12 17:58:16 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:11:00 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_wall_hit	determine_wall_direction(t_map_tile **mt, int hit_side,
 	return (wall_hit);
 }
 
-static void	calculate_delta(double position[2], double ray_direction[2],
+void	calculate_delta(double position[2], double ray_direction[2],
 		double delta[2])
 {
 	double	diff;
@@ -78,7 +78,7 @@ t_wall_hit	find_wall_hit(t_game *game, t_map_tile **mt,
 	step_one = true;
 	position[0] = game->player.x;
 	position[1] = game->player.y;
-	while (!stop_condition(mt, position, &step_one, game->graphics->skip_item))
+	while (!stop_condition(mt, position, &step_one))
 	{
 		calculate_delta(position, ray_direction, delta);
 		if (delta[0] <= delta[1])

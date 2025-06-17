@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   items_handler_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 19:37:55 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 18:54:51 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/17 12:50:59 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	check_collected_item(t_game *game)
 	i = 0;
 	while (i < game->map->n_items && !found_item)
 	{
-		distance = sqrt(pow(game->player.x - game->map->items[i].x, 2) + 
-						pow(game->player.y - game->map->items[i].y, 2));
+		distance = sqrt(pow(game->player.x - game->map->items[i].x, 2)
+				+ pow(game->player.y - game->map->items[i].y, 2));
 		if (distance < 1.0 && !game->map->items[i].collected)
 		{
 			game->map->items[i].collected = true;

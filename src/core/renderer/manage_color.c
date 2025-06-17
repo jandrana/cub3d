@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:11:40 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 13:32:25 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:35:18 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,5 @@ uint32_t	calculate_color(t_game *game, unsigned int row, unsigned int col)
 			return (color_to_uint32(game->map->floor_color));
 	}
 	select_texture(game, &wall);
-	// if (!open_door_color(game, &wall))
-	// 	wall.texture = game->graphics->textures_lst[wall.hit.direction]->content;
 	return (get_wall_color(&wall, row));
 }

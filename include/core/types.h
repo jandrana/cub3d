@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 22:42:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:15:35 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,18 @@ typedef struct s_player
 	double	sprite_frame; // only bonus
 }	t_player;
 
+typedef struct s_item_info
+{
+	double			dx;
+	double			dy;
+	double			dist;
+	double			angle;
+	double			offset;
+	double			pos[2];
+	double			size[2];
+	mlx_texture_t	*tex;
+}	t_item_info;
+
 typedef struct s_item
 {
 	double			x;
@@ -122,7 +134,6 @@ typedef struct s_graphics
 	mlx_image_t	*items_img;
 	t_hlist		*door_lst[4]; //implement door textures
 	t_hlist		*items_lst[9]; // delete [9], use **
-	bool		skip_item;
 }	t_graphics;
 
 typedef struct s_game
@@ -164,7 +175,6 @@ typedef struct s_graphics
 	t_hlist		*textures_lst[4];
 	mlx_image_t	*img; // rework for no sprites in no bonus, fix leaks bonus
 	mlx_image_t	*fps;
-	bool		skip_item;
 }	t_graphics;
 
 /**

@@ -3,30 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:56:27 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 18:15:16 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:35:23 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
-#include "types.h"
-#include "renderer.h"
 #include "cub3d_bonus.h"
+#include "renderer.h"
+#include "types.h"
 #include <stdlib.h>
 
-bool	stop_condition(t_map_tile **mt, double position[2],
-		bool *step_one, bool skip_item)
+bool	stop_condition(t_map_tile **mt, double position[2], bool *step_one)
 {
 	if (*step_one)
 	{
 		*step_one = false;
 		return (false);
 	}
-	return (mt[(int)position[1]][(int)position[0]] == WALL ||
-		(mt[(int)position[1]][(int)position[0]] == DOOR && !skip_item) ||
-		(mt[(int)position[1]][(int)position[0]] == ITEM && !skip_item));
+	return (mt[(int)position[1]][(int)position[0]] == WALL
+		|| mt[(int)position[1]][(int)position[0]] == DOOR);
 }
 
 void	select_texture(t_game *game, t_wall_info *wall)
@@ -54,35 +52,20 @@ void	select_texture(t_game *game, t_wall_info *wall)
 	}
 	else if (wall->hit.tile == DOOR)
 		wall->texture = game->graphics->door_lst[0]->content;
-	else if (wall->hit.tile == ITEM)
-		wall->texture = game->graphics->items_lst[0]->content;
 }
 
-uint32_t	manage_color(t_game *game, unsigned int row, unsigned int col)
+void	render_bonus(t_game *g, unsigned int w, unsigned int h)
 {
-	uint32_t	color;
 
-	game->graphics->skip_item = false;
-	color = calculate_color(game, row, col);
-	if ((color & 0x000000FF) < 128)
+	if (!g->graphics->img)
+		update_collected(g);
+	if (g->map->time_end != -1 && mlx_get_time() - g->map->time_end > 3)
 	{
-		game->graphics->skip_item = true;
-		color = calculate_color(game, row, col);
-		return (color);
+		if (g->graphics->items_img)
+			mlx_delete_image(g->graphics->mlx, g->graphics->items_img);
+		g->map->time_end = -1;
 	}
-	return (color);
-}
-
-void	render_bonus(t_game *game, unsigned int width, unsigned int height)
-{
-	if (!game->graphics->img)
-		update_collected(game);
-	if (game->map->time_end != -1 && mlx_get_time() - game->map->time_end > 3)
-	{
-		if (game->graphics->items_img)
-			mlx_delete_image(game->graphics->mlx, game->graphics->items_img);
-		game->map->time_end = -1;
-	}
-	render_scene(game, width, height);
-	draw_minimap(game);
+	render_scene(g, w, h);
+	render_items(g);
+	draw_minimap(g);
 }
