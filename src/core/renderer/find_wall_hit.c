@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_wall_hit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:11:00 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/06/13 20:30:38 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:11:00 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_wall_hit	determine_wall_direction(t_map_tile **mt, int hit_side,
 	return (wall_hit);
 }
 
-static void	calculate_delta(double position[2], double ray_direction[2],
+void	calculate_delta(double position[2], double ray_direction[2],
 		double delta[2])
 {
 	double	diff;
