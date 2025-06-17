@@ -111,6 +111,8 @@ SRC_BONUS = $(SRC_CORE) \
 			src/bonus/minimap/vision_utils.c \
 			src/bonus/minimap/item_utils.c \
 			src/bonus/items/items_handler_bonus.c \
+			src/bonus/draw_items.c \
+			src/bonus/item_utils.c \
 			src/bonus/doors/door_handler_bonus.c \
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 20:24:40 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:15:35 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,18 @@ typedef struct s_player
 	double	angle;
 	double	sprite_frame; // only bonus
 }	t_player;
+
+typedef struct s_item_info
+{
+	double			dx;
+	double			dy;
+	double			dist;
+	double			angle;
+	double			offset;
+	double			pos[2];
+	double			size[2];
+	mlx_texture_t	*tex;
+}	t_item_info;
 
 typedef struct s_item
 {
