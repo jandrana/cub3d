@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 17:47:50 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:30:42 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	init_graphics(t_game *game)
 	game->graphics->textures_lst[SOUTH] = NULL;
 	game->graphics->textures_lst[EAST] = NULL;
 	game->graphics->textures_lst[WEST] = NULL;
-	game->graphics->skip_item = false;
 }
 
 static void	init_parser(t_game *game)
