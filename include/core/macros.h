@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 16:18:45 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:57:14 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // --------------- WINDOW SETTINGS MACROS -------------- //
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 1024
-# define FOV (PI * 0.42)
+# define FOV 1.31946891451 // PI * 0.42
 # define TILE_SIZE 20
 
 // ------------------- UNUSED MACROS ----------------- //
