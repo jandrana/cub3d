@@ -3,7 +3,7 @@ SO ./assets/textures/lab_south.png
 WE ./assets/textures/lab_west.png
 EA ./assets/textures/lab_east.png
 P ./assets/textures/lab_door.png
-O ./assets/textures/item_sprites/emerald.png
+S ./assets/textures/item_sprites/emerald.png
 
 F 30,20,40
 C 0,0,0
