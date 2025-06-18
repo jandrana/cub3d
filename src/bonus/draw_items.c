@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 14:00:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 19:06:05 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:17:00 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static void	draw_item_scaled(t_game *game, t_item_info it, t_item item)
 		{
 			get_tex_xy(tex_p, it.tex, it.size, (int []){row, col});
 			pixel = &it.tex->pixels[(tex_p[1] * it.tex->width + tex_p[0]) * 4];
-			if (pixel[3] > 0
-				&& it.pos[0] + col >= 0 && it.pos[0] + col < game->graphics->mlx->width
-				&& it.pos[1] + row >= 0 && it.pos[1] + row < game->graphics->mlx->height)
+			if (pixel[3] > 0 && it.pos[0] + col >= 0 && it.pos[0]
+				+ col < game->graphics->mlx->width && it.pos[1] + row >= 0
+				&& it.pos[1] + row < game->graphics->mlx->height)
 			{
 				it.offset = (it.pos[0] + col - game->graphics->mlx->width / 2.0)
 					* (FOV / game->graphics->mlx->width);
@@ -87,7 +87,8 @@ static void	draw_collectible_sprite(t_game *game, t_item item)
 		return ;
 	info.size[1] = (game->graphics->mlx->height * 0.4) / info.dist;
 	info.size[0] = info.size[1] * 0.8;
-	info.pos[0] = (info.angle / FOV + 0.5) * game->graphics->mlx->width - info.size[0] / 2;
+	info.pos[0] = (info.angle / FOV + 0.5)
+		* game->graphics->mlx->width - info.size[0] / 2;
 	info.pos[1] = (game->graphics->mlx->height - info.size[1]) / 2;
 	info.pos[1] += info.size[1] * 0.1;
 	info.tex = game->graphics->items_lst[0]->content;
