@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 14:00:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/17 20:34:12 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:37:29 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	render_items(t_game *game)
 	int	i;
 
 	i = 0;
-
 	sort_items(game->map->items, game->map->n_items, game->player);
 	while (i < game->map->n_items)
 	{

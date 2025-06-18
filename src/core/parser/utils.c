@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:53:17 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 13:22:32 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:34:01 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ t_line_type	get_line_type(char *line)
 		return (free(trimmed), COLOR_LINE);
 	if (!ft_strncmp(trimmed, "P", 1))
 		return (free(trimmed), DOOR_LINE);
-	if (!ft_strncmp(trimmed, "O", 1)) // CHANGE FOR "S"
+	if (!ft_strncmp(trimmed, "S", 1))
 		return (free(trimmed), ITEM_LINE);
-	if (!ft_strncmp(trimmed, "R", 1) || !ft_strncmp(trimmed, "S", 1)) // delete R and S (used for tester)
-		return (free(trimmed), EMPTY_LINE);
 	i = -1;
 	while (line[++i])
 	{
-		if (!ft_strchr(VALID_MAP_CHARS, line[i])) // delete '2' in both macros
+		if (!ft_strchr(VALID_MAP_CHARS, line[i]))
 			return (free(trimmed), INVALID_LINE);
 	}
 	return (free(trimmed), MAP_LINE);

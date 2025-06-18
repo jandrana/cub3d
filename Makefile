@@ -20,7 +20,11 @@ HAS_GCC := $(shell command -v gcc 2> /dev/null)
 # Check if clang is installed
 HAS_CLANG := $(shell command -v clang 2> /dev/null)
 
-ifdef HAS_CLANG
+HAS_CC := $(shell command -v cc 2> /dev/null)
+
+ifdef HAS_CC
+  CC = cc
+else ifdef HAS_CLANG
   CC = clang
 else ifdef HAS_GCC
   CC = gcc
@@ -31,6 +35,12 @@ endif
 # EXECUTABLES #
 NAME = cub3D
 NAME_BONUS = cub3D_bonus
+
+ifeq ("$(MAKECMDGOALS)", "bonus")
+	EXECUTABLE = "cub3D_bonus"
+else
+	EXECUTABLE = cub3D
+endif
 
 # FOLDERS #
 LIBFT = ./lib/libft/
@@ -60,8 +70,12 @@ CFLAGS = -Wall -Wextra -Werror -O3 -march=native -mtune=native -ffast-math -flto
 
 SAN_FLAGS = -g -O0
 
-
 RM = rm -rf
+
+BUILD_TYPE_FILE := .build_type
+BUILD_TYPE_MAIN := main
+BUILD_TYPE_BONUS := bonus
+FORCED_CLEAN = 0
 
 ################################################################################
 ##                              SOURCES AND OBJECTS                           ##
@@ -110,6 +124,7 @@ SRC_BONUS = $(SRC_CORE) \
 			src/bonus/minimap/minimap.c \
 			src/bonus/minimap/vision_utils.c \
 			src/bonus/minimap/item_utils.c \
+			src/bonus/minimap/utils.c \
 			src/bonus/items/items_handler_bonus.c \
 			src/bonus/draw_items.c \
 			src/bonus/item_utils.c \
@@ -138,11 +153,21 @@ TURQUOISE=\033[36m
 ################################################################################
 
 # New targets:
+all : check_build_type head libft $(NAME)
+	@echo "$(BUILD_TYPE_MAIN)" > $(BUILD_TYPE_FILE)
 
-all : head libft $(NAME)
+bonus : check_build_type head libft
+	@$(MAKE) CFLAGS="$(CFLAGS) -D IS_BONUS" $(NAME_BONUS) -s
+	@echo "$(BUILD_TYPE_BONUS)" > $(BUILD_TYPE_FILE)
 
-bonus : head libft
-	@$(MAKE) CFLAGS="$(CFLAGS) -D IS_BONUS" $(NAME_BONUS)
+check_build_type :
+	@if [ -f $(BUILD_TYPE_FILE) ]; then \
+		if [ "$(MAKECMDGOALS)" = "bonus" ] && [ "$$(cat $(BUILD_TYPE_FILE))" = "$(BUILD_TYPE_MAIN)" ]; then \
+			$(MAKE) fclean -s; \
+		elif { [ "$(MAKECMDGOALS)" = "all" ] || [ "$(MAKECMDGOALS)" = "" ]; } && [ "$$(cat $(BUILD_TYPE_FILE))" = "$(BUILD_TYPE_BONUS)" ]; then \
+			$(MAKE) fclean -s; \
+		fi \
+	fi
 
 debug_all: fclean
 	@$(MAKE) CFLAGS="$(CFLAGS) $(SAN_FLAGS)" all
@@ -161,7 +186,7 @@ head :
 	@echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ "
 	@echo ""
 	@echo " 42MLG: by ana-cast && jorvarea"
-	@echo " Executable: \033[36m cub3d $(MAGENTA)"
+	@echo " Executable: \033[36m $(EXECUTABLE) $(MAGENTA)"
 	@echo " Commands:\033[36m all clean fclean re bonus $(BLUE)"
 	@echo " 🛠   Compiler: $(CC) $(END)\n"
 

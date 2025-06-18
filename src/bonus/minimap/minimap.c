@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:58:56 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 17:40:20 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:02:42 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,6 @@
 #include <cub3d_bonus.h>
 #include <macros.h>
 #include <math.h>
-
-void	draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color,
-	int w)
-{
-	double	angle;
-	double	x;
-	double	y;
-
-	angle = 0;
-	while (angle < 360)
-	{
-		x = radius * cos(angle);
-		y = radius * sin(angle);
-		mlx_put_pixel(img, pos[0] + x, pos[1] + y, color);
-		angle += 0.1;
-	}
-	while (w > 0 && w--)
-		draw_circle(img, pos, radius + 1, color, w);
-}
-
-void	draw_filled_circle(mlx_image_t *img, double *pos, int radius, uint32_t color)
-{
-	int	x;
-	int	y;
-	int	dx;
-	int	dy;
-
-	y = -radius;
-	while (y <= radius)
-	{
-		x = -radius;
-		while (x <= radius)
-		{
-			dx = x;
-			dy = y;
-			if (dx * dx + dy * dy <= radius * radius)
-			{
-				if (pos[0] + x >= 0 && pos[0] + x < img->width
-					&& pos[1] + y >= 0 && pos[1] + y < img->height)
-					mlx_put_pixel(img, pos[0] + x, pos[1] + y, color);
-			}
-			x++;
-		}
-		y++;
-	}
-}
 
 void	draw_vision(t_game *game, double center, double r_len)
 {
@@ -88,12 +42,6 @@ void	draw_vision(t_game *game, double center, double r_len)
 	}
 }
 
-/*
-distance = sqrt((x1 - x2)^2 + (y1 - y2)^2)
-Comparison:
-	Inside: distance < r
-	Outside: distance > r
-*/
 void	draw_tile(t_game *game, double *pos, double *abs_pos, uint32_t color)
 {
 	double	pixel[2];
@@ -154,19 +102,19 @@ void	draw_cardinal_points(t_game *game)
 {
 	mlx_image_t	*text_img;
 
-	draw_filled_circle(game->graphics->img, (double[]){120, 18}, 10, U_BLACK);
+	draw_filled_circle(game->graphics->img, (double []){120, 18}, 10, U_BLACK);
 	text_img = mlx_put_string(game->graphics->mlx, "N", 115, 8);
 	if (text_img)
 		text_img->instances[0].z = 2;
-	draw_filled_circle(game->graphics->img, (double[]){15, 120}, 10, U_BLACK);
+	draw_filled_circle(game->graphics->img, (double []){15, 120}, 10, U_BLACK);
 	text_img = mlx_put_string(game->graphics->mlx, "W", 10, 110);
 	if (text_img)
 		text_img->instances[0].z = 2;
-	draw_filled_circle(game->graphics->img, (double[]){120, 225}, 10, U_BLACK);
+	draw_filled_circle(game->graphics->img, (double []){120, 225}, 10, U_BLACK);
 	text_img = mlx_put_string(game->graphics->mlx, "S", 115, 215);
 	if (text_img)
 		text_img->instances[0].z = 2;
-	draw_filled_circle(game->graphics->img, (double[]){221, 120}, 10, U_BLACK);
+	draw_filled_circle(game->graphics->img, (double []){221, 120}, 10, U_BLACK);
 	text_img = mlx_put_string(game->graphics->mlx, "E", 217, 110);
 	if (text_img)
 		text_img->instances[0].z = 2;
@@ -177,11 +125,13 @@ void	draw_minimap(t_game *game)
 	t_mini_item	*map_items;
 
 	map_items = NULL;
-	draw_circle(game->graphics->img, (double []){120, 120}, MINI_R, U_CLEAR, 5);
+	draw_circle(game->graphics->img, (double []){120, 120}, (int []){MINI_R, 5},
+		U_CLEAR);
 	draw_tiles(game, &map_items);
 	draw_vision(game, 120, VISION_R);
 	draw_items(game, map_items);
 	clear_map_items(&map_items);
-	draw_circle(game->graphics->img, (double []){120, 120}, 0, U_RED, 3);
+	draw_circle(game->graphics->img, (double []){120, 120}, (int []){0, 3},
+		U_RED);
 	draw_cardinal_points(game);
 }

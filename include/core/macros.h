@@ -6,17 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 17:51:31 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:18:45 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
-
-// --------------------- DEFINE NULL ------------------- //
-# ifndef NULL
-#  define NULL ((void*)0)
-# endif
 
 // ---------------- BASIC MAP CHARACTERS --------------- //
 # define WHITESPACE " \t\r\v\f\n"

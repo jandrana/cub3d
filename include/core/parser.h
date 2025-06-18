@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/12 20:25:07 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:17:33 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ bool		check_color_value(t_color color);
 int			check_color_dup(t_game *game, char identifier);
 void		check_missing_values(t_game *game);
 void		check_textures(t_game *game);
-
 
 void		free_parser(t_parser *parser);
 

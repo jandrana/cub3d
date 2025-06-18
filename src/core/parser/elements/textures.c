@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:16:11 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 18:43:49 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:36:21 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	parse_texture_line(t_game *game, t_direction dir)
 	parser = game->parser;
 	if (dir == INVALID)
 		error_exit(game, E_TEX_INVALID, parser->line);
-	else if (!ALLOW_SPRITES && parser->textures[dir] == true) // check sprites
+	else if (!ALLOW_SPRITES && parser->textures[dir] == true)
 		error_exit(game, E_TEX_DUP, get_direction_name(dir));
 	path = path_from_texture(game, parser);
 	free_str(&game->parser->line);
