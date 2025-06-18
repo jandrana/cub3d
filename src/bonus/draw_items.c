@@ -6,7 +6,7 @@
 /*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 14:00:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 19:17:00 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:23:01 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	draw_collectible_sprite(t_game *game, t_item item)
 		* game->graphics->mlx->width - info.size[0] / 2;
 	info.pos[1] = (game->graphics->mlx->height - info.size[1]) / 2;
 	info.pos[1] += info.size[1] * 0.1;
-	info.tex = game->graphics->items_lst[0]->content;
+	info.tex = game->graphics->items_lst;
 	draw_item_scaled(game, info, item);
 }
 

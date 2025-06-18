@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:57:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 16:13:43 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:56:38 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <cub3d.h>
 #include <fcntl.h>
 
-void	free_parser(t_parser *parser) // move with free core functions
+void	free_parser(t_parser *parser)
 {
 	if (!parser)
 		return ;

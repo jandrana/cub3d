@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:13:14 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 18:27:02 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:55:13 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,21 @@ void	update_map_items(t_game *game)
 
 void	parse_bonus_textures(t_game *game, t_line_type type)
 {
-	char	*path;
-	int		fd;
-	t_hlist	**list_ptr;
+	char			*path;
+	int				fd;
+	mlx_texture_t	**tex_ptr;
 
 	if (type == DOOR_LINE && game->door_texture == true)
 		error_exit(game, E_TEX_DUP, "door texture");
-	list_ptr = &game->graphics->door_lst[0];
+	if (type == ITEM_LINE && game->item_texture == true)
+		error_exit(game, E_TEX_DUP, "item texture");
+	tex_ptr = &game->graphics->door_lst;
+	if (type == ITEM_LINE)
+		tex_ptr = &game->graphics->items_lst;
 	if (type == DOOR_LINE)
 		game->door_texture = true;
-	else if (type)
-	{
-		list_ptr = &game->graphics->items_lst[0];
+	else
 		game->item_texture = true;
-	}
 	path = path_from_texture(game, game->parser);
 	free_str(&game->parser->line);
 	game->parser->line = path;
@@ -125,7 +126,8 @@ void	parse_bonus_textures(t_game *game, t_line_type type)
 	if (fd < 0)
 		error_exit(game, E_TEX_LOAD, path);
 	close(fd);
-	if (add_texture(mlx_load_png(path), list_ptr))
+	*tex_ptr = mlx_load_png(path);
+	if (!*tex_ptr)
 		error_exit(game, E_TEX_LOAD, path);
 	free_array(&game->parser->element);
 }

@@ -6,15 +6,15 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/17 20:15:35 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:18:57 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-# include <stdint.h>	// provides uint8_t
-# include <stdbool.h>	// provides bool
+# include <stdint.h>
+# include <stdbool.h>
 # include "MLX42/MLX42.h"
 
 // --------------------- CORE TYPES -------------------- //
@@ -66,14 +66,14 @@ typedef struct s_mini_item
 	double				rel_x;
 	double				rel_y;
 	struct s_mini_item	*next;
-}	t_mini_item; // change with t_2D_item // ONLY BONUS
+}	t_mini_item;
 
 /**
  * \brief	Parser state tracking
  */
 typedef struct s_parser
 {
-	bool	textures[4]; // [NORTH, SOUTH, EAST, WEST] (check other textures)
+	bool	textures[4];
 	bool	floor_color;
 	bool	ceiling_color;
 	char	*line;
@@ -88,7 +88,7 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	angle;
-	double	sprite_frame; // only bonus
+	double	sprite_frame;
 }	t_player;
 
 typedef struct s_item_info
@@ -126,14 +126,14 @@ typedef struct s_map
 
 typedef struct s_graphics
 {
-	mlx_t		*mlx;
-	t_hlist		*textures_lst[5]; // [NORTH, SOUTH, EAST, WEST]
-	mlx_image_t	*img;
-	mlx_image_t	*fps;
-	mlx_image_t	*minimap; //implement minimap in its own image
-	mlx_image_t	*items_img;
-	t_hlist		*door_lst[4]; //implement door textures
-	t_hlist		*items_lst[9]; // delete [9], use **
+	mlx_t			*mlx;
+	t_hlist			*textures_lst[5];
+	mlx_image_t		*img;
+	mlx_image_t		*fps;
+	mlx_image_t		*minimap;
+	mlx_image_t		*items_img;
+	mlx_texture_t	*door_lst;
+	mlx_texture_t	*items_lst;
 }	t_graphics;
 
 typedef struct s_game
@@ -144,8 +144,8 @@ typedef struct s_game
 	t_parser		*parser;
 	double			fps;
 	long			frames;
-	int				item_sprite_n; // only bonus, check use
-	bool			cursor_locked; // only bonus, check use
+	int				item_sprite_n;
+	bool			cursor_locked;
 	bool			door_texture;
 	bool			item_texture;
 }	t_game;
@@ -156,7 +156,7 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	angle; // Rotation angle (rad)
+	double	angle;
 }	t_player;
 
 typedef struct s_map
@@ -173,7 +173,7 @@ typedef struct s_graphics
 {
 	mlx_t		*mlx;
 	t_hlist		*textures_lst[4];
-	mlx_image_t	*img; // rework for no sprites in no bonus, fix leaks bonus
+	mlx_image_t	*img;
 	mlx_image_t	*fps;
 }	t_graphics;
 
@@ -192,7 +192,7 @@ typedef struct s_game
 
 # endif /* IS_BONUS */
 
-void	free_hlist(t_hlist **lst, void (*del)(void *)); // move to right place
-void	delete_texture(void *texture); // move to right place
+void	free_hlist(t_hlist **lst, void (*del)(void *));
+void	delete_texture(void *texture);
 
 #endif /* TYPES_H */
