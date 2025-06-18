@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:49:48 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/10 19:28:29 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:35:52 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	validate_near_tiles(t_game *game, size_t row, size_t col)
 	if (current != WALL)
 	{
 		validate_walls(game, row, col, current);
-		if (current == SPACE) // CHANGE TO ALL SPACE CHARS
+		if (current == SPACE)
 			surrounding = NEAR_SPACE;
 		else
 			surrounding = NEAR_PLAYABLE;

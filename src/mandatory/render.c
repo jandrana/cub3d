@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:25:52 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 20:32:37 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:41:27 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ bool	stop_condition(t_map_tile **mt, double position[2],
 
 void	select_texture(t_game *game, t_wall_info *wall)
 {
+	t_direction	dir;
+
+	dir = wall->hit.direction;
 	if (wall->hit.tile == WALL)
-		wall->texture = 
-			game->graphics->textures_lst[wall->hit.direction]->content;
+		wall->texture = game->graphics->textures_lst[dir]->content;
 }
