@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/17 20:22:14 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:01:41 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ bool	stop_items(t_map_tile **mt, double position[2], bool *step_one,
 // ------------------------------------------------- //
 
 ///                    minimap.c:               ///
-void	draw_circle(mlx_image_t *img, double *pos, int radius, uint32_t color,
-			int w);
+void	draw_circle(mlx_image_t *img, double *pos, int radius[2],
+			uint32_t color);
 void	draw_filled_circle(mlx_image_t *img, double *pos, int radius,
 			uint32_t color);
 
