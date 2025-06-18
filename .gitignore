@@ -5,6 +5,7 @@ compile_commands.json
 *subject.pdf
 .vscode
 build/
+.build_type
 
 # Prerequisites
 *.d
