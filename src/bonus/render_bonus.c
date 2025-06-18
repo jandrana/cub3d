@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:56:27 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 15:38:59 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:56:06 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	select_texture(t_game *game, t_wall_info *wall)
 			if (wall->hit.direction == WEST)
 				pos[0] += 1;
 			if (get_tile_pos_type(game->map, pos) == 'o')
-				wall->texture = game->graphics->door_lst[0]->content;
+				wall->texture = game->graphics->door_lst;
 			free(pos);
 		}
 	}
 	else if (wall->hit.tile == DOOR)
-		wall->texture = game->graphics->door_lst[0]->content;
+		wall->texture = game->graphics->door_lst;
 }
 
 void	render_bonus(t_game *g, unsigned int w, unsigned int h)

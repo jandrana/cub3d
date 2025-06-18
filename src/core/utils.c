@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:02:43 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/05/29 16:31:42 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:14:25 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_hlist(t_hlist **lst, void (*del)(void *))
 {
 	t_hlist	*node;
 
-	node = *lst;
+	node = (*lst)->head;
 	while (node)
 	{
 		*lst = node->next;

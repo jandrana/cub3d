@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:25:38 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 15:53:52 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:55:43 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,10 @@ static void	init_map_bonus(t_game *game)
 
 static void	init_graphics_bonus(t_game *game)
 {
-	int	i;
-
 	game->graphics->minimap = NULL;
 	game->graphics->items_img = NULL;
-	i = -1;
-	while (++i < 4)
-		game->graphics->door_lst[i] = NULL;
-	i = -1;
-	while (++i < 9)
-		game->graphics->items_lst[i] = NULL;
+	game->graphics->door_lst = NULL;
+	game->graphics->items_lst = NULL;
 }
 
 t_game	*init_game_bonus(void)

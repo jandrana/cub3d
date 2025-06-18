@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 14:00:29 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 15:37:29 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:47:29 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	draw_collectible_sprite(t_game *game, t_item item)
 	info.pos[0] = (info.angle / FOV + 0.5) * WINDOW_WIDTH - info.size[0] / 2;
 	info.pos[1] = (WINDOW_HEIGHT - info.size[1]) / 2;
 	info.pos[1] += info.size[1] * 0.1;
-	info.tex = game->graphics->items_lst[0]->content;
+	info.tex = game->graphics->items_lst;
 	draw_item_scaled(game, info, item);
 }
 
