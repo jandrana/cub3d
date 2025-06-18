@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:26:58 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 18:15:41 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:33:11 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@
 #include "cub3d_bonus.h"
 #include "parser.h"
 #include "types.h"
-
-// update_map_sizes					--> [  SAME  ] <--
-// open_map_file					--> [  SAME  ] <--
-// parse_elements					--> [NOT SAME] <--
-// parser_map (+update_map_items)	--> [  SAME  ] <--
-// free_parser						--> [  SAME  ] <-- (for now)
-
-// parse_elements --> get_line_type (utils.c)  --> [NOT SAME] <--
-// parse_elements --> parse_texture_line (textures.c)  --> [NOT SAME] <--
-// parser_map --> implement door parsing + map items
-
-// if there is a door in map, check there is door texture
 
 void	parse_elements(t_game *game)
 {
