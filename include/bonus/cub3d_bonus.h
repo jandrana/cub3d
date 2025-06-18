@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 18:29:09 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:30:01 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	parse_elements(t_game *game);
 void	validate_map(t_game *game);
 void	update_map_items(t_game *game);
 void	parse_bonus_textures(t_game *game, t_line_type type);
+void	is_door_or_item(t_game *game, t_line_type type);
 
 /**
  * \brief	Initializes the game bonus structure

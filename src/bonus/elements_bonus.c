@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:13:14 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 18:55:13 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:28:17 by jorvarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ void	parse_bonus_textures(t_game *game, t_line_type type)
 	tex_ptr = &game->graphics->door_lst;
 	if (type == ITEM_LINE)
 		tex_ptr = &game->graphics->items_lst;
-	if (type == DOOR_LINE)
-		game->door_texture = true;
-	else
-		game->item_texture = true;
+	is_door_or_item(game, type);
 	path = path_from_texture(game, game->parser);
 	free_str(&game->parser->line);
 	game->parser->line = path;

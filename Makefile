@@ -117,6 +117,7 @@ SRC_BONUS = $(SRC_CORE) \
 			src/bonus/init_bonus.c \
 			src/bonus/parser_bonus.c \
 			src/bonus/elements_bonus.c \
+			src/bonus/elements_bonus_utils.c \
 			src/bonus/free_bonus.c \
 			src/bonus/render_bonus.c \
 			src/bonus/manage_input_bonus.c \
