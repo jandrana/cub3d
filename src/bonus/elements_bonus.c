@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   elements_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorvarea <jorvarea@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:13:14 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/13 21:46:39 by jorvarea         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:27:02 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+#include "parser.h"
 #include "types.h"
 #include "libft.h"
 #include <fcntl.h>
@@ -49,7 +50,7 @@ static bool	reach_player(t_game *game, size_t x, size_t y)
 	player_char = game->map->mt[(int)game->player.y][(int)game->player.x];
 	position_char = game->map->mt[y][x];
 	if (position_char == WALL || position_char == SPACE
-		|| position_char == 'V' || position_char == 'C')
+		|| position_char == 'V' || position_char == 'C' || position_char == 'P')
 		return (0);
 	if (position_char == player_char)
 		return (1);

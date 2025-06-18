@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:23 by jorvarea          #+#    #+#             */
-/*   Updated: 2025/05/27 16:04:31 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:23:53 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	manage_resize(int32_t width, int32_t height, void *ptr)
 	game->graphics->img = NULL;
 	game->graphics->mlx->width = width;
 	game->graphics->mlx->height = height;
-	render_scene(game, width, height);
+	render_bonus(game, width, height);
 	if (game->cursor_locked)
 		mlx_set_mouse_pos(game->graphics->mlx, width / 2, height / 2);
 }
