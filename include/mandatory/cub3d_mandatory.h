@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 16:17:52 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:29:22 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // ------------------- CORE INCLUDES ------------------- //
 
-# include "MLX42/MLX42.h" // update dependencies
+# include "MLX42/MLX42.h"
 # include "../core/error.h"
 # include "../core/game.h"
 # include "../core/macros.h"
@@ -28,7 +28,7 @@
 // ------------------ MANDATORY MACROS ----------------- //
 
 # define NO_REACH_PLAYER "1 V"
-# define VALID_MAP_CHARS "NSEW102 \t\r\v\f\n"
+# define VALID_MAP_CHARS "NSEW10 \t\r\v\f\n"
 # define NEAR_PLAYABLE "NSEW10"
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 0

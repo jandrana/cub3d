@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:41:32 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/18 16:01:41 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:29:09 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define BONUS 1
 
 # define NO_REACH_PLAYER "1 VC"
-# define VALID_MAP_CHARS "NSEW10ID2 \t\r\v\f\n" // delete "2"
+# define VALID_MAP_CHARS "NSEW10ID \t\r\v\f\n"
 # define NEAR_PLAYABLE "NSEW10ID"
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 1

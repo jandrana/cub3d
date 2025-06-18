@@ -6,18 +6,12 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:55:12 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 18:21:40 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:20:49 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
-
-// # ifdef BONUS
-// #  include "bonus/free_bonus.h"
-// # else
-// #  include "mandatory/free.h"
-// # endif
 
 # include <stddef.h>
 # include <types.h>
