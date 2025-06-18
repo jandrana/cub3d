@@ -6,7 +6,7 @@
 /*   By: ana-cast <ana-cast@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:53:03 by ana-cast          #+#    #+#             */
-/*   Updated: 2025/06/11 14:47:09 by ana-cast         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:17:52 by ana-cast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define NEAR_PLAYABLE "NSEW10"
 # define NEAR_SPACE " 1\n"
 # define ALLOW_SPRITES 0
-
 
 // ---------------- MANDATORY FUNCTIONS ---------------- //
 
